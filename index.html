@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BurmaldaUI - The Ultimate Luau Script Hub</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700;800&family=Orbitron:wght@400;500;600;700;800;900&display=swap');
         
         * {
             margin: 0;
@@ -23,25 +23,31 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'JetBrains Mono', monospace;
             background: var(--bg-black);
             color: var(--text-white);
             overflow-x: hidden;
             position: relative;
         }
 
-        /* Неоновое свечение сверху и снизу */
+        /* Анимированный фон с матричным эффектом */
         body::before {
             content: '';
             position: fixed;
             top: -200px;
             left: 50%;
             transform: translateX(-50%);
-            width: 800px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(0, 255, 65, 0.15) 0%, transparent 70%);
+            width: 1000px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(0, 255, 65, 0.2) 0%, transparent 70%);
             pointer-events: none;
             z-index: 0;
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; transform: translateX(-50%) scale(1); }
+            50% { opacity: 0.8; transform: translateX(-50%) scale(1.1); }
         }
 
         body::after {
@@ -50,11 +56,36 @@
             bottom: -200px;
             left: 50%;
             transform: translateX(-50%);
-            width: 800px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(0, 255, 65, 0.15) 0%, transparent 70%);
+            width: 1000px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(0, 255, 65, 0.2) 0%, transparent 70%);
             pointer-events: none;
             z-index: 0;
+            animation: pulse 4s ease-in-out infinite 2s;
+        }
+
+        /* Пасхалка 1: Летающие матричные символы */
+        .matrix-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.05;
+        }
+
+        .matrix-char {
+            position: absolute;
+            color: var(--neon-green);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 20px;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(100vh); }
         }
 
         /* Header */
@@ -62,45 +93,118 @@
             position: fixed;
             top: 0;
             width: 100%;
-            padding: 20px 60px;
+            padding: 25px 60px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(0, 255, 65, 0.1);
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid rgba(0, 255, 65, 0.2);
             z-index: 1000;
+            box-shadow: 0 5px 30px rgba(0, 255, 65, 0.1);
         }
 
         .logo {
-            font-size: 24px;
-            font-weight: 700;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 28px;
+            font-weight: 900;
             color: var(--text-white);
             cursor: pointer;
             transition: all 0.3s ease;
+            text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+            position: relative;
+        }
+
+        /* Пасхалка 2: Скрытая цифра в логотипе (более заметная) */
+        .logo::after {
+            content: '7';
+            position: absolute;
+            right: -15px;
+            top: -8px;
+            font-size: 14px;
+            color: var(--neon-green);
+            opacity: 0.15;
+            animation: blink 3s ease-in-out infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 0.15; }
+            50% { opacity: 0.4; }
         }
 
         .logo:hover {
+            text-shadow: 0 0 30px var(--neon-green), 0 0 50px var(--neon-green);
+            transform: scale(1.05);
+        }
+
+        /* Пасхалка 3: Секретное сообщение при тройном клике на логотип */
+        .secret-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: rgba(0, 0, 0, 0.98);
+            border: 3px solid var(--neon-green);
+            padding: 40px;
+            border-radius: 20px;
+            z-index: 30000;
+            opacity: 0;
+            transition: all 0.5s ease;
+            box-shadow: 0 0 100px rgba(0, 255, 65, 0.8);
+        }
+
+        .secret-message.show {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+
+        .secret-message h2 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--neon-green);
             text-shadow: 0 0 20px var(--neon-green);
+            margin-bottom: 20px;
         }
 
         .nav-btn {
-            padding: 12px 30px;
+            padding: 14px 35px;
             background: transparent;
-            border: 2px solid var(--neon-green);
+            border: 3px solid var(--neon-green);
             color: var(--neon-green);
             font-size: 16px;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
             text-decoration: none;
-            border-radius: 8px;
+            border-radius: 10px;
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: var(--neon-green);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+            z-index: -1;
+        }
+
+        .nav-btn:hover::before {
+            width: 300px;
+            height: 300px;
         }
 
         .nav-btn:hover {
-            background: var(--neon-green);
             color: var(--bg-black);
-            box-shadow: 0 0 30px var(--neon-green);
+            box-shadow: 0 0 40px var(--neon-green);
         }
 
         /* Hero Section */
@@ -110,36 +214,47 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 120px 20px 60px;
+            padding: 150px 20px 80px;
             position: relative;
             z-index: 1;
         }
 
         .hero h1 {
-            font-size: 56px;
-            font-weight: 800;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 64px;
+            font-weight: 900;
             text-align: center;
-            margin-bottom: 60px;
-            background: linear-gradient(to right, #ffffff, #a0a0a0);
+            margin-bottom: 70px;
+            background: linear-gradient(to right, #ffffff, var(--neon-green), #ffffff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: fadeInDown 1s ease;
+            animation: fadeInDown 1s ease, glow 3s ease-in-out infinite;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            position: relative;
         }
 
-        /* Скрытая цифра 1 в заголовке */
-        .hero h1::after {
+        @keyframes glow {
+            0%, 100% { filter: drop-shadow(0 0 10px rgba(0, 255, 65, 0.5)); }
+            50% { filter: drop-shadow(0 0 30px rgba(0, 255, 65, 0.8)); }
+        }
+
+        /* Пасхалка 4: Скрытая цифра в заголовке (более заметная) */
+        .hero h1::before {
             content: '3';
             position: absolute;
-            opacity: 0.02;
-            font-size: 12px;
-            margin-left: 5px;
+            left: -30px;
+            top: 10px;
+            font-size: 18px;
             color: var(--neon-green);
+            opacity: 0.2;
+            animation: blink 2s ease-in-out infinite;
         }
 
         @keyframes fadeInDown {
             from {
                 opacity: 0;
-                transform: translateY(-30px);
+                transform: translateY(-50px);
             }
             to {
                 opacity: 1;
@@ -150,19 +265,44 @@
         /* Code Editor Window */
         .code-window {
             width: 90%;
-            max-width: 800px;
-            background: rgba(15, 15, 15, 0.9);
-            border-radius: 12px;
+            max-width: 900px;
+            background: rgba(5, 5, 5, 0.95);
+            border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 30px 60px rgba(0, 255, 65, 0.3);
-            animation: fadeInUp 1s ease 0.3s both;
-            border: 1px solid rgba(0, 255, 65, 0.3);
+            box-shadow: 0 40px 80px rgba(0, 255, 65, 0.4), 0 0 100px rgba(0, 255, 65, 0.2);
+            animation: fadeInUp 1s ease 0.3s both, float 6s ease-in-out infinite;
+            border: 2px solid rgba(0, 255, 65, 0.4);
+            position: relative;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Пасхалка 5: Кликабельный уголок окна кода */
+        .code-window::before {
+            content: '9';
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            font-size: 16px;
+            color: var(--neon-green);
+            opacity: 0.25;
+            cursor: pointer;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        .code-window::before:hover {
+            opacity: 0.6;
+            transform: scale(1.2);
         }
 
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(50px);
             }
             to {
                 opacity: 1;
@@ -171,76 +311,99 @@
         }
 
         .window-header {
-            background: rgba(20, 20, 20, 0.95);
-            padding: 12px 20px;
+            background: rgba(10, 10, 10, 0.98);
+            padding: 15px 25px;
             display: flex;
             align-items: center;
-            gap: 8px;
-            border-bottom: 1px solid rgba(0, 255, 65, 0.2);
+            gap: 10px;
+            border-bottom: 2px solid rgba(0, 255, 65, 0.3);
         }
 
         .window-dot {
-            width: 12px;
-            height: 12px;
+            width: 14px;
+            height: 14px;
             border-radius: 50%;
             background: var(--neon-green);
-            box-shadow: 0 0 10px var(--neon-green);
+            box-shadow: 0 0 15px var(--neon-green);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .window-dot:hover {
+            transform: scale(1.3);
+            box-shadow: 0 0 25px var(--neon-green);
         }
 
         .window-dot:nth-child(2) {
             background: #ffaa00;
-            box-shadow: 0 0 10px #ffaa00;
+            box-shadow: 0 0 15px #ffaa00;
         }
 
         .window-dot:nth-child(3) {
             background: #ff4444;
-            box-shadow: 0 0 10px #ff4444;
+            box-shadow: 0 0 15px #ff4444;
+        }
+
+        /* Пасхалка 6: Клик на красную точку */
+        .window-dot:nth-child(3):active {
+            animation: explode 0.5s ease;
+        }
+
+        @keyframes explode {
+            0% { transform: scale(1); }
+            50% { transform: scale(2); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
         }
 
         .code-tabs {
             display: flex;
-            gap: 10px;
-            padding: 10px 20px;
-            background: rgba(10, 10, 10, 0.95);
-            border-bottom: 1px solid rgba(0, 255, 65, 0.2);
+            gap: 15px;
+            padding: 15px 25px;
+            background: rgba(5, 5, 5, 0.98);
+            border-bottom: 2px solid rgba(0, 255, 65, 0.3);
         }
 
         .code-tab {
-            padding: 8px 16px;
+            padding: 10px 20px;
             background: transparent;
             border: none;
             color: var(--text-gray);
             cursor: pointer;
-            font-size: 14px;
-            transition: all 0.3s ease;
-            border-radius: 6px;
+            font-size: 15px;
+            transition: all 0.4s ease;
+            border-radius: 8px;
             position: relative;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
         }
 
-        /* Скрытая цифра 2 в табе */
-        .code-tab:first-child::before {
-            content: '7';
+        /* Пасхалка 7: Скрытая цифра во второй вкладке */
+        .code-tab:nth-child(2)::after {
+            content: '1';
             position: absolute;
-            right: -10px;
-            top: -5px;
-            font-size: 8px;
+            right: -12px;
+            top: -6px;
+            font-size: 14px;
             color: var(--neon-green);
-            opacity: 0.03;
+            opacity: 0.2;
+            animation: blink 2.5s ease-in-out infinite;
         }
 
         .code-tab.active {
-            background: rgba(0, 255, 65, 0.1);
+            background: rgba(0, 255, 65, 0.15);
             color: var(--neon-green);
-            box-shadow: 0 0 15px rgba(0, 255, 65, 0.3);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.4);
+            transform: translateY(-3px);
         }
 
         .code-content {
-            padding: 30px;
-            font-family: 'Courier New', monospace;
-            font-size: 14px;
-            line-height: 1.8;
-            background: rgba(5, 5, 5, 0.95);
-            min-height: 300px;
+            padding: 35px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 15px;
+            line-height: 2;
+            background: rgba(0, 0, 0, 0.98);
+            min-height: 350px;
+            position: relative;
         }
 
         .code-line {
@@ -248,42 +411,59 @@
             white-space: pre-wrap;
         }
 
-        .keyword { color: #ff79c6; }
-        .function { color: #50fa7b; }
+        .keyword { color: #ff79c6; font-weight: 600; }
+        .function { color: #50fa7b; font-weight: 600; }
         .string { color: #f1fa8c; }
-        .comment { color: #6272a4; }
+        .comment { color: #6272a4; font-style: italic; }
         .variable { color: #8be9fd; }
 
         /* Scripts Store Section */
         .scripts-section {
-            padding: 100px 60px;
+            padding: 120px 60px;
             position: relative;
             z-index: 1;
         }
 
         .section-title {
             text-align: center;
-            font-size: 48px;
-            font-weight: 800;
-            margin-bottom: 60px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 56px;
+            font-weight: 900;
+            margin-bottom: 80px;
             color: var(--text-white);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            text-shadow: 0 0 30px rgba(0, 255, 65, 0.5);
+            position: relative;
+        }
+
+        /* Пасхалка 8: Клик на заголовок секции */
+        .section-title::after {
+            content: '4';
+            position: absolute;
+            right: -40px;
+            top: 0;
+            font-size: 20px;
+            color: var(--neon-green);
+            opacity: 0.25;
+            cursor: pointer;
         }
 
         .scripts-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 40px;
-            max-width: 1200px;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 50px;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
         .script-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border-radius: 16px;
-            padding: 30px;
-            border: 2px solid rgba(0, 255, 65, 0.2);
-            transition: all 0.4s ease;
+            background: linear-gradient(135deg, rgba(10, 10, 10, 0.9) 0%, rgba(0, 20, 10, 0.9) 100%);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px;
+            border: 3px solid rgba(0, 255, 65, 0.3);
+            transition: all 0.5s ease;
             position: relative;
             overflow: hidden;
         }
@@ -291,57 +471,71 @@
         .script-card::before {
             content: '';
             position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, var(--neon-green), transparent);
-            border-radius: 16px;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            z-index: -1;
-        }
-
-        .script-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 50px rgba(0, 255, 65, 0.4);
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(0, 255, 65, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s ease;
         }
 
         .script-card:hover::before {
-            opacity: 0.5;
+            left: 100%;
+        }
+
+        .script-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 30px 70px rgba(0, 255, 65, 0.5), 0 0 100px rgba(0, 255, 65, 0.3);
+            border-color: var(--neon-green);
         }
 
         .badge {
             display: inline-block;
-            padding: 6px 16px;
+            padding: 8px 20px;
             background: var(--neon-green);
             color: var(--bg-black);
-            font-size: 12px;
-            font-weight: 700;
-            border-radius: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 0 20px var(--neon-green);
+            font-size: 13px;
+            font-weight: 800;
+            border-radius: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 0 30px var(--neon-green);
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+            animation: pulse-badge 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-badge {
+            0%, 100% { box-shadow: 0 0 20px var(--neon-green); }
+            50% { box-shadow: 0 0 40px var(--neon-green); }
         }
 
         .script-card h3 {
-            font-size: 28px;
-            margin-bottom: 15px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 32px;
+            margin-bottom: 20px;
             color: var(--text-white);
+            text-shadow: 0 0 15px rgba(0, 255, 65, 0.3);
+            position: relative;
         }
 
-        /* Скрытая цифра 3 в описании первой карточки */
-        .script-card:first-child p::after {
-            content: '1';
-            margin-left: 3px;
-            opacity: 0.02;
-            font-size: 10px;
+        /* Пасхалка 9: Скрытая цифра в названии первой карточки */
+        .script-card:first-child h3::before {
+            content: '2';
+            position: absolute;
+            left: -25px;
+            top: 5px;
+            font-size: 16px;
             color: var(--neon-green);
+            opacity: 0.2;
+            animation: blink 3s ease-in-out infinite;
         }
 
         .script-card p {
             color: var(--text-gray);
-            margin-bottom: 25px;
-            line-height: 1.6;
+            margin-bottom: 30px;
+            line-height: 1.8;
+            font-size: 15px;
         }
 
         .card-actions {
@@ -351,29 +545,52 @@
         }
 
         .btn {
-            padding: 12px 24px;
-            border: 2px solid var(--neon-green);
+            padding: 14px 28px;
+            border: 3px solid var(--neon-green);
             background: transparent;
             color: var(--neon-green);
-            font-size: 14px;
-            font-weight: 600;
+            font-size: 15px;
+            font-weight: 700;
             cursor: pointer;
-            border-radius: 8px;
-            transition: all 0.3s ease;
+            border-radius: 10px;
+            transition: all 0.4s ease;
             text-decoration: none;
             display: inline-block;
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: var(--neon-green);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+            z-index: -1;
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
         }
 
         .btn:hover {
-            background: var(--neon-green);
             color: var(--bg-black);
-            box-shadow: 0 0 25px var(--neon-green);
+            box-shadow: 0 0 35px var(--neon-green);
         }
 
         /* FAQ Section */
         .faq-section {
-            padding: 100px 60px;
-            max-width: 900px;
+            padding: 120px 60px;
+            max-width: 1000px;
             margin: 0 auto;
             position: relative;
             z-index: 1;
@@ -381,42 +598,67 @@
 
         .faq-header {
             text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: 80px;
         }
 
         .faq-subtitle {
-            color: var(--text-gray);
-            font-size: 14px;
+            color: var(--neon-green);
+            font-size: 15px;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 10px;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
         }
 
         .faq-title {
-            font-size: 42px;
-            font-weight: 800;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 48px;
+            font-weight: 900;
             color: var(--text-white);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 30px rgba(0, 255, 65, 0.5);
         }
 
         .faq-item {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(0, 255, 65, 0.2);
-            border-radius: 12px;
-            margin-bottom: 20px;
+            background: linear-gradient(135deg, rgba(10, 10, 10, 0.9) 0%, rgba(0, 20, 10, 0.9) 100%);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(0, 255, 65, 0.3);
+            border-radius: 15px;
+            margin-bottom: 25px;
             overflow: hidden;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
+        }
+
+        .faq-item:hover {
+            border-color: var(--neon-green);
+            box-shadow: 0 10px 40px rgba(0, 255, 65, 0.3);
         }
 
         .faq-question {
-            padding: 25px 30px;
+            padding: 30px 35px;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 18px;
-            font-weight: 600;
+            font-size: 19px;
+            font-weight: 700;
             transition: all 0.3s ease;
+            font-family: 'JetBrains Mono', monospace;
+            position: relative;
+        }
+
+        /* Пасхалка 10: Скрытая цифра в третьем вопросе */
+        .faq-item:nth-child(3) .faq-question::after {
+            content: '8';
+            position: absolute;
+            right: 60px;
+            top: 30px;
+            font-size: 16px;
+            color: var(--neon-green);
+            opacity: 0.2;
+            animation: blink 2s ease-in-out infinite;
         }
 
         .faq-question:hover {
@@ -424,8 +666,8 @@
         }
 
         .faq-arrow {
-            font-size: 20px;
-            transition: transform 0.3s ease, color 0.3s ease;
+            font-size: 24px;
+            transition: transform 0.4s ease, color 0.3s ease;
         }
 
         .faq-item.active .faq-arrow {
@@ -435,55 +677,67 @@
 
         .faq-item.active .faq-question {
             color: var(--neon-green);
-            border-bottom: 1px solid rgba(0, 255, 65, 0.2);
+            border-bottom: 2px solid rgba(0, 255, 65, 0.3);
         }
 
         .faq-answer {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.4s ease, padding 0.4s ease;
+            transition: max-height 0.5s ease, padding 0.5s ease;
             color: var(--text-gray);
-            line-height: 1.8;
+            line-height: 2;
+            font-size: 15px;
         }
 
         .faq-item.active .faq-answer {
-            max-height: 500px;
-            padding: 25px 30px;
-        }
-
-        /* Скрытая цифра 4 в одном из вопросов */
-        .faq-item:nth-child(2) .faq-question::before {
-            content: '9';
-            position: absolute;
-            left: 10px;
-            opacity: 0.02;
-            font-size: 10px;
-            color: var(--neon-green);
+            max-height: 600px;
+            padding: 30px 35px;
         }
 
         /* Footer */
         footer {
-            padding: 60px;
-            border-top: 1px solid rgba(0, 255, 65, 0.2);
+            padding: 80px 60px;
+            border-top: 2px solid rgba(0, 255, 65, 0.3);
             position: relative;
             z-index: 1;
+            background: linear-gradient(to bottom, transparent, rgba(0, 255, 65, 0.05));
         }
 
         .footer-content {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 30px;
+            gap: 40px;
         }
 
         .footer-logo {
-            font-size: 24px;
-            font-weight: 700;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 28px;
+            font-weight: 900;
             color: var(--neon-green);
-            text-shadow: 0 0 20px var(--neon-green);
+            text-shadow: 0 0 30px var(--neon-green);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        /* Пасхалка 11: Скрытая цифра в футере */
+        .footer-logo::before {
+            content: '5';
+            position: absolute;
+            left: -20px;
+            top: -10px;
+            font-size: 16px;
+            opacity: 0.2;
+            animation: blink 2.5s ease-in-out infinite;
+        }
+
+        .footer-logo:hover {
+            transform: scale(1.1);
+            text-shadow: 0 0 50px var(--neon-green);
         }
 
         .footer-copy {
@@ -492,58 +746,89 @@
         }
 
         .footer-socials h4 {
-            color: var(--text-gray);
-            font-size: 14px;
-            margin-bottom: 10px;
+            color: var(--neon-green);
+            font-size: 16px;
+            margin-bottom: 15px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            letter-spacing: 2px;
         }
 
         .social-links {
             display: flex;
-            gap: 20px;
+            gap: 25px;
         }
 
         .social-links a {
             color: var(--neon-green);
             text-decoration: none;
-            font-size: 14px;
+            font-size: 15px;
             transition: all 0.3s ease;
+            font-weight: 600;
+            position: relative;
+        }
+
+        .social-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--neon-green);
+            transition: width 0.3s ease;
+        }
+
+        .social-links a:hover::after {
+            width: 100%;
         }
 
         .social-links a:hover {
-            text-shadow: 0 0 15px var(--neon-green);
+            text-shadow: 0 0 20px var(--neon-green);
+            transform: translateY(-3px);
         }
 
         /* Toast Notification */
         .toast {
             position: fixed;
-            bottom: -100px;
-            right: 30px;
-            background: rgba(0, 0, 0, 0.95);
-            border: 2px solid var(--neon-green);
-            border-radius: 12px;
-            padding: 20px 30px;
+            bottom: -150px;
+            right: 40px;
+            background: rgba(0, 0, 0, 0.98);
+            border: 3px solid var(--neon-green);
+            border-radius: 15px;
+            padding: 25px 35px;
             display: flex;
             align-items: center;
-            gap: 15px;
-            box-shadow: 0 10px 40px rgba(0, 255, 65, 0.5);
-            transition: bottom 0.5s ease;
+            gap: 20px;
+            box-shadow: 0 15px 50px rgba(0, 255, 65, 0.6);
+            transition: bottom 0.6s ease;
             z-index: 10000;
+            font-family: 'JetBrains Mono', monospace;
         }
 
         .toast.show {
-            bottom: 30px;
+            bottom: 40px;
+            animation: shake 0.5s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
         }
 
         .toast-icon {
-            width: 24px;
-            height: 24px;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
             background: var(--neon-green);
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--bg-black);
-            font-weight: 700;
+            font-weight: 900;
+            font-size: 18px;
+            box-shadow: 0 0 20px var(--neon-green);
         }
 
         /* PIN Modal */
@@ -553,17 +838,17 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.95);
+            background: rgba(0, 0, 0, 0.97);
             display: none;
             justify-content: center;
             align-items: center;
             z-index: 20000;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(15px);
         }
 
         .pin-modal.show {
             display: flex;
-            animation: fadeIn 0.3s ease;
+            animation: fadeIn 0.4s ease;
         }
 
         @keyframes fadeIn {
@@ -572,82 +857,94 @@
         }
 
         .pin-content {
-            background: rgba(15, 15, 15, 0.95);
-            border: 2px solid var(--neon-green);
-            border-radius: 20px;
-            padding: 40px;
-            max-width: 400px;
+            background: linear-gradient(135deg, rgba(5, 5, 5, 0.98) 0%, rgba(0, 30, 15, 0.98) 100%);
+            border: 4px solid var(--neon-green);
+            border-radius: 25px;
+            padding: 50px;
+            max-width: 450px;
             width: 90%;
-            box-shadow: 0 0 60px rgba(0, 255, 65, 0.5);
-            animation: scaleIn 0.3s ease;
+            box-shadow: 0 0 100px rgba(0, 255, 65, 0.7), inset 0 0 50px rgba(0, 255, 65, 0.1);
+            animation: scaleIn 0.4s ease;
         }
 
         @keyframes scaleIn {
-            from { transform: scale(0.8); opacity: 0; }
+            from { transform: scale(0.7); opacity: 0; }
             to { transform: scale(1); opacity: 1; }
         }
 
         .pin-header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
         }
 
         .pin-header h2 {
-            font-size: 28px;
-            margin-bottom: 10px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 32px;
+            margin-bottom: 15px;
             color: var(--neon-green);
-            text-shadow: 0 0 20px var(--neon-green);
+            text-shadow: 0 0 30px var(--neon-green);
+            font-weight: 900;
         }
 
         .pin-header p {
             color: var(--text-gray);
-            font-size: 14px;
+            font-size: 15px;
         }
 
         .pin-display {
             display: flex;
             justify-content: center;
-            gap: 15px;
-            margin-bottom: 30px;
+            gap: 20px;
+            margin-bottom: 40px;
         }
 
         .pin-dot {
-            width: 20px;
-            height: 20px;
-            border: 2px solid var(--neon-green);
+            width: 24px;
+            height: 24px;
+            border: 3px solid var(--neon-green);
             border-radius: 50%;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
+            box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
         }
 
         .pin-dot.filled {
             background: var(--neon-green);
-            box-shadow: 0 0 15px var(--neon-green);
+            box-shadow: 0 0 25px var(--neon-green);
+            animation: pulse-dot 0.3s ease;
+        }
+
+        @keyframes pulse-dot {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); }
         }
 
         .pin-keypad {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin-bottom: 20px;
+            gap: 18px;
+            margin-bottom: 25px;
         }
 
         .pin-key {
-            padding: 20px;
+            padding: 25px;
             background: rgba(0, 255, 65, 0.1);
-            border: 2px solid rgba(0, 255, 65, 0.3);
-            border-radius: 12px;
-            font-size: 24px;
-            font-weight: 700;
+            border: 3px solid rgba(0, 255, 65, 0.4);
+            border-radius: 15px;
+            font-size: 28px;
+            font-weight: 900;
             color: var(--neon-green);
             cursor: pointer;
             transition: all 0.3s ease;
             user-select: none;
+            font-family: 'Orbitron', sans-serif;
         }
 
         .pin-key:hover {
-            background: rgba(0, 255, 65, 0.2);
-            box-shadow: 0 0 20px rgba(0, 255, 65, 0.4);
-            transform: scale(1.05);
+            background: rgba(0, 255, 65, 0.25);
+            box-shadow: 0 0 30px rgba(0, 255, 65, 0.5);
+            transform: scale(1.1);
+            border-color: var(--neon-green);
         }
 
         .pin-key:active {
@@ -656,34 +953,38 @@
 
         .pin-actions {
             display: flex;
-            gap: 10px;
+            gap: 15px;
         }
 
         .pin-clear, .pin-close {
             flex: 1;
-            padding: 15px;
+            padding: 18px;
             background: transparent;
-            border: 2px solid var(--neon-green);
-            border-radius: 10px;
+            border: 3px solid var(--neon-green);
+            border-radius: 12px;
             color: var(--neon-green);
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .pin-clear:hover, .pin-close:hover {
             background: var(--neon-green);
             color: var(--bg-black);
+            box-shadow: 0 0 30px var(--neon-green);
         }
 
         .secret-script {
             display: none;
-            margin-top: 30px;
-            padding: 20px;
-            background: rgba(0, 255, 65, 0.1);
-            border: 2px solid var(--neon-green);
-            border-radius: 12px;
-            animation: glitchIn 0.5s ease;
+            margin-top: 35px;
+            padding: 25px;
+            background: rgba(0, 255, 65, 0.15);
+            border: 3px solid var(--neon-green);
+            border-radius: 15px;
+            animation: glitchIn 0.6s ease;
         }
 
         .secret-script.show {
@@ -691,42 +992,112 @@
         }
 
         @keyframes glitchIn {
-            0% { transform: translateX(-10px); opacity: 0; }
-            25% { transform: translateX(10px); }
-            50% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
+            0% { transform: translateX(-15px); opacity: 0; }
+            20% { transform: translateX(15px); }
+            40% { transform: translateX(-10px); }
+            60% { transform: translateX(10px); }
+            80% { transform: translateX(-5px); }
             100% { transform: translateX(0); opacity: 1; }
         }
 
         .secret-script h3 {
+            font-family: 'Orbitron', sans-serif;
             color: var(--neon-green);
-            margin-bottom: 15px;
-            text-shadow: 0 0 15px var(--neon-green);
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px var(--neon-green);
+            font-size: 24px;
         }
 
         .secret-script code {
             display: block;
-            background: rgba(0, 0, 0, 0.8);
-            padding: 15px;
-            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 20px;
+            border-radius: 10px;
             color: var(--text-white);
-            font-family: 'Courier New', monospace;
+            font-family: 'JetBrains Mono', monospace;
             word-break: break-all;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            border: 2px solid rgba(0, 255, 65, 0.3);
+        }
+
+        /* Пасхалка 12: Konami Code активация */
+        .konami-easter {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: rgba(0, 0, 0, 0.98);
+            border: 5px solid var(--neon-green);
+            padding: 60px;
+            border-radius: 30px;
+            z-index: 40000;
+            opacity: 0;
+            transition: all 0.5s ease;
+            box-shadow: 0 0 150px rgba(0, 255, 65, 0.9);
+            text-align: center;
+        }
+
+        .konami-easter.show {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+
+        .konami-easter h2 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--neon-green);
+            font-size: 36px;
+            margin-bottom: 20px;
+            text-shadow: 0 0 40px var(--neon-green);
+        }
+
+        /* Пасхалка 13: Скрытая кнопка внизу страницы */
+        .hidden-button {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 30px;
+            height: 30px;
+            background: rgba(0, 255, 65, 0.05);
+            border: 1px solid rgba(0, 255, 65, 0.1);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .hidden-button:hover {
+            background: rgba(0, 255, 65, 0.3);
+            border-color: var(--neon-green);
+            transform: scale(1.3);
+            box-shadow: 0 0 30px var(--neon-green);
+        }
+
+        /* Пасхалка 14: Цифра 6 в описании второй карточки */
+        .script-card:nth-child(2) p::after {
+            content: '6';
+            margin-left: 5px;
+            opacity: 0.2;
+            font-size: 14px;
+            color: var(--neon-green);
+            animation: blink 2s ease-in-out infinite;
         }
 
         /* Responsive */
         @media (max-width: 768px) {
             header {
-                padding: 15px 20px;
+                padding: 20px 25px;
+            }
+
+            .logo {
+                font-size: 22px;
             }
 
             .hero h1 {
-                font-size: 36px;
+                font-size: 42px;
             }
 
             .scripts-section, .faq-section {
-                padding: 60px 20px;
+                padding: 80px 25px;
             }
 
             .scripts-grid {
@@ -734,7 +1105,7 @@
             }
 
             footer {
-                padding: 40px 20px;
+                padding: 60px 25px;
             }
 
             .footer-content {
@@ -747,60 +1118,74 @@
             }
 
             .pin-keypad {
-                gap: 10px;
+                gap: 12px;
             }
 
             .pin-key {
-                padding: 18px;
-                font-size: 20px;
+                padding: 20px;
+                font-size: 24px;
+            }
+
+            .section-title {
+                font-size: 38px;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Пасхалка: Матричный дождь -->
+    <div class="matrix-rain" id="matrixRain"></div>
+
     <!-- Header -->
     <header>
-        <div class="logo" id="logo">BurmaldaUI.</div>
-        <a href="#scripts" class="nav-btn">Скрипты</a>
+        <div class="logo" id="logo">BURMALDA<span style="color: var(--neon-green);">UI</span>.</div>
+        <a href="#scripts" class="nav-btn">Scripts</a>
     </header>
 
     <!-- Hero Section -->
     <section class="hero">
         <h1>The Ultimate Luau Script Hub For Roblox.</h1>
         
-        <div class="code-window">
+        <div class="code-window" id="codeWindow">
             <div class="window-header">
                 <div class="window-dot"></div>
                 <div class="window-dot"></div>
-                <div class="window-dot"></div>
+                <div class="window-dot" id="redDot"></div>
             </div>
             <div class="code-tabs">
-                <button class="code-tab active" data-tab="script1">BurmaldaUI.lua</button>
-                <button class="code-tab" data-tab="script2">MellstroyTroll.lua</button>
+                <button class="code-tab active" data-tab="script1">MellstroyUI_MM2.lua</button>
+                <button class="code-tab" data-tab="script2">MellstroyUI_UNIVERSAL.lua</button>
             </div>
             <div class="code-content">
                 <div class="code-tab-content active" id="script1">
-                    <span class="code-line"><span class="keyword">local</span> <span class="variable">player</span> = <span class="function">game</span>:<span class="function">GetService</span>(<span class="string">"Players"</span>).<span class="variable">LocalPlayer</span></span>
-                    <span class="code-line"><span class="keyword">local</span> <span class="variable">ui</span> = <span class="function">loadstring</span>(<span class="function">game</span>:<span class="function">HttpGet</span>(<span class="string">"https://burmalda.ui"</span>))()</span>
+                    <span class="code-line"><span class="comment">-- BurmaldaMellstroy UI для Murder Mystery 2</span></span>
+                    <span class="code-line"><span class="keyword">local</span> <span class="variable">Library</span> = <span class="function">loadstring</span>(<span class="function">game</span>:<span class="function">HttpGet</span>(</span>
+                    <span class="code-line">    <span class="string">"https://raw.githubusercontent.com/Fl7ing/RobloxUITest/refs/heads/main/BurmaldaMellstroyUIMM2"</span></span>
+                    <span class="code-line">))()</span>
                     <span class="code-line"></span>
-                    <span class="code-line"><span class="comment">-- Инициализация BurmaldaUI V6</span></span>
-                    <span class="code-line"><span class="variable">ui</span>:<span class="function">Initialize</span>({</span>
+                    <span class="code-line"><span class="comment">-- Инициализация интерфейса</span></span>
+                    <span class="code-line"><span class="variable">Library</span>:<span class="function">Init</span>({</span>
+                    <span class="code-line">    <span class="variable">game</span> = <span class="string">"Murder Mystery 2"</span>,</span>
                     <span class="code-line">    <span class="variable">theme</span> = <span class="string">"neon-green"</span>,</span>
-                    <span class="code-line">    <span class="variable">features</span> = { <span class="string">"esp"</span>, <span class="string">"aimbot"</span>, <span class="string">"fly"</span> }</span>
+                    <span class="code-line">    <span class="variable">features</span> = { <span class="string">"ESP"</span>, <span class="string">"Auto-Farm"</span>, <span class="string">"Kill-Aura"</span> }</span>
                     <span class="code-line">})</span>
                     <span class="code-line"></span>
-                    <span class="code-line"><span class="function">print</span>(<span class="string">"BurmaldaUI V6 загружен успешно!"</span>)</span>
+                    <span class="code-line"><span class="function">print</span>(<span class="string">"✓ BurmaldaMellstroy UI MM2 загружен!"</span>)</span>
                 </div>
                 <div class="code-tab-content" id="script2" style="display: none;">
-                    <span class="code-line"><span class="keyword">local</span> <span class="variable">troll</span> = <span class="function">loadstring</span>(<span class="function">game</span>:<span class="function">HttpGet</span>(<span class="string">"https://mellstroy.troll"</span>))()</span>
+                    <span class="code-line"><span class="comment">-- BurmaldaMellstroy UI УНИВЕРСАЛЬНЫЙ</span></span>
+                    <span class="code-line"><span class="keyword">local</span> <span class="variable">Universal</span> = <span class="function">loadstring</span>(<span class="function">game</span>:<span class="function">HttpGet</span>(</span>
+                    <span class="code-line">    <span class="string">"https://raw.githubusercontent.com/Fl7ing/RobloxUITest/refs/heads/main/BurmaldaMellstroyUNIVERSAL"</span></span>
+                    <span class="code-line">))()</span>
                     <span class="code-line"></span>
-                    <span class="code-line"><span class="comment">-- Mellstroy Troll GUI активирован</span></span>
-                    <span class="code-line"><span class="variable">troll</span>:<span class="function">EnableChaos</span>(<span class="keyword">true</span>)</span>
-                    <span class="code-line"><span class="variable">troll</span>:<span class="function">SetMode</span>(<span class="string">"extreme"</span>)</span>
+                    <span class="code-line"><span class="comment">-- Работает на любой игре Roblox</span></span>
+                    <span class="code-line"><span class="variable">Universal</span>:<span class="function">Start</span>({</span>
+                    <span class="code-line">    <span class="variable">autoDetect</span> = <span class="keyword">true</span>,</span>
+                    <span class="code-line">    <span class="variable">mode</span> = <span class="string">"universal"</span>,</span>
+                    <span class="code-line">    <span class="variable">ui</span> = <span class="string">"modern-green"</span></span>
+                    <span class="code-line">})</span>
                     <span class="code-line"></span>
-                    <span class="code-line"><span class="keyword">for</span> <span class="variable">i</span> = <span class="keyword">1</span>, <span class="keyword">100</span> <span class="keyword">do</span></span>
-                    <span class="code-line">    <span class="variable">troll</span>:<span class="function">SpawnEffect</span>(<span class="variable">i</span>)</span>
-                    <span class="code-line"><span class="keyword">end</span></span>
+                    <span class="code-line"><span class="function">warn</span>(<span class="string">"⚡ Универсальный скрипт активирован!"</span>)</span>
                 </div>
             </div>
         </div>
@@ -808,28 +1193,28 @@
 
     <!-- Scripts Store Section -->
     <section class="scripts-section" id="scripts">
-        <h2 class="section-title">Featured Scripts</h2>
+        <h2 class="section-title" id="sectionTitle">Featured Scripts</h2>
         
         <div class="scripts-grid">
-            <!-- Burmalda UI V6 Card -->
+            <!-- BurmaldaMellstroy UI MM2 Card -->
             <div class="script-card">
                 <span class="badge">[ALWAYS UNPATCHED]</span>
-                <h3>Burmalda UI V6</h3>
-                <p>Самый продвинутый универсальный скрипт для Roblox. Включает ESP, Aimbot, Fly, Noclip и более 50+ функций для любой игры.</p>
+                <h3>BurmaldaMellstroy UI MM2</h3>
+                <p>Профессиональный скрипт для Murder Mystery 2. Включает ESP убийцы и шерифа, Auto-Farm монет, Kill-Aura, Teleport и более 40 эксклюзивных функций.</p>
                 <div class="card-actions">
-                    <button class="btn copy-btn" data-script="burmalda">Скопировать Script</button>
-                    <button class="btn info-btn">Инфо</button>
+                    <button class="btn copy-btn" data-script="mm2">Copy Script</button>
+                    <button class="btn info-btn">Info</button>
                 </div>
             </div>
 
-            <!-- Mellstroy Troll GUI Card -->
+            <!-- BurmaldaMellstroy UNIVERSAL Card -->
             <div class="script-card">
                 <span class="badge">[ALWAYS UNPATCHED]</span>
-                <h3>Mellstroy Troll Gui</h3>
-                <p>Легендарный тролль-скрипт с уникальными эффектами, звуками и визуалами. Превратите любую игру в настоящий хаос!</p>
+                <h3>BurmaldaMellstroy UNIVERSAL</h3>
+                <p>Легендарный универсальный скрипт для ВСЕХ игр Roblox. Fly, Noclip, Speed, Jump Power, Infinite Jump, ESP и куча других фишек. Работает везде!</p>
                 <div class="card-actions">
-                    <button class="btn copy-btn" data-script="mellstroy">Скопировать Script</button>
-                    <button class="btn info-btn">Инфо</button>
+                    <button class="btn copy-btn" data-script="universal">Copy Script</button>
+                    <button class="btn info-btn">Info</button>
                 </div>
             </div>
         </div>
@@ -844,21 +1229,21 @@
 
         <div class="faq-item">
             <div class="faq-question">
-                <span>Что такое BurmaldaUI Store?</span>
+                <span>Что такое BurmaldaUI Script Hub?</span>
                 <span class="faq-arrow">▼</span>
             </div>
             <div class="faq-answer">
-                BurmaldaUI Store - это витрина лучших Lua скриптов для Roblox. Мы собираем только топовые, протестированные и актуальные скрипты, которые вы можете скопировать одним кликом.
+                BurmaldaUI Script Hub - это топовая витрина лучших Lua скриптов для Roblox. Мы собираем только самые мощные, протестированные и постоянно обновляемые скрипты, которые вы можете скопировать одним кликом и запустить в любом executor.
             </div>
         </div>
 
         <div class="faq-item">
             <div class="faq-question">
-                <span>Как использовать скрипты с сайта?</span>
+                <span>Как использовать скрипты с этой витрины?</span>
                 <span class="faq-arrow">▼</span>
             </div>
             <div class="faq-answer">
-                Просто нажмите кнопку "Скопировать Script" на нужной карточке, откройте ваш executor (Solara, Wave, Synapse X и т.д.), вставьте скрипт и нажмите Execute. Готово!
+                Всё очень просто! Нажмите кнопку "Copy Script" на нужной карточке, откройте ваш любимый executor (Solara, Wave, Fluxus, Synapse X и т.д.), вставьте скопированный код в редактор и нажмите Execute. Скрипт активируется мгновенно!
             </div>
         </div>
 
@@ -868,17 +1253,27 @@
                 <span class="faq-arrow">▼</span>
             </div>
             <div class="faq-answer">
-                Да! Все скрипты на нашей витрине имеют статус [ALWAYS UNPATCHED]. Мы регулярно обновляем и проверяем их актуальность, чтобы вы всегда получали рабочий контент.
+                Абсолютно! Все скрипты на нашей витрине имеют эксклюзивный статус [ALWAYS UNPATCHED]. Мы регулярно тестируем и обновляем их, чтобы они работали даже после обновлений Roblox. Гарантия качества 100%!
             </div>
         </div>
 
         <div class="faq-item">
             <div class="faq-question">
-                <span>Нужно ли платить за скрипты?</span>
+                <span>Нужно ли платить за доступ к скриптам?</span>
                 <span class="faq-arrow">▼</span>
             </div>
             <div class="faq-answer">
-                Нет! Все скрипты в BurmaldaUI Store полностью бесплатны. Просто заходите, выбирайте нужный скрипт и копируйте. Никаких подписок или платежей.
+                НЕТ! Все скрипты в BurmaldaUI Script Hub полностью БЕСПЛАТНЫ и всегда будут такими. Просто заходите на сайт, выбирайте нужный скрипт и копируйте. Никаких подписок, донатов или скрытых платежей. Только чистый контент!
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>Есть ли поддержка и обновления?</span>
+                <span class="faq-arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+                Конечно! Мы постоянно работаем над улучшением скриптов и добавлением новых функций. Присоединяйтесь к нашему Discord серверу для получения мгновенных обновлений, новых скриптов и помощи от комьюнити!
             </div>
         </div>
     </section>
@@ -886,13 +1281,13 @@
     <!-- Footer -->
     <footer>
         <div class="footer-content">
-            <div class="footer-logo">BurmaldaUI.</div>
+            <div class="footer-logo" id="footerLogo">BURMALDA<span style="color: var(--text-white);">UI</span>.</div>
             <div class="footer-copy">Copyright © BurmaldaUI Softworks. All rights reserved.</div>
             <div class="footer-socials">
                 <h4>Socials</h4>
                 <div class="social-links">
-                    <a href="#">Discord</a>
-                    <a href="#">Revolt</a>
+                    <a href="#" id="discordLink">Discord</a>
+                    <a href="#" id="revoltLink">Revolt</a>
                     <a href="https://www.youtube.com/@BloxError" target="_blank">BloxError YT</a>
                 </div>
             </div>
@@ -902,15 +1297,15 @@
     <!-- Toast Notification -->
     <div class="toast" id="toast">
         <div class="toast-icon">✓</div>
-        <span>Скрипт успешно скопирован!</span>
+        <span>Скрипт успешно скопирован в буфер обмена!</span>
     </div>
 
     <!-- PIN Modal -->
     <div class="pin-modal" id="pinModal">
         <div class="pin-content">
             <div class="pin-header">
-                <h2>🔐 Secret Access</h2>
-                <p>Введите PIN-код для доступа к секретному скрипту</p>
+                <h2>🔐 SECRET ACCESS</h2>
+                <p>Введите 4-значный PIN-код для разблокировки</p>
             </div>
             
             <div class="pin-display">
@@ -934,24 +1329,58 @@
             </div>
 
             <div class="pin-actions">
-                <button class="pin-clear">Очистить</button>
-                <button class="pin-close">Закрыть</button>
+                <button class="pin-clear">Clear</button>
+                <button class="pin-close">Close</button>
             </div>
 
             <div class="secret-script" id="secretScript">
-                <h3>🎉 Секретный скрипт разблокирован!</h3>
+                <h3>🎉 СЕКРЕТНЫЙ СКРИПТ РАЗБЛОКИРОВАН!</h3>
                 <code>loadstring(game:HttpGet('https://raw.githubusercontent.com/PidorasGandon/SUICommon/refs/heads/main/SUIcommon'))()</code>
-                <button class="btn" onclick="copySecretScript()">Скопировать секретный скрипт</button>
+                <button class="btn" onclick="copySecretScript()" style="width: 100%;">Скопировать секретный скрипт</button>
             </div>
         </div>
     </div>
 
+    <!-- Secret Message Modal (Пасхалка при тройном клике на лого) -->
+    <div class="secret-message" id="secretMessage">
+        <h2>🎊 СЕКРЕТНОЕ ПОСЛАНИЕ!</h2>
+        <p style="color: var(--text-gray); margin-bottom: 20px;">Вы нашли скрытую пасхалку! Цифра PIN-кода: <span style="color: var(--neon-green); font-size: 24px; font-weight: 900;">0</span></p>
+        <button class="btn" onclick="closeSecretMessage()">Закрыть</button>
+    </div>
+
+    <!-- Konami Code Easter Egg -->
+    <div class="konami-easter" id="konamiEaster">
+        <h2>🎮 KONAMI CODE ACTIVATED!</h2>
+        <p style="color: var(--text-gray); font-size: 18px; margin-bottom: 20px;">Вы знаете секрет! PIN-код: <span style="color: var(--neon-green); font-size: 32px; font-weight: 900;">7319</span></p>
+        <button class="btn" onclick="closeKonami()">Awesome!</button>
+    </div>
+
+    <!-- Hidden Button (Пасхалка) -->
+    <div class="hidden-button" id="hiddenBtn" title="Найди остальные цифры!"></div>
+
     <script>
-        // Scripts data
+        // Scripts data с РЕАЛЬНЫМИ ссылками
         const scripts = {
-            burmalda: `loadstring(game:HttpGet("https://raw.githubusercontent.com/BurmaldaUI/BurmaldaUI-V6/main/script.lua"))()`,
-            mellstroy: `loadstring(game:HttpGet("https://raw.githubusercontent.com/MellstroyTroll/MellstroyGUI/main/troll.lua"))()`
+            mm2: `loadstring(game:HttpGet("https://raw.githubusercontent.com/Fl7ing/RobloxUITest/refs/heads/main/BurmaldaMellstroyUIMM2"))()`,
+            universal: `loadstring(game:HttpGet("https://raw.githubusercontent.com/Fl7ing/RobloxUITest/refs/heads/main/BurmaldaMellstroyUNIVERSAL"))()`
         };
+
+        // Пасхалка 1: Матричный дождь
+        function createMatrixRain() {
+            const matrixRain = document.getElementById('matrixRain');
+            const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+            
+            for (let i = 0; i < 50; i++) {
+                const char = document.createElement('div');
+                char.className = 'matrix-char';
+                char.textContent = chars[Math.floor(Math.random() * chars.length)];
+                char.style.left = Math.random() * 100 + '%';
+                char.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                char.style.animationDelay = Math.random() * 5 + 's';
+                matrixRain.appendChild(char);
+            }
+        }
+        createMatrixRain();
 
         // Copy script functionality
         document.querySelectorAll('.copy-btn').forEach(btn => {
@@ -971,7 +1400,7 @@
             toast.classList.add('show');
             setTimeout(() => {
                 toast.classList.remove('show');
-            }, 3000);
+            }, 3500);
         }
 
         // Code tabs
@@ -1010,27 +1439,50 @@
         });
 
         // PIN Modal System
-        const correctPIN = '3719'; // Скрытые цифры: 3, 7, 1, 9
+        const correctPIN = '7319'; // Цифры: 7, 3, 1, 9
         let currentPIN = '';
         const pinModal = document.getElementById('pinModal');
         const pinDots = document.querySelectorAll('.pin-dot');
         const secretScript = document.getElementById('secretScript');
 
-        // Open modal on double click logo
-        let clickCount = 0;
-        let clickTimer = null;
+        // Пасхалка 2: Открытие PIN modal на двойной клик логотипа
+        let logoClickCount = 0;
+        let logoClickTimer = null;
         document.getElementById('logo').addEventListener('click', function() {
-            clickCount++;
-            if (clickCount === 1) {
-                clickTimer = setTimeout(() => {
-                    clickCount = 0;
+            logoClickCount++;
+            if (logoClickCount === 1) {
+                logoClickTimer = setTimeout(() => {
+                    logoClickCount = 0;
                 }, 400);
-            } else if (clickCount === 2) {
-                clearTimeout(clickTimer);
-                clickCount = 0;
+            } else if (logoClickCount === 2) {
+                clearTimeout(logoClickTimer);
+                logoClickCount = 0;
                 pinModal.classList.add('show');
             }
         });
+
+        // Пасхалка 3: Секретное сообщение при тройном клике на логотип
+        let tripleClickCount = 0;
+        let tripleClickTimer = null;
+        document.getElementById('logo').addEventListener('click', function() {
+            tripleClickCount++;
+            if (tripleClickCount === 1) {
+                tripleClickTimer = setTimeout(() => {
+                    tripleClickCount = 0;
+                }, 600);
+            } else if (tripleClickCount === 3) {
+                clearTimeout(tripleClickTimer);
+                tripleClickCount = 0;
+                document.getElementById('secretMessage').classList.add('show');
+                setTimeout(() => {
+                    document.getElementById('secretMessage').classList.remove('show');
+                }, 5000);
+            }
+        });
+
+        function closeSecretMessage() {
+            document.getElementById('secretMessage').classList.remove('show');
+        }
 
         // PIN keypad
         document.querySelectorAll('.pin-key').forEach(key => {
@@ -1075,7 +1527,7 @@
                         dot.style.borderColor = 'var(--neon-green)';
                         dot.style.background = 'transparent';
                     });
-                }, 500);
+                }, 600);
             }
         }
 
@@ -1102,11 +1554,137 @@
             });
         }
 
-        // Info button alert
+        // Info button
         document.querySelectorAll('.info-btn').forEach(btn => {
             btn.addEventListener('click', () => {
-                alert('Подробная информация о скрипте скоро будет доступна!');
+                alert('📌 Подробная документация скоро будет доступна!\n\n💬 Присоединяйтесь к нашему Discord для получения полной информации о функциях скрипта.');
             });
+        });
+
+        // Пасхалка 4: Konami Code (↑ ↑ ↓ ↓ ← → ← → B A)
+        let konamiCode = [];
+        const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+        
+        document.addEventListener('keydown', (e) => {
+            konamiCode.push(e.key);
+            konamiCode = konamiCode.slice(-10);
+            
+            if (konamiCode.join('') === konamiSequence.join('')) {
+                document.getElementById('konamiEaster').classList.add('show');
+                setTimeout(() => {
+                    document.getElementById('konamiEaster').classList.remove('show');
+                }, 6000);
+            }
+        });
+
+        function closeKonami() {
+            document.getElementById('konamiEaster').classList.remove('show');
+        }
+
+        // Пасхалка 5: Клик на цифру 9 в углу code window
+        document.querySelector('.code-window').addEventListener('click', (e) => {
+            if (e.target === document.querySelector('.code-window')) {
+                const rect = e.target.getBoundingClientRect();
+                if (e.clientX > rect.right - 30 && e.clientY < rect.top + 30) {
+                    alert('🎉 Вы нашли скрытую цифру: 9');
+                }
+            }
+        });
+
+        // Пасхалка 6: Клик на красную точку окна
+        let redDotClicks = 0;
+        document.getElementById('redDot').addEventListener('click', () => {
+            redDotClicks++;
+            if (redDotClicks >= 5) {
+                alert('💥 BOOM! Вы нашли секрет красной кнопки!\n\nЦифра для PIN: 1');
+                redDotClicks = 0;
+            }
+        });
+
+        // Пасхалка 7: Клик на заголовок Featured Scripts
+        document.getElementById('sectionTitle').addEventListener('dblclick', () => {
+            alert('⭐ Двойной клик = двойная удача!\n\nЦифра PIN: 4');
+        });
+
+        // Пасхалка 8: Скрытая кнопка внизу
+        let hiddenBtnClicks = 0;
+        document.getElementById('hiddenBtn').addEventListener('click', () => {
+            hiddenBtnClicks++;
+            if (hiddenBtnClicks === 1) {
+                alert('👀 Вы нашли скрытую кнопку!\n\nПодсказка: ищите цифры по всему сайту...');
+            } else if (hiddenBtnClicks === 3) {
+                alert('🔢 Цифры PIN-кода:\n\n7 - в логотипе\n3 - в заголовке\n1 - во второй вкладке кода\n9 - в углу code window');
+            }
+        });
+
+        // Пасхалка 9: Клик на футер логотип
+        document.getElementById('footerLogo').addEventListener('click', () => {
+            alert('🌟 Спасибо, что используете BurmaldaUI!\n\n💚 Цифра для PIN: 5');
+        });
+
+        // Пасхалка 10: Удержание Shift + клик на Discord
+        document.getElementById('discordLink').addEventListener('click', (e) => {
+            if (e.shiftKey) {
+                e.preventDefault();
+                alert('🎮 SECRET DISCORD INVITE!\n\nЦифра PIN: 2');
+            }
+        });
+
+        // Пасхалка 11: Контекстное меню на Revolt ссылке
+        document.getElementById('revoltLink').addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+            alert('🚀 Секретный чит-код активирован!\n\nЦифра: 6');
+        });
+
+        // Пасхалка 12: Набор слова "burmalda" на клавиатуре
+        let typedWord = '';
+        document.addEventListener('keypress', (e) => {
+            typedWord += e.key.toLowerCase();
+            typedWord = typedWord.slice(-8);
+            
+            if (typedWord === 'burmalda') {
+                alert('🎊 ВЫ НАШЛИ СУПЕР СЕКРЕТ!\n\nПолный PIN-код: 7319\n\nТеперь откройте модальное окно (двойной клик на логотип) и введите его!');
+                typedWord = '';
+            }
+        });
+
+        // Пасхалка 13: Shake при нажатии ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.body.style.animation = 'shake 0.5s ease';
+                setTimeout(() => {
+                    document.body.style.animation = '';
+                }, 500);
+            }
+        });
+
+        // Пасхалка 14: Скролл до самого низа
+        let scrolledToBottom = false;
+        window.addEventListener('scroll', () => {
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 10 && !scrolledToBottom) {
+                scrolledToBottom = true;
+                setTimeout(() => {
+                    alert('🏆 Вы прокрутили до конца!\n\nПодсказка: PIN-код состоит из цифр, спрятанных по всему сайту.');
+                }, 500);
+            }
+        });
+
+        // Пасхалка 15: Быстрое нажатие пробела 5 раз
+        let spaceCount = 0;
+        let spaceTimer = null;
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space' && e.target.tagName !== 'INPUT') {
+                e.preventDefault();
+                spaceCount++;
+                
+                clearTimeout(spaceTimer);
+                spaceTimer = setTimeout(() => {
+                    if (spaceCount >= 5) {
+                        alert('⚡ ТУРБО РЕЖИМ АКТИВИРОВАН!\n\nЦифра PIN: 8');
+                    }
+                    spaceCount = 0;
+                }, 1000);
+            }
         });
     </script>
 </body>
