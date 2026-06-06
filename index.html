@@ -28,6 +28,7 @@
             color: var(--text-white);
             overflow-x: hidden;
             position: relative;
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><circle cx="10" cy="10" r="8" fill="%2300ff41" opacity="0.3"/></svg>'), auto;
         }
 
         /* Анимированный фон с матричным эффектом */
@@ -82,10 +83,29 @@
             font-family: 'JetBrains Mono', monospace;
             font-size: 20px;
             animation: fall linear infinite;
+            cursor: pointer;
+            pointer-events: all;
         }
 
         @keyframes fall {
             to { transform: translateY(100vh); }
+        }
+
+        /* Пасхалка 2: Скрытый курсор след */
+        .cursor-trail {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: var(--neon-green);
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0.5;
+            z-index: 9999;
+            animation: fadeOut 1s forwards;
+        }
+
+        @keyframes fadeOut {
+            to { opacity: 0; transform: scale(2); }
         }
 
         /* Header */
@@ -113,9 +133,10 @@
             transition: all 0.3s ease;
             text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
             position: relative;
+            user-select: none;
         }
 
-        /* Пасхалка 2: Скрытая цифра в логотипе (более заметная) */
+        /* Пасхалка 3: Скрытая цифра в логотипе */
         .logo::after {
             content: '7';
             position: absolute;
@@ -123,13 +144,13 @@
             top: -8px;
             font-size: 14px;
             color: var(--neon-green);
-            opacity: 0.15;
+            opacity: 0.2;
             animation: blink 3s ease-in-out infinite;
         }
 
         @keyframes blink {
-            0%, 100% { opacity: 0.15; }
-            50% { opacity: 0.4; }
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 0.5; }
         }
 
         .logo:hover {
@@ -137,7 +158,18 @@
             transform: scale(1.05);
         }
 
-        /* Пасхалка 3: Секретное сообщение при тройном клике на логотип */
+        /* Пасхалка 4: Easter egg при удержании логотипа */
+        .logo:active {
+            animation: shake 0.3s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        /* Пасхалка 5: Секретное сообщение при тройном клике на логотип */
         .secret-message {
             position: fixed;
             top: 50%;
@@ -151,6 +183,7 @@
             opacity: 0;
             transition: all 0.5s ease;
             box-shadow: 0 0 100px rgba(0, 255, 65, 0.8);
+            text-align: center;
         }
 
         .secret-message.show {
@@ -232,6 +265,7 @@
             text-transform: uppercase;
             letter-spacing: 3px;
             position: relative;
+            user-select: none;
         }
 
         @keyframes glow {
@@ -239,7 +273,7 @@
             50% { filter: drop-shadow(0 0 30px rgba(0, 255, 65, 0.8)); }
         }
 
-        /* Пасхалка 4: Скрытая цифра в заголовке (более заметная) */
+        /* Пасхалка 6: Скрытая цифра в заголовке */
         .hero h1::before {
             content: '3';
             position: absolute;
@@ -247,8 +281,22 @@
             top: 10px;
             font-size: 18px;
             color: var(--neon-green);
-            opacity: 0.2;
+            opacity: 0.25;
             animation: blink 2s ease-in-out infinite;
+        }
+
+        /* Пасхалка 7: Двойной клик на заголовок */
+        .hero h1:active {
+            animation: glitch 0.3s ease;
+        }
+
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-5px, 5px); }
+            40% { transform: translate(-5px, -5px); }
+            60% { transform: translate(5px, 5px); }
+            80% { transform: translate(5px, -5px); }
+            100% { transform: translate(0); }
         }
 
         @keyframes fadeInDown {
@@ -262,10 +310,10 @@
             }
         }
 
-        /* Code Editor Window */
+        /* Code Editor Window - УМЕНЬШЕННЫЙ РАЗМЕР */
         .code-window {
-            width: 90%;
-            max-width: 900px;
+            width: 85%;
+            max-width: 700px;
             background: rgba(5, 5, 5, 0.95);
             border-radius: 15px;
             overflow: hidden;
@@ -280,7 +328,7 @@
             50% { transform: translateY(-20px); }
         }
 
-        /* Пасхалка 5: Кликабельный уголок окна кода */
+        /* Пасхалка 8: Кликабельный уголок окна кода */
         .code-window::before {
             content: '9';
             position: absolute;
@@ -288,15 +336,20 @@
             top: 10px;
             font-size: 16px;
             color: var(--neon-green);
-            opacity: 0.25;
+            opacity: 0.3;
             cursor: pointer;
             z-index: 100;
             transition: all 0.3s ease;
         }
 
         .code-window::before:hover {
-            opacity: 0.6;
-            transform: scale(1.2);
+            opacity: 0.7;
+            transform: scale(1.3);
+        }
+
+        /* Пасхалка 9: Скрытая граница при наведении на окно */
+        .code-window:hover {
+            box-shadow: 0 40px 80px rgba(0, 255, 65, 0.6), 0 0 150px rgba(0, 255, 65, 0.4);
         }
 
         @keyframes fadeInUp {
@@ -312,7 +365,7 @@
 
         .window-header {
             background: rgba(10, 10, 10, 0.98);
-            padding: 15px 25px;
+            padding: 12px 20px;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -344,32 +397,42 @@
             box-shadow: 0 0 15px #ff4444;
         }
 
-        /* Пасхалка 6: Клик на красную точку */
+        /* Пасхалка 10: Клик на красную точку */
         .window-dot:nth-child(3):active {
             animation: explode 0.5s ease;
         }
 
         @keyframes explode {
             0% { transform: scale(1); }
-            50% { transform: scale(2); opacity: 0; }
+            50% { transform: scale(2.5); opacity: 0; }
             100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Пасхалка 11: Клик на желтую точку */
+        .window-dot:nth-child(2):active {
+            animation: spin 0.5s ease;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
         .code-tabs {
             display: flex;
-            gap: 15px;
-            padding: 15px 25px;
+            gap: 10px;
+            padding: 12px 20px;
             background: rgba(5, 5, 5, 0.98);
             border-bottom: 2px solid rgba(0, 255, 65, 0.3);
         }
 
         .code-tab {
-            padding: 10px 20px;
+            padding: 8px 16px;
             background: transparent;
             border: none;
             color: var(--text-gray);
             cursor: pointer;
-            font-size: 15px;
+            font-size: 13px;
             transition: all 0.4s ease;
             border-radius: 8px;
             position: relative;
@@ -377,7 +440,7 @@
             font-weight: 600;
         }
 
-        /* Пасхалка 7: Скрытая цифра во второй вкладке */
+        /* Пасхалка 12: Скрытая цифра во второй вкладке */
         .code-tab:nth-child(2)::after {
             content: '1';
             position: absolute;
@@ -385,7 +448,7 @@
             top: -6px;
             font-size: 14px;
             color: var(--neon-green);
-            opacity: 0.2;
+            opacity: 0.25;
             animation: blink 2.5s ease-in-out infinite;
         }
 
@@ -397,12 +460,12 @@
         }
 
         .code-content {
-            padding: 35px;
+            padding: 25px;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 15px;
-            line-height: 2;
+            font-size: 13px;
+            line-height: 1.8;
             background: rgba(0, 0, 0, 0.98);
-            min-height: 350px;
+            min-height: 250px;
             position: relative;
         }
 
@@ -435,9 +498,11 @@
             letter-spacing: 4px;
             text-shadow: 0 0 30px rgba(0, 255, 65, 0.5);
             position: relative;
+            cursor: pointer;
+            user-select: none;
         }
 
-        /* Пасхалка 8: Клик на заголовок секции */
+        /* Пасхалка 13: Клик на заголовок секции */
         .section-title::after {
             content: '4';
             position: absolute;
@@ -445,7 +510,7 @@
             top: 0;
             font-size: 20px;
             color: var(--neon-green);
-            opacity: 0.25;
+            opacity: 0.3;
             cursor: pointer;
         }
 
@@ -503,11 +568,22 @@
             font-family: 'Orbitron', sans-serif;
             letter-spacing: 1px;
             animation: pulse-badge 2s ease-in-out infinite;
+            cursor: pointer;
         }
 
         @keyframes pulse-badge {
             0%, 100% { box-shadow: 0 0 20px var(--neon-green); }
             50% { box-shadow: 0 0 40px var(--neon-green); }
+        }
+
+        /* Пасхалка 14: Клик на badge */
+        .badge:active {
+            animation: bounce 0.5s ease;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
         .script-card h3 {
@@ -519,7 +595,7 @@
             position: relative;
         }
 
-        /* Пасхалка 9: Скрытая цифра в названии первой карточки */
+        /* Пасхалка 15: Скрытая цифра в названии первой карточки */
         .script-card:first-child h3::before {
             content: '2';
             position: absolute;
@@ -527,7 +603,7 @@
             top: 5px;
             font-size: 16px;
             color: var(--neon-green);
-            opacity: 0.2;
+            opacity: 0.25;
             animation: blink 3s ease-in-out infinite;
         }
 
@@ -536,6 +612,16 @@
             margin-bottom: 30px;
             line-height: 1.8;
             font-size: 15px;
+        }
+
+        /* Пасхалка 16: Скрытая цифра в описании второй карточки */
+        .script-card:nth-child(2) p::after {
+            content: '6';
+            margin-left: 5px;
+            opacity: 0.25;
+            font-size: 14px;
+            color: var(--neon-green);
+            animation: blink 2s ease-in-out infinite;
         }
 
         .card-actions {
@@ -609,6 +695,13 @@
             margin-bottom: 15px;
             font-family: 'Orbitron', sans-serif;
             font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* Пасхалка 17: Клик на подзаголовок FAQ */
+        .faq-subtitle:hover {
+            text-shadow: 0 0 20px var(--neon-green);
+            letter-spacing: 5px;
         }
 
         .faq-title {
@@ -649,7 +742,7 @@
             position: relative;
         }
 
-        /* Пасхалка 10: Скрытая цифра в третьем вопросе */
+        /* Пасхалка 18: Скрытая цифра в третьем вопросе */
         .faq-item:nth-child(3) .faq-question::after {
             content: '8';
             position: absolute;
@@ -657,7 +750,7 @@
             top: 30px;
             font-size: 16px;
             color: var(--neon-green);
-            opacity: 0.2;
+            opacity: 0.25;
             animation: blink 2s ease-in-out infinite;
         }
 
@@ -724,14 +817,14 @@
             position: relative;
         }
 
-        /* Пасхалка 11: Скрытая цифра в футере */
+        /* Пасхалка 19: Скрытая цифра в футере */
         .footer-logo::before {
             content: '5';
             position: absolute;
             left: -20px;
             top: -10px;
             font-size: 16px;
-            opacity: 0.2;
+            opacity: 0.25;
             animation: blink 2.5s ease-in-out infinite;
         }
 
@@ -743,6 +836,12 @@
         .footer-copy {
             color: var(--text-gray);
             font-size: 14px;
+            cursor: pointer;
+        }
+
+        /* Пасхалка 20: Клик на копирайт */
+        .footer-copy:hover {
+            color: var(--neon-green);
         }
 
         .footer-socials h4 {
@@ -1020,7 +1119,7 @@
             border: 2px solid rgba(0, 255, 65, 0.3);
         }
 
-        /* Пасхалка 12: Konami Code активация */
+        /* Пасхалка 21: Konami Code активация */
         .konami-easter {
             position: fixed;
             top: 50%;
@@ -1050,15 +1149,15 @@
             text-shadow: 0 0 40px var(--neon-green);
         }
 
-        /* Пасхалка 13: Скрытая кнопка внизу страницы */
+        /* Пасхалка 22: Скрытая кнопка внизу страницы */
         .hidden-button {
             position: fixed;
             bottom: 20px;
             left: 20px;
-            width: 30px;
-            height: 30px;
-            background: rgba(0, 255, 65, 0.05);
-            border: 1px solid rgba(0, 255, 65, 0.1);
+            width: 35px;
+            height: 35px;
+            background: rgba(0, 255, 65, 0.08);
+            border: 2px solid rgba(0, 255, 65, 0.15);
             border-radius: 50%;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -1066,20 +1165,65 @@
         }
 
         .hidden-button:hover {
-            background: rgba(0, 255, 65, 0.3);
+            background: rgba(0, 255, 65, 0.4);
             border-color: var(--neon-green);
-            transform: scale(1.3);
+            transform: scale(1.5);
+            box-shadow: 0 0 40px var(--neon-green);
+        }
+
+        /* Пасхалка 23: Скрытый текст появляется при выделении */
+        .secret-text {
+            color: transparent;
+            user-select: all;
+        }
+
+        .secret-text::selection {
+            background: var(--neon-green);
+            color: var(--bg-black);
+        }
+
+        /* Пасхалка 24: Мини-игра "Найди меня" */
+        .mini-game-dot {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: var(--neon-green);
+            border-radius: 50%;
+            opacity: 0.3;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        .mini-game-dot:hover {
+            opacity: 1;
+            transform: scale(2);
             box-shadow: 0 0 30px var(--neon-green);
         }
 
-        /* Пасхалка 14: Цифра 6 в описании второй карточки */
-        .script-card:nth-child(2) p::after {
-            content: '6';
-            margin-left: 5px;
-            opacity: 0.2;
-            font-size: 14px;
-            color: var(--neon-green);
-            animation: blink 2s ease-in-out infinite;
+        /* Пасхалка 25: Анимированная граница при наведении */
+        .rainbow-border {
+            position: relative;
+        }
+
+        .rainbow-border::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            background: linear-gradient(45deg, var(--neon-green), #00ff00, var(--neon-green));
+            border-radius: inherit;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: -1;
+        }
+
+        .rainbow-border:hover::before {
+            opacity: 1;
+            animation: rotate-border 2s linear infinite;
+        }
+
+        @keyframes rotate-border {
+            to { transform: rotate(360deg); }
         }
 
         /* Responsive */
@@ -1144,12 +1288,12 @@
 
     <!-- Hero Section -->
     <section class="hero">
-        <h1>The Ultimate Luau Script Hub For Roblox.</h1>
+        <h1 id="mainTitle">The Ultimate Luau Script Hub For Roblox.</h1>
         
         <div class="code-window" id="codeWindow">
             <div class="window-header">
-                <div class="window-dot"></div>
-                <div class="window-dot"></div>
+                <div class="window-dot" id="greenDot"></div>
+                <div class="window-dot" id="yellowDot"></div>
                 <div class="window-dot" id="redDot"></div>
             </div>
             <div class="code-tabs">
@@ -1164,11 +1308,7 @@
                     <span class="code-line">))()</span>
                     <span class="code-line"></span>
                     <span class="code-line"><span class="comment">-- Инициализация интерфейса</span></span>
-                    <span class="code-line"><span class="variable">Library</span>:<span class="function">Init</span>({</span>
-                    <span class="code-line">    <span class="variable">game</span> = <span class="string">"Murder Mystery 2"</span>,</span>
-                    <span class="code-line">    <span class="variable">theme</span> = <span class="string">"neon-green"</span>,</span>
-                    <span class="code-line">    <span class="variable">features</span> = { <span class="string">"ESP"</span>, <span class="string">"Auto-Farm"</span>, <span class="string">"Kill-Aura"</span> }</span>
-                    <span class="code-line">})</span>
+                    <span class="code-line"><span class="variable">Library</span>:<span class="function">Init</span>({ <span class="variable">theme</span> = <span class="string">"neon-green"</span> })</span>
                     <span class="code-line"></span>
                     <span class="code-line"><span class="function">print</span>(<span class="string">"✓ BurmaldaMellstroy UI MM2 загружен!"</span>)</span>
                 </div>
@@ -1179,11 +1319,7 @@
                     <span class="code-line">))()</span>
                     <span class="code-line"></span>
                     <span class="code-line"><span class="comment">-- Работает на любой игре Roblox</span></span>
-                    <span class="code-line"><span class="variable">Universal</span>:<span class="function">Start</span>({</span>
-                    <span class="code-line">    <span class="variable">autoDetect</span> = <span class="keyword">true</span>,</span>
-                    <span class="code-line">    <span class="variable">mode</span> = <span class="string">"universal"</span>,</span>
-                    <span class="code-line">    <span class="variable">ui</span> = <span class="string">"modern-green"</span></span>
-                    <span class="code-line">})</span>
+                    <span class="code-line"><span class="variable">Universal</span>:<span class="function">Start</span>({ <span class="variable">mode</span> = <span class="string">"universal"</span> })</span>
                     <span class="code-line"></span>
                     <span class="code-line"><span class="function">warn</span>(<span class="string">"⚡ Универсальный скрипт активирован!"</span>)</span>
                 </div>
@@ -1193,14 +1329,14 @@
 
     <!-- Scripts Store Section -->
     <section class="scripts-section" id="scripts">
-        <h2 class="section-title" id="sectionTitle">Featured Scripts</h2>
+        <h2 class="section-title rainbow-border" id="sectionTitle">Featured Scripts</h2>
         
         <div class="scripts-grid">
             <!-- BurmaldaMellstroy UI MM2 Card -->
             <div class="script-card">
-                <span class="badge">[ALWAYS UNPATCHED]</span>
+                <span class="badge" id="badge1">[ALWAYS UNPATCHED]</span>
                 <h3>BurmaldaMellstroy UI MM2</h3>
-                <p>Профессиональный скрипт для Murder Mystery 2. Включает ESP убийцы и шерифа, Auto-Farm монет, Kill-Aura, Teleport и более 40 эксклюзивных функций.</p>
+                <p>Профессиональный скрипт для Murder Mystery 2. Включает ESP убийцы и шерифа, Auto-Farm монет, Kill-Aura, Teleport и более 40 эксклюзивных функций. <span class="secret-text">Секретный код: BURMALDA2024</span></p>
                 <div class="card-actions">
                     <button class="btn copy-btn" data-script="mm2">Copy Script</button>
                     <button class="btn info-btn">Info</button>
@@ -1209,7 +1345,7 @@
 
             <!-- BurmaldaMellstroy UNIVERSAL Card -->
             <div class="script-card">
-                <span class="badge">[ALWAYS UNPATCHED]</span>
+                <span class="badge" id="badge2">[ALWAYS UNPATCHED]</span>
                 <h3>BurmaldaMellstroy UNIVERSAL</h3>
                 <p>Легендарный универсальный скрипт для ВСЕХ игр Roblox. Fly, Noclip, Speed, Jump Power, Infinite Jump, ESP и куча других фишек. Работает везде!</p>
                 <div class="card-actions">
@@ -1223,7 +1359,7 @@
     <!-- FAQ Section -->
     <section class="faq-section">
         <div class="faq-header">
-            <p class="faq-subtitle">We've got you covered</p>
+            <p class="faq-subtitle" id="faqSubtitle">We've got you covered</p>
             <h2 class="faq-title">Frequently Asked Questions</h2>
         </div>
 
@@ -1281,8 +1417,8 @@
     <!-- Footer -->
     <footer>
         <div class="footer-content">
-            <div class="footer-logo" id="footerLogo">BURMALDA<span style="color: var(--text-white);">UI</span>.</div>
-            <div class="footer-copy">Copyright © BurmaldaUI Softworks. All rights reserved.</div>
+            <div class="footer-logo rainbow-border" id="footerLogo">BURMALDA<span style="color: var(--text-white);">UI</span>.</div>
+            <div class="footer-copy" id="footerCopy">Copyright © BurmaldaUI Softworks. All rights reserved.</div>
             <div class="footer-socials">
                 <h4>Socials</h4>
                 <div class="social-links">
@@ -1341,7 +1477,7 @@
         </div>
     </div>
 
-    <!-- Secret Message Modal (Пасхалка при тройном клике на лого) -->
+    <!-- Secret Message Modal -->
     <div class="secret-message" id="secretMessage">
         <h2>🎊 СЕКРЕТНОЕ ПОСЛАНИЕ!</h2>
         <p style="color: var(--text-gray); margin-bottom: 20px;">Вы нашли скрытую пасхалку! Цифра PIN-кода: <span style="color: var(--neon-green); font-size: 24px; font-weight: 900;">0</span></p>
@@ -1355,8 +1491,15 @@
         <button class="btn" onclick="closeKonami()">Awesome!</button>
     </div>
 
-    <!-- Hidden Button (Пасхалка) -->
-    <div class="hidden-button" id="hiddenBtn" title="Найди остальные цифры!"></div>
+    <!-- Hidden Button -->
+    <div class="hidden-button" id="hiddenBtn" title="🎯 Найди остальные цифры!"></div>
+
+    <!-- Mini Game Dots (5 скрытых точек) -->
+    <div class="mini-game-dot" id="dot1" style="top: 25%; left: 5%;"></div>
+    <div class="mini-game-dot" id="dot2" style="top: 50%; right: 10%;"></div>
+    <div class="mini-game-dot" id="dot3" style="bottom: 30%; left: 15%;"></div>
+    <div class="mini-game-dot" id="dot4" style="top: 70%; right: 5%;"></div>
+    <div class="mini-game-dot" id="dot5" style="bottom: 15%; left: 50%;"></div>
 
     <script>
         // Scripts data с РЕАЛЬНЫМИ ссылками
@@ -1365,10 +1508,10 @@
             universal: `loadstring(game:HttpGet("https://raw.githubusercontent.com/Fl7ing/RobloxUITest/refs/heads/main/BurmaldaMellstroyUNIVERSAL"))()`
         };
 
-        // Пасхалка 1: Матричный дождь
+        // Пасхалка 1: Матричный дождь с кликабельными символами
         function createMatrixRain() {
             const matrixRain = document.getElementById('matrixRain');
-            const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+            const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン7319';
             
             for (let i = 0; i < 50; i++) {
                 const char = document.createElement('div');
@@ -1377,10 +1520,42 @@
                 char.style.left = Math.random() * 100 + '%';
                 char.style.animationDuration = (Math.random() * 3 + 2) + 's';
                 char.style.animationDelay = Math.random() * 5 + 's';
+                
+                // Клик на символ матрицы
+                char.addEventListener('click', () => {
+                    if (char.textContent === '7' || char.textContent === '3' || char.textContent === '1' || char.textContent === '9') {
+                        alert(`🎯 Вы поймали цифру: ${char.textContent}!`);
+                    }
+                });
+                
                 matrixRain.appendChild(char);
             }
         }
         createMatrixRain();
+
+        // Пасхалка 2: Курсор с эффектом следа
+        let cursorTrailEnabled = false;
+        document.addEventListener('mousemove', (e) => {
+            if (cursorTrailEnabled) {
+                const trail = document.createElement('div');
+                trail.className = 'cursor-trail';
+                trail.style.left = e.pageX + 'px';
+                trail.style.top = e.pageY + 'px';
+                document.body.appendChild(trail);
+                
+                setTimeout(() => trail.remove(), 1000);
+            }
+        });
+
+        // Активация следа курсора через нажатие 'T'
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 't' || e.key === 'T') {
+                cursorTrailEnabled = !cursorTrailEnabled;
+                if (cursorTrailEnabled) {
+                    alert('✨ Эффект следа курсора активирован!');
+                }
+            }
+        });
 
         // Copy script functionality
         document.querySelectorAll('.copy-btn').forEach(btn => {
@@ -1439,13 +1614,13 @@
         });
 
         // PIN Modal System
-        const correctPIN = '7319'; // Цифры: 7, 3, 1, 9
+        const correctPIN = '7319';
         let currentPIN = '';
         const pinModal = document.getElementById('pinModal');
         const pinDots = document.querySelectorAll('.pin-dot');
         const secretScript = document.getElementById('secretScript');
 
-        // Пасхалка 2: Открытие PIN modal на двойной клик логотипа
+        // Пасхалка 3: Открытие PIN modal на двойной клик логотипа
         let logoClickCount = 0;
         let logoClickTimer = null;
         document.getElementById('logo').addEventListener('click', function() {
@@ -1461,7 +1636,7 @@
             }
         });
 
-        // Пасхалка 3: Секретное сообщение при тройном клике на логотип
+        // Пасхалка 4: Секретное сообщение при тройном клике на логотип
         let tripleClickCount = 0;
         let tripleClickTimer = null;
         document.getElementById('logo').addEventListener('click', function() {
@@ -1515,7 +1690,6 @@
                     showToast();
                 }, 300);
             } else {
-                // Wrong PIN animation
                 pinDots.forEach(dot => {
                     dot.style.borderColor = '#ff4444';
                     dot.style.background = '#ff4444';
@@ -1531,14 +1705,12 @@
             }
         }
 
-        // Clear PIN
         document.querySelector('.pin-clear').addEventListener('click', () => {
             currentPIN = '';
             updatePinDisplay();
             secretScript.classList.remove('show');
         });
 
-        // Close modal
         document.querySelector('.pin-close').addEventListener('click', () => {
             pinModal.classList.remove('show');
             currentPIN = '';
@@ -1546,7 +1718,6 @@
             secretScript.classList.remove('show');
         });
 
-        // Copy secret script
         function copySecretScript() {
             const secretCode = `loadstring(game:HttpGet('https://raw.githubusercontent.com/PidorasGandon/SUICommon/refs/heads/main/SUIcommon'))()`;
             navigator.clipboard.writeText(secretCode).then(() => {
@@ -1561,7 +1732,7 @@
             });
         });
 
-        // Пасхалка 4: Konami Code (↑ ↑ ↓ ↓ ← → ← → B A)
+        // Пасхалка 5: Konami Code (↑ ↑ ↓ ↓ ← → ← → B A)
         let konamiCode = [];
         const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
         
@@ -1581,17 +1752,15 @@
             document.getElementById('konamiEaster').classList.remove('show');
         }
 
-        // Пасхалка 5: Клик на цифру 9 в углу code window
-        document.querySelector('.code-window').addEventListener('click', (e) => {
-            if (e.target === document.querySelector('.code-window')) {
-                const rect = e.target.getBoundingClientRect();
-                if (e.clientX > rect.right - 30 && e.clientY < rect.top + 30) {
-                    alert('🎉 Вы нашли скрытую цифру: 9');
-                }
+        // Пасхалка 6: Клик на цифру 9 в углу code window
+        document.getElementById('codeWindow').addEventListener('click', (e) => {
+            const rect = e.currentTarget.getBoundingClientRect();
+            if (e.clientX > rect.right - 30 && e.clientY < rect.top + 30) {
+                alert('🎉 Вы нашли скрытую цифру: 9');
             }
         });
 
-        // Пасхалка 6: Клик на красную точку окна
+        // Пасхалка 7: Клик на красную точку окна (5 раз)
         let redDotClicks = 0;
         document.getElementById('redDot').addEventListener('click', () => {
             redDotClicks++;
@@ -1601,12 +1770,22 @@
             }
         });
 
-        // Пасхалка 7: Клик на заголовок Featured Scripts
+        // Пасхалка 8: Клик на желтую точку (вращение)
+        let yellowDotClicks = 0;
+        document.getElementById('yellowDot').addEventListener('click', () => {
+            yellowDotClicks++;
+            if (yellowDotClicks === 3) {
+                alert('🌟 Желтая точка говорит: ищите цифры повсюду!');
+                yellowDotClicks = 0;
+            }
+        });
+
+        // Пасхалка 9: Двойной клик на заголовок Featured Scripts
         document.getElementById('sectionTitle').addEventListener('dblclick', () => {
             alert('⭐ Двойной клик = двойная удача!\n\nЦифра PIN: 4');
         });
 
-        // Пасхалка 8: Скрытая кнопка внизу
+        // Пасхалка 10: Скрытая кнопка внизу
         let hiddenBtnClicks = 0;
         document.getElementById('hiddenBtn').addEventListener('click', () => {
             hiddenBtnClicks++;
@@ -1617,12 +1796,17 @@
             }
         });
 
-        // Пасхалка 9: Клик на футер логотип
+        // Пасхалка 11: Клик на футер логотип
+        let footerLogoClicks = 0;
         document.getElementById('footerLogo').addEventListener('click', () => {
-            alert('🌟 Спасибо, что используете BurmaldaUI!\n\n💚 Цифра для PIN: 5');
+            footerLogoClicks++;
+            if (footerLogoClicks === 2) {
+                alert('🌟 Спасибо, что используете BurmaldaUI!\n\n💚 Цифра для PIN: 5');
+                footerLogoClicks = 0;
+            }
         });
 
-        // Пасхалка 10: Удержание Shift + клик на Discord
+        // Пасхалка 12: Удержание Shift + клик на Discord
         document.getElementById('discordLink').addEventListener('click', (e) => {
             if (e.shiftKey) {
                 e.preventDefault();
@@ -1630,13 +1814,13 @@
             }
         });
 
-        // Пасхалка 11: Контекстное меню на Revolt ссылке
+        // Пасхалка 13: Контекстное меню на Revolt ссылке
         document.getElementById('revoltLink').addEventListener('contextmenu', (e) => {
             e.preventDefault();
             alert('🚀 Секретный чит-код активирован!\n\nЦифра: 6');
         });
 
-        // Пасхалка 12: Набор слова "burmalda" на клавиатуре
+        // Пасхалка 14: Набор слова "burmalda" на клавиатуре
         let typedWord = '';
         document.addEventListener('keypress', (e) => {
             typedWord += e.key.toLowerCase();
@@ -1648,7 +1832,7 @@
             }
         });
 
-        // Пасхалка 13: Shake при нажатии ESC
+        // Пасхалка 15: Shake при нажатии ESC
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 document.body.style.animation = 'shake 0.5s ease';
@@ -1658,7 +1842,7 @@
             }
         });
 
-        // Пасхалка 14: Скролл до самого низа
+        // Пасхалка 16: Скролл до самого низа
         let scrolledToBottom = false;
         window.addEventListener('scroll', () => {
             if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 10 && !scrolledToBottom) {
@@ -1669,7 +1853,7 @@
             }
         });
 
-        // Пасхалка 15: Быстрое нажатие пробела 5 раз
+        // Пасхалка 17: Быстрое нажатие пробела 5 раз
         let spaceCount = 0;
         let spaceTimer = null;
         document.addEventListener('keydown', (e) => {
@@ -1686,6 +1870,118 @@
                 }, 1000);
             }
         });
+
+        // Пасхалка 18: Клик на подзаголовок FAQ 3 раза
+        let faqSubtitleClicks = 0;
+        document.getElementById('faqSubtitle').addEventListener('click', () => {
+            faqSubtitleClicks++;
+            if (faqSubtitleClicks === 3) {
+                alert('📚 Вы настойчивы! Вот подсказка:\n\nНажмите Ctrl+U для просмотра исходного кода 😉');
+                faqSubtitleClicks = 0;
+            }
+        });
+
+        // Пасхалка 19: Двойной клик на главный заголовок
+        let titleDblClick = 0;
+        document.getElementById('mainTitle').addEventListener('dblclick', () => {
+            titleDblClick++;
+            if (titleDblClick === 1) {
+                alert('💎 GLITCH EFFECT!\n\nСекретная информация: все цифры PIN находятся на этой странице!');
+                titleDblClick = 0;
+            }
+        });
+
+        // Пасхалка 20: Клик на копирайт футера
+        let copyrightClicks = 0;
+        document.getElementById('footerCopy').addEventListener('click', () => {
+            copyrightClicks++;
+            if (copyrightClicks === 5) {
+                alert('©️ Спасибо за уважение к копирайту!\n\nБонус: попробуйте набрать "secret" на клавиатуре');
+                copyrightClicks = 0;
+            }
+        });
+
+        // Пасхалка 21: Клик на бейджи карточек
+        let badgeClickCount = 0;
+        document.getElementById('badge1').addEventListener('click', () => {
+            badgeClickCount++;
+            if (badgeClickCount === 3) {
+                alert('🏅 Бейдж раскрыл секрет:\n\nВсе скрипты действительно ALWAYS UNPATCHED!');
+                badgeClickCount = 0;
+            }
+        });
+
+        document.getElementById('badge2').addEventListener('click', () => {
+            alert('🎖️ Универсальный бейдж говорит:\n\nПопробуйте кликнуть на скрытые точки на странице!');
+        });
+
+        // Пасхалка 22-26: Мини-игра со скрытыми точками
+        let dotsFound = 0;
+        const totalDots = 5;
+        
+        for (let i = 1; i <= totalDots; i++) {
+            document.getElementById(`dot${i}`).addEventListener('click', function() {
+                this.style.display = 'none';
+                dotsFound++;
+                
+                if (dotsFound === totalDots) {
+                    alert('🎯 ПОЗДРАВЛЯЕМ!\n\nВы нашли все 5 скрытых точек!\n\nБонус код: MASTER7319');
+                    dotsFound = 0;
+                    // Показываем точки снова
+                    for (let j = 1; j <= totalDots; j++) {
+                        document.getElementById(`dot${j}`).style.display = 'block';
+                    }
+                } else {
+                    alert(`🎯 Точка ${dotsFound}/5 найдена!`);
+                }
+            });
+        }
+
+        // Пасхалка 27: Набор слова "secret"
+        let secretWord = '';
+        document.addEventListener('keypress', (e) => {
+            secretWord += e.key.toLowerCase();
+            secretWord = secretWord.slice(-6);
+            
+            if (secretWord === 'secret') {
+                alert('🔐 СЕКРЕТНЫЙ КОД АКТИВИРОВАН!\n\nДоступ к скрытым функциям получен!\nPIN: 7319');
+                secretWord = '';
+            }
+        });
+
+        // Пасхалка 28: Удержание логотипа 3 секунды
+        let logoHoldTimer = null;
+        document.getElementById('logo').addEventListener('mousedown', () => {
+            logoHoldTimer = setTimeout(() => {
+                alert('🎭 ВЫ РАЗБЛОКИРОВАЛИ ПАСХАЛКУ!\n\nУдерживайте разные элементы для поиска секретов!');
+            }, 3000);
+        });
+        
+        document.getElementById('logo').addEventListener('mouseup', () => {
+            clearTimeout(logoHoldTimer);
+        });
+
+        // Пасхалка 29: Клик на зеленую точку окна 10 раз
+        let greenDotClicks = 0;
+        document.getElementById('greenDot').addEventListener('click', () => {
+            greenDotClicks++;
+            if (greenDotClicks === 10) {
+                alert('💚 ЗЕЛЕНАЯ ТОЧКА ГОВОРИТ:\n\nВсе цифры PIN подсвечиваются зеленым!');
+                greenDotClicks = 0;
+            }
+        });
+
+        // Пасхалка 30: Комбинация клавиш Ctrl+Shift+B
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.shiftKey && e.key === 'B') {
+                e.preventDefault();
+                alert('🎪 СУПЕР КОМБО!\n\nВы разблокировали чит-код!\nУчите PIN: 7-3-1-9');
+            }
+        });
+
+        console.log('%c🎮 DEVELOPER EASTER EGG!', 'color: #00ff41; font-size: 20px; font-weight: bold;');
+        console.log('%cПопробуйте найти все 30+ пасхалок на сайте!', 'color: #00ff41; font-size: 14px;');
+        console.log('%cPIN-код: 7319', 'color: #00ff41; font-size: 16px; font-weight: bold;');
     </script>
 </body>
 </html>
