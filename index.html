@@ -126,7 +126,7 @@
 
         /* Пасхалка 4: Цифра PIN в лого */
         .logo::after {
-            content: '4';
+            content: '3';
             position: absolute;
             right: -18px;
             top: -5px;
@@ -218,7 +218,7 @@
 
         /* Пасхалка 6: Цифра PIN в заголовке */
         .hero h1::before {
-            content: '8';
+            content: '1';
             position: absolute;
             left: -25px;
             top: 5px;
@@ -295,7 +295,7 @@
 
         /* Пасхалка 9: Цифра PIN в углу окна */
         .code-window::before {
-            content: '2';
+            content: '7';
             position: absolute;
             right: 8px;
             top: 8px;
@@ -380,6 +380,7 @@
             padding: 8px 15px;
             background: rgba(5, 5, 5, 0.98);
             border-bottom: 1px solid var(--border-glow);
+            overflow-x: auto;
         }
 
         .code-tab {
@@ -394,11 +395,12 @@
             position: relative;
             font-family: 'Fira Code', monospace;
             font-weight: 500;
+            white-space: nowrap;
         }
 
         /* Пасхалка 12: Цифра PIN во второй вкладке */
         .code-tab:nth-child(2)::after {
-            content: '7';
+            content: '9';
             position: absolute;
             right: -10px;
             top: -4px;
@@ -406,6 +408,18 @@
             color: var(--neon-green);
             opacity: 0.3;
             animation: blinkFast 2s ease-in-out infinite;
+        }
+
+        /* Пасхалка 13: Скрытый символ в третьей вкладке */
+        .code-tab:nth-child(3)::before {
+            content: '★';
+            position: absolute;
+            left: -12px;
+            top: 4px;
+            font-size: 10px;
+            color: var(--cyber-green);
+            opacity: 0.2;
+            animation: blinkSlow 3s ease-in-out infinite;
         }
 
         .code-tab.active {
@@ -456,9 +470,9 @@
             cursor: pointer;
         }
 
-        /* Пасхалка 13: Цифра PIN в заголовке секции */
+        /* Пасхалка 14: Цифра PIN в заголовке секции */
         .section-title::after {
-            content: '1';
+            content: '5';
             position: absolute;
             right: -35px;
             top: 0;
@@ -468,7 +482,7 @@
             cursor: pointer;
         }
 
-        /* Пасхалка 14: Скрытое сообщение */
+        /* Пасхалка 15: Скрытое сообщение */
         .section-title::before {
             content: '[SCRIPTS_LOADED]';
             position: absolute;
@@ -483,9 +497,9 @@
 
         .scripts-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 0 auto;
         }
 
@@ -500,7 +514,7 @@
             overflow: hidden;
         }
 
-        /* Пасхалка 15: Анимированная граница при наведении */
+        /* Пасхалка 16: Анимированная граница при наведении */
         .script-card::before {
             content: '';
             position: absolute;
@@ -550,7 +564,7 @@
             50% { box-shadow: 0 0 30px var(--neon-green); }
         }
 
-        /* Пасхалка 16: Анимация при клике на badge */
+        /* Пасхалка 17: Анимация при клике на badge */
         .badge:active {
             animation: bounce 0.4s ease;
         }
@@ -569,9 +583,9 @@
             position: relative;
         }
 
-        /* Пасхалка 17: Цифра PIN в первой карточке */
+        /* Пасхалка 18: Цифра PIN в первой карточке */
         .script-card:first-child h3::before {
-            content: '5';
+            content: '8';
             position: absolute;
             left: -20px;
             top: 3px;
@@ -581,7 +595,7 @@
             animation: blinkFast 3s ease-in-out infinite;
         }
 
-        /* Пасхалка 18: Скрытый символ во второй карточке */
+        /* Пасхалка 19: Скрытый символ во второй карточке */
         .script-card:nth-child(2) h3::after {
             content: '█';
             margin-left: 8px;
@@ -591,6 +605,18 @@
             animation: blinkSlow 4s ease-in-out infinite;
         }
 
+        /* Пасхалка 20: Скрытая цифра в третьей карточке */
+        .script-card:nth-child(3) h3::before {
+            content: '2';
+            position: absolute;
+            left: -20px;
+            top: 3px;
+            font-size: 14px;
+            color: var(--neon-green);
+            opacity: 0.3;
+            animation: blinkFast 2.8s ease-in-out infinite;
+        }
+
         .script-card p {
             color: var(--text-gray);
             margin-bottom: 20px;
@@ -598,9 +624,9 @@
             font-size: 13px;
         }
 
-        /* Пасхалка 19: Цифра PIN в описании */
+        /* Пасхалка 21: Цифра PIN в описании второй карточки */
         .script-card:nth-child(2) p::after {
-            content: '9';
+            content: '4';
             margin-left: 4px;
             opacity: 0.3;
             font-size: 12px;
@@ -679,7 +705,7 @@
             cursor: pointer;
         }
 
-        /* Пасхалка 20: Hover эффект на подзаголовок */
+        /* Пасхалка 22: Hover эффект на подзаголовок */
         .faq-subtitle:hover {
             text-shadow: 0 0 20px var(--neon-green);
             letter-spacing: 4px;
@@ -696,9 +722,9 @@
             position: relative;
         }
 
-        /* Пасхалка 21: Скрытая цифра в FAQ title */
+        /* Пасхалка 23: Скрытая цифра в FAQ title */
         .faq-title::before {
-            content: '3';
+            content: '6';
             position: absolute;
             left: -25px;
             top: 5px;
@@ -736,9 +762,9 @@
             position: relative;
         }
 
-        /* Пасхалка 22: Цифра PIN в третьем вопросе */
+        /* Пасхалка 24: Цифра PIN в третьем вопросе */
         .faq-item:nth-child(3) .faq-question::after {
-            content: '6';
+            content: '0';
             position: absolute;
             right: 50px;
             top: 20px;
@@ -810,17 +836,6 @@
             cursor: pointer;
             transition: all 0.3s ease;
             position: relative;
-        }
-
-        /* Пасхалка 23: Цифра PIN в футере */
-        .footer-logo::before {
-            content: '0';
-            position: absolute;
-            left: -18px;
-            top: -8px;
-            font-size: 14px;
-            opacity: 0.3;
-            animation: blinkFast 2.5s ease-in-out infinite;
         }
 
         .footer-logo:hover {
@@ -1116,7 +1131,7 @@
             font-size: 11px;
         }
 
-        /* Пасхалка 24: Konami Easter Egg */
+        /* Пасхалка 25: Konami Easter Egg */
         .konami-easter {
             position: fixed;
             top: 50%;
@@ -1146,7 +1161,7 @@
             text-shadow: 0 0 30px var(--neon-green);
         }
 
-        /* Пасхалка 25-29: Скрытые точки мини-игры */
+        /* Пасхалка 26-30: Скрытые точки мини-игры */
         .mini-dot {
             position: fixed;
             width: 8px;
@@ -1166,7 +1181,7 @@
             box-shadow: 0 0 25px var(--neon-green);
         }
 
-        /* Пасхалка 30: Секретный текст */
+        /* Пасхалка 31: Секретный текст */
         .secret-text {
             color: transparent;
             user-select: all;
@@ -1177,7 +1192,7 @@
             color: var(--bg-black);
         }
 
-        /* Пасхалка 31: Скрытая кнопка */
+        /* Пасхалка 32: Скрытая кнопка */
         .hidden-btn {
             position: fixed;
             bottom: 15px;
@@ -1199,7 +1214,7 @@
             box-shadow: 0 0 35px var(--neon-green);
         }
 
-        /* Пасхалка 32: Анимированный курсор след */
+        /* Пасхалка 33: Анимированный курсор след */
         .cursor-trail {
             position: fixed;
             width: 8px;
@@ -1254,6 +1269,10 @@
             .section-title {
                 font-size: 28px;
             }
+
+            .code-tabs {
+                overflow-x: scroll;
+            }
         }
     </style>
 </head>
@@ -1281,6 +1300,7 @@
             <div class="code-tabs">
                 <button class="code-tab active" data-tab="script1">MM2.lua</button>
                 <button class="code-tab" data-tab="script2">UNIVERSAL.lua</button>
+                <button class="code-tab" data-tab="script3">TESTFUNC.lua</button>
             </div>
             <div class="code-content">
                 <div class="code-tab-content active" id="script1">
@@ -1300,6 +1320,15 @@
                     <span class="code-line"></span>
                     <span class="code-line"><span class="variable">universal</span>:<span class="function">Start</span>()</span>
                     <span class="code-line"><span class="function">warn</span>(<span class="string">"[OK] Active"</span>)</span>
+                </div>
+                <div class="code-tab-content" id="script3" style="display: none;">
+                    <span class="code-line"><span class="comment">-- Test Functions Script</span></span>
+                    <span class="code-line"><span class="keyword">local</span> <span class="variable">testFunc</span> = <span class="function">loadstring</span>(<span class="function">game</span>:<span class="function">HttpGet</span>(</span>
+                    <span class="code-line">  <span class="string">"https://raw.githubusercontent.com/PidorasGandon/SUICommon/refs/heads/main/BurmaldaTESTFUNC"</span></span>
+                    <span class="code-line">))()</span>
+                    <span class="code-line"></span>
+                    <span class="code-line"><span class="variable">testFunc</span>:<span class="function">Execute</span>()</span>
+                    <span class="code-line"><span class="function">print</span>(<span class="string">"[TEST] Running"</span>)</span>
                 </div>
             </div>
         </div>
@@ -1328,6 +1357,17 @@
                 <p>Works on ALL Roblox games. Fly, Noclip, Speed, Jump, ESP and tons of features. Ultimate freedom!</p>
                 <div class="card-actions">
                     <button class="btn copy-btn" data-script="universal">COPY</button>
+                    <button class="btn info-btn">INFO</button>
+                </div>
+            </div>
+
+            <!-- TEST FUNCTIONS Card -->
+            <div class="script-card">
+                <span class="badge" id="badge3">[BETA]</span>
+                <h3>Test Functions</h3>
+                <p>Experimental script with new features and functions. Debug mode, advanced testing tools and developer utilities. <span class="secret-text">BETA_ACCESS</span></p>
+                <div class="card-actions">
+                    <button class="btn copy-btn" data-script="testfunc">COPY</button>
                     <button class="btn info-btn">INFO</button>
                 </div>
             </div>
@@ -1378,6 +1418,16 @@
             </div>
             <div class="faq-answer">
                 100% FREE! No subscriptions, no payments. Just choose, copy and use. Clean content only!
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>What is Test Functions script?</span>
+                <span class="faq-arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+                BETA script with experimental features for developers and advanced users. Includes debugging tools, performance monitors and testing utilities.
             </div>
         </div>
     </section>
@@ -1439,7 +1489,7 @@
 
             <div class="secret-script" id="secretScript">
                 <h3>🎉 UNLOCKED!</h3>
-                <code>loadstring(game:HttpGet('https://raw.githubusercontent.com/PidorasGandon/SUICommon/refs/heads/main/NexusHUB'))()</code>
+                <code>loadstring(game:HttpGet('https://raw.githubusercontent.com/PidorasGandon/SUICommon/refs/heads/main/SUIcommon'))()</code>
                 <button class="btn" onclick="copySecretScript()" style="width: 100%;">COPY SECRET</button>
             </div>
         </div>
@@ -1448,7 +1498,7 @@
     <!-- Konami Easter Egg -->
     <div class="konami-easter" id="konami">
         <h2>🎮 KONAMI!</h2>
-        <p style="color: var(--text-gray); font-size: 16px; margin-bottom: 15px;">PIN: <span style="color: var(--neon-green); font-size: 28px; font-weight: 900;">4279</span></p>
+        <p style="color: var(--text-gray); font-size: 16px; margin-bottom: 15px;">PIN: <span style="color: var(--neon-green); font-size: 28px; font-weight: 900;">31794</span></p>
         <button class="btn" onclick="closeKonami()">OK</button>
     </div>
 
@@ -1463,10 +1513,11 @@
     <div class="hidden-btn" id="hiddenBtn" title="Find the secrets!"></div>
 
     <script>
-        // Scripts
+        // Scripts - ДОБАВЛЕН ТРЕТИЙ СКРИПТ
         const scripts = {
             mm2: `loadstring(game:HttpGet("https://raw.githubusercontent.com/Fl7ing/RobloxUITest/refs/heads/main/BurmaldaMellstroyUIMM2"))()`,
-            universal: `loadstring(game:HttpGet("https://raw.githubusercontent.com/Fl7ing/RobloxUITest/refs/heads/main/BurmaldaMellstroyUNIVERSAL"))()`
+            universal: `loadstring(game:HttpGet("https://raw.githubusercontent.com/Fl7ing/RobloxUITest/refs/heads/main/BurmaldaMellstroyUNIVERSAL"))()`,
+            testfunc: `loadstring(game:HttpGet('https://raw.githubusercontent.com/PidorasGandon/SUICommon/refs/heads/main/BurmaldaTESTFUNC'))()`
         };
 
         // Пасхалка 1: Частицы
@@ -1527,12 +1578,19 @@
             document.getElementById('scripts').scrollIntoView({ behavior: 'smooth' });
         });
 
-        // PIN System
-        const correctPIN = '4279';
+        // PIN System - ОБНОВЛЕН КОД (5 ЦИФР)
+        const correctPIN = '31794';
         let currentPIN = '';
         const pinModal = document.getElementById('pinModal');
         const pinDots = document.querySelectorAll('.pin-dot');
         const secretScript = document.getElementById('secretScript');
+
+        // Создаем 5-ю точку для PIN
+        const pinDisplay = document.querySelector('.pin-display');
+        const fifthDot = document.createElement('div');
+        fifthDot.className = 'pin-dot';
+        pinDisplay.appendChild(fifthDot);
+        const allPinDots = document.querySelectorAll('.pin-dot');
 
         // Пасхалка 2: Двойной клик лого
         let logoClicks = 0;
@@ -1548,16 +1606,16 @@
         // PIN keypad
         document.querySelectorAll('.pin-key').forEach(key => {
             key.addEventListener('click', function() {
-                if (currentPIN.length < 4) {
+                if (currentPIN.length < 5) {
                     currentPIN += this.dataset.key;
                     updatePinDisplay();
-                    if (currentPIN.length === 4) checkPIN();
+                    if (currentPIN.length === 5) checkPIN();
                 }
             });
         });
 
         function updatePinDisplay() {
-            pinDots.forEach((dot, index) => {
+            allPinDots.forEach((dot, index) => {
                 if (index < currentPIN.length) {
                     dot.classList.add('filled');
                 } else {
@@ -1571,14 +1629,14 @@
                 secretScript.classList.add('show');
                 setTimeout(() => showToast(), 300);
             } else {
-                pinDots.forEach(dot => {
+                allPinDots.forEach(dot => {
                     dot.style.borderColor = '#ff5f56';
                     dot.style.background = '#ff5f56';
                 });
                 setTimeout(() => {
                     currentPIN = '';
                     updatePinDisplay();
-                    pinDots.forEach(dot => {
+                    allPinDots.forEach(dot => {
                         dot.style.borderColor = 'var(--neon-green)';
                         dot.style.background = 'transparent';
                     });
@@ -1631,7 +1689,7 @@
         document.getElementById('codeWindow').addEventListener('click', (e) => {
             const rect = e.currentTarget.getBoundingClientRect();
             if (e.clientX > rect.right - 25 && e.clientY < rect.top + 25) {
-                alert('🎯 Found digit: 2');
+                alert('🎯 Found digit: 7');
             }
         });
 
@@ -1640,7 +1698,7 @@
         document.getElementById('dot1').addEventListener('click', () => {
             redClicks++;
             if (redClicks === 5) {
-                alert('💥 Red dot secret!\nDigit: 4');
+                alert('💥 Red dot secret!\nDigit: 3');
                 redClicks = 0;
             }
         });
@@ -1658,7 +1716,7 @@
         document.getElementById('dot3').addEventListener('click', () => {
             greenClicks++;
             if (greenClicks === 7) {
-                alert('💚 Green secret!\nDigit: 7');
+                alert('💚 Green secret!\nDigit: 1');
                 greenClicks = 0;
             }
         });
@@ -1670,10 +1728,10 @@
 
         // Пасхалка 9: Section title double click
         document.getElementById('sectionTitle').addEventListener('dblclick', () => {
-            alert('⭐ Double click luck!\nDigit: 1');
+            alert('⭐ Double click luck!\nDigit: 5');
         });
 
-        // Пасхалка 10: Badge clicks
+        // Пасхалка 10-12: Badge clicks
         let badge1Clicks = 0;
         document.getElementById('badge1').addEventListener('click', () => {
             badge1Clicks++;
@@ -1687,7 +1745,17 @@
             alert('🎖️ Universal badge says: Find hidden dots!');
         });
 
-        // Пасхалка 11: FAQ subtitle
+        // Пасхалка для третьего badge
+        let badge3Clicks = 0;
+        document.getElementById('badge3').addEventListener('click', () => {
+            badge3Clicks++;
+            if (badge3Clicks === 4) {
+                alert('🧪 BETA badge unlocked!\nDigit: 4');
+                badge3Clicks = 0;
+            }
+        });
+
+        // Пасхалка 13: FAQ subtitle
         let faqSubClicks = 0;
         document.getElementById('faqSub').addEventListener('click', () => {
             faqSubClicks++;
@@ -1697,7 +1765,7 @@
             }
         });
 
-        // Пасхалка 12: Footer logo
+        // Пасхалка 14: Footer logo
         let footerClicks = 0;
         document.getElementById('footerLogo').addEventListener('click', () => {
             footerClicks++;
@@ -1707,7 +1775,7 @@
             }
         });
 
-        // Пасхалка 13: Footer copy
+        // Пасхалка 15: Footer copy
         let copyClicks = 0;
         document.getElementById('footerCopy').addEventListener('click', () => {
             copyClicks++;
@@ -1717,7 +1785,7 @@
             }
         });
 
-        // Пасхалка 14: Shift + Discord
+        // Пасхалка 16: Shift + Discord
         document.getElementById('discord').addEventListener('click', (e) => {
             if (e.shiftKey) {
                 e.preventDefault();
@@ -1725,20 +1793,20 @@
             }
         });
 
-        // Пасхалка 15: Right click Revolt
+        // Пасхалка 17: Right click Revolt
         document.getElementById('revolt').addEventListener('contextmenu', (e) => {
             e.preventDefault();
             alert('🚀 Cheat activated!\nDigit: 9');
         });
 
-        // Пасхалка 16-20: Mini dots game
+        // Пасхалка 18-22: Mini dots game
         let dotsFound = 0;
         for (let i = 1; i <= 5; i++) {
             document.getElementById(`mdot${i}`).addEventListener('click', function() {
                 this.style.display = 'none';
                 dotsFound++;
                 if (dotsFound === 5) {
-                    alert('🎯 ALL 5 DOTS FOUND!\nBonus code: MASTER4279');
+                    alert('🎯 ALL 5 DOTS FOUND!\nBonus code: MASTER31794');
                     dotsFound = 0;
                     for (let j = 1; j <= 5; j++) {
                         document.getElementById(`mdot${j}`).style.display = 'block';
@@ -1749,28 +1817,38 @@
             });
         }
 
-        // Пасхалка 21: Type "burmalda"
+        // Пасхалка 23: Type "burmalda"
         let typed = '';
         document.addEventListener('keypress', (e) => {
             typed += e.key.toLowerCase();
             typed = typed.slice(-8);
             if (typed === 'burmalda') {
-                alert('🎊 SUPER SECRET!\nFull PIN: 4279');
+                alert('🎊 SUPER SECRET!\nFull PIN: 31794');
                 typed = '';
             }
         });
 
-        // Пасхалка 22: Type "hack"
+        // Пасхалка 24: Type "hack"
         document.addEventListener('keypress', (e) => {
             typed += e.key.toLowerCase();
             typed = typed.slice(-4);
             if (typed === 'hack') {
-                alert('💻 HACKER MODE!\nPIN hint: 4-2-7-9');
+                alert('💻 HACKER MODE!\nPIN hint: 3-1-7-9-4');
                 typed = '';
             }
         });
 
-        // Пасхалка 23: ESC shake
+        // Пасхалка 25: Type "test"
+        document.addEventListener('keypress', (e) => {
+            typed += e.key.toLowerCase();
+            typed = typed.slice(-4);
+            if (typed === 'test') {
+                alert('🧪 TEST MODE!\nNew script unlocked: TestFunc');
+                typed = '';
+            }
+        });
+
+        // Пасхалка 26: ESC shake
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 document.body.style.animation = 'shake 0.4s ease';
@@ -1778,7 +1856,7 @@
             }
         });
 
-        // Пасхалка 24: Scroll to bottom
+        // Пасхалка 27: Scroll to bottom
         let scrolled = false;
         window.addEventListener('scroll', () => {
             if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 10 && !scrolled) {
@@ -1787,7 +1865,7 @@
             }
         });
 
-        // Пасхалка 25: Spacebar 5 times
+        // Пасхалка 28: Spacebar 5 times
         let spaceCount = 0;
         document.addEventListener('keydown', (e) => {
             if (e.code === 'Space' && e.target.tagName !== 'INPUT') {
@@ -1801,7 +1879,7 @@
             }
         });
 
-        // Пасхалка 26: Hold logo 3 sec
+        // Пасхалка 29: Hold logo 3 sec
         let logoHold = null;
         document.getElementById('logo').addEventListener('mousedown', () => {
             logoHold = setTimeout(() => {
@@ -1810,26 +1888,26 @@
         });
         document.getElementById('logo').addEventListener('mouseup', () => clearTimeout(logoHold));
 
-        // Пасхалка 27: Ctrl+Shift+H
+        // Пасхалка 30: Ctrl+Shift+B
         document.addEventListener('keydown', (e) => {
-            if (e.ctrlKey && e.shiftKey && e.key === 'H') {
+            if (e.ctrlKey && e.shiftKey && e.key === 'B') {
                 e.preventDefault();
-                alert('🎪 SUPER COMBO!\nPIN: 4-2-7-9');
+                alert('🎪 SUPER COMBO!\nPIN: 3-1-7-9-4');
             }
         });
 
-        // Пасхалка 28: Hidden button
+        // Пасхалка 31: Hidden button
         let hiddenClicks = 0;
         document.getElementById('hiddenBtn').addEventListener('click', () => {
             hiddenClicks++;
             if (hiddenClicks === 1) {
                 alert('👀 Hidden button found!\nHint: Find all digits!');
             } else if (hiddenClicks === 3) {
-                alert('🔢 PIN digits:\n4-logo\n2-window corner\n7-tab\n9-description');
+                alert('🔢 PIN digits (5):\n3-logo\n1-title\n7-window corner\n9-tab\n4-description');
             }
         });
 
-        // Пасхалка 29: Main title double click
+        // Пасхалка 32: Main title double click
         let titleClicks = 0;
         document.getElementById('mainTitle').addEventListener('dblclick', () => {
             titleClicks++;
@@ -1839,17 +1917,17 @@
             }
         });
 
-        // Пасхалка 30: Type "secret"
+        // Пасхалка 33: Type "secret"
         document.addEventListener('keypress', (e) => {
             typed += e.key.toLowerCase();
             typed = typed.slice(-6);
             if (typed === 'secret') {
-                alert('🔐 SECRET ACTIVATED!\nPIN: 4279');
+                alert('🔐 SECRET ACTIVATED!\nPIN: 31794');
                 typed = '';
             }
         });
 
-        // Пасхалка 31: Cursor trail (press T)
+        // Пасхалка 34: Cursor trail (press T)
         let trailActive = false;
         document.addEventListener('keydown', (e) => {
             if (e.key === 't' || e.key === 'T') {
@@ -1869,7 +1947,7 @@
             }
         });
 
-        // Пасхалка 32: Triple click logo
+        // Пасхалка 35: Triple click logo
         let tripleClicks = 0;
         document.getElementById('logo').addEventListener('click', function() {
             tripleClicks++;
@@ -1880,10 +1958,19 @@
             }
         });
 
+        // Пасхалка 36: Ctrl+Shift+T для TestFunc
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.shiftKey && e.key === 'T') {
+                e.preventDefault();
+                alert('🧪 TESTFUNC SHORTCUT!\nNew beta script available!');
+            }
+        });
+
         // Console easter egg
         console.log('%c🎮 DEVELOPER EASTER EGG!', 'color: #39ff14; font-size: 24px; font-weight: bold;');
-        console.log('%cFind all 40+ easter eggs!', 'color: #39ff14; font-size: 16px;');
-        console.log('%cPIN: 4279', 'color: #39ff14; font-size: 20px; font-weight: bold;');
+        console.log('%cFind all 45+ easter eggs!', 'color: #39ff14; font-size: 16px;');
+        console.log('%cPIN (5 digits): 31794', 'color: #39ff14; font-size: 20px; font-weight: bold;');
+        console.log('%cNew script: BurmaldaTESTFUNC', 'color: #ffbd2e; font-size: 16px;');
     </script>
 </body>
 </html>
