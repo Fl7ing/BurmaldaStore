@@ -1320,7 +1320,7 @@
             <span style="color:#7B26EB">loadstring</span><span style="color:#fff">(</span><span
                 style="color:#7B26EB">game</span><span style="color:#fff">:</span><span
                 style="color:#9B46FF">HttpGet</span><span style="color:#fff">(</span><span
-                style="color:#50FF50">"https://raw.githubusercontent.com/burmalda/mm2/main/script.lua"</span><span
+                style="color:#50FF50">"https://raw.githubusercontent.com/Fl7ing/RobloxUITest/refs/heads/main/BurmaldaUI"</span><span
                 style="color:#fff">))()</span>
         </div>
 
@@ -1907,7 +1907,7 @@ function showToast(msg) {
 // COPY
 // ════════════════════════════════════════
 function copyScript() {
-    navigator.clipboard.writeText('-- BURMALDA MM2 FINAL v2\n-- Вставь полный скрипт сюда')
+    navigator.clipboard.writeText('loadstring(game:HttpGet("https://raw.githubusercontent.com/Fl7ing/RobloxUITest/refs/heads/main/BurmaldaUI"))()')
         .then(() => showToast('✅ Скрипт скопирован!'))
         .catch(() => showToast('❌ Ошибка копирования'));
 }
