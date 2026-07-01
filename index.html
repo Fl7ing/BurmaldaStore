@@ -3,10 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BurmaldaUI - Ultimate Script Hub</title>
+    <title>BURMALDA | MM2 Final</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap');
-        
         * {
             margin: 0;
             padding: 0;
@@ -14,2111 +12,1449 @@
         }
 
         :root {
-            --neon-blue: #00d4ff;
-            --neon-red: #ff0844;
-            --dark-blue: #0088cc;
-            --dark-red: #cc0033;
-            --bg-black: #0d0d0d;
-            --bg-dark: #1a1a1a;
-            --card-bg: rgba(20, 20, 30, 0.85);
-            --text-white: #ffffff;
-            --text-gray: #a8b2d1;
-            --border-glow: rgba(0, 212, 255, 0.3);
+            --purple: #7B26EB;
+            --purple-dark: #4B1680;
+            --purple-light: #9B46FF;
+            --bg: #0B0B0F;
+            --bg2: #11111A;
+            --bg3: #14141F;
+            --text: #E0E0E0;
+            --text-dim: #9090A0;
+            --red: #FF3232;
+            --green: #50FF50;
+            --blue: #3296FF;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            font-family: 'Rajdhani', sans-serif;
-            background: var(--bg-black);
-            color: var(--text-white);
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Segoe UI', sans-serif;
             overflow-x: hidden;
-            position: relative;
-            background-image: 
-                radial-gradient(circle at 20% 30%, rgba(0, 212, 255, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(255, 8, 68, 0.05) 0%, transparent 50%);
         }
 
-        /* Пасхалка 1: Анимированный фон с эффектом волн */
-        body::before {
-            content: '';
+        /* ── PARTICLES ── */
+        #particles {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                linear-gradient(45deg, transparent 48%, rgba(0, 212, 255, 0.02) 50%, transparent 52%),
-                linear-gradient(-45deg, transparent 48%, rgba(255, 8, 68, 0.02) 50%, transparent 52%);
-            background-size: 30px 30px;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             pointer-events: none;
             z-index: 0;
-            animation: bgMove 20s linear infinite;
+            overflow: hidden;
         }
 
-        @keyframes bgMove {
-            0% { background-position: 0 0, 0 0; }
-            100% { background-position: 60px 60px, -60px 60px; }
-        }
-
-        /* Пасхалка 2: Плавающие энергетические шары */
-        .energy-orbs {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .orb {
+        .particle {
             position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--purple);
             border-radius: 50%;
-            filter: blur(40px);
-            opacity: 0.3;
-            animation: floatOrb 15s ease-in-out infinite;
+            animation: floatUp linear infinite;
+            opacity: 0;
         }
 
-        .orb.blue {
-            background: radial-gradient(circle, var(--neon-blue) 0%, transparent 70%);
+        @keyframes floatUp {
+            0%   { transform: translateY(100vh) scale(0); opacity: 0; }
+            10%  { opacity: 0.6; }
+            90%  { opacity: 0.3; }
+            100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
         }
 
-        .orb.red {
-            background: radial-gradient(circle, var(--neon-red) 0%, transparent 70%);
-        }
-
-        @keyframes floatOrb {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            25% { transform: translate(100px, -100px) scale(1.2); }
-            50% { transform: translate(-50px, 100px) scale(0.8); }
-            75% { transform: translate(150px, 50px) scale(1.1); }
-        }
-
-        /* Header */
-        header {
+        /* ── CURSOR ── */
+        .cursor {
             position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 20px 50px;
+            width: 20px; height: 20px;
+            border: 2px solid var(--purple);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s, border-color 0.2s;
+            transform: translate(-50%, -50%);
+        }
+
+        .cursor-dot {
+            position: fixed;
+            width: 4px; height: 4px;
+            background: var(--purple-light);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+        }
+
+        /* ── NAV ── */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 60px;
+            background: rgba(11,11,15,0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(123,38,235,0.3);
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            background: rgba(13, 13, 13, 0.95);
-            backdrop-filter: blur(20px);
-            border-bottom: 2px solid transparent;
-            border-image: linear-gradient(90deg, var(--neon-blue), var(--neon-red)) 1;
+            justify-content: space-between;
+            padding: 0 40px;
             z-index: 1000;
-            box-shadow: 0 5px 30px rgba(0, 212, 255, 0.2);
         }
 
-        .logo {
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 26px;
-            font-weight: 700;
-            background: linear-gradient(90deg, var(--neon-blue), var(--neon-red));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            user-select: none;
+        .nav-logo {
+            font-size: 20px;
+            font-weight: 900;
+            color: var(--purple-light);
             letter-spacing: 3px;
+            cursor: pointer;
+            user-select: none;
+            transition: text-shadow 0.3s;
         }
 
-        /* Пасхалка 3: Скрытая цифра PIN в логотипе */
-        .logo::after {
-            content: '5';
-            position: absolute;
-            right: -20px;
-            top: -8px;
-            font-size: 14px;
-            color: var(--neon-blue);
-            opacity: 0.25;
-            animation: pulse 3s ease-in-out infinite;
+        .nav-logo:hover {
+            text-shadow: 0 0 20px var(--purple);
+        }
+
+        /* Пасхалка: клик 5 раз на лого */
+        .nav-logo.rainbow {
+            animation: rainbowText 0.5s linear infinite;
+        }
+
+        @keyframes rainbowText {
+            0%   { color: #ff0000; }
+            16%  { color: #ff8800; }
+            33%  { color: #ffff00; }
+            50%  { color: #00ff00; }
+            66%  { color: #0088ff; }
+            83%  { color: #8800ff; }
+            100% { color: #ff0000; }
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover { color: var(--purple-light); }
+
+        /* ── HERO ── */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            z-index: 1;
+            padding: 80px 20px 40px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(123,38,235,0.15);
+            border: 1px solid rgba(123,38,235,0.4);
+            border-radius: 20px;
+            padding: 6px 18px;
+            font-size: 12px;
+            color: var(--purple-light);
+            letter-spacing: 2px;
+            margin-bottom: 24px;
+            animation: pulse 2s ease-in-out infinite;
         }
 
         @keyframes pulse {
-            0%, 100% { opacity: 0.25; transform: scale(1); }
-            50% { opacity: 0.6; transform: scale(1.2); }
+            0%, 100% { box-shadow: 0 0 0 0 rgba(123,38,235,0.4); }
+            50%       { box-shadow: 0 0 0 8px rgba(123,38,235,0); }
         }
 
-        /* Пасхалка 4: Логотип издает звук при клике */
-        .logo:hover {
-            transform: scale(1.08);
-            filter: drop-shadow(0 0 20px var(--neon-blue)) drop-shadow(0 0 30px var(--neon-red));
+        .hero-title {
+            font-size: clamp(48px, 8vw, 96px);
+            font-weight: 900;
+            letter-spacing: 8px;
+            line-height: 1;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #fff 0%, var(--purple-light) 50%, var(--purple-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            cursor: default;
+            user-select: none;
         }
 
-        .nav-btn {
-            padding: 12px 30px;
-            background: transparent;
-            border: 2px solid transparent;
-            background-image: linear-gradient(var(--bg-black), var(--bg-black)), 
-                              linear-gradient(90deg, var(--neon-blue), var(--neon-red));
-            background-origin: border-box;
-            background-clip: padding-box, border-box;
-            color: var(--text-white);
-            font-size: 16px;
-            font-weight: 600;
+        .hero-subtitle {
+            font-size: 14px;
+            color: var(--text-dim);
+            letter-spacing: 6px;
+            margin-bottom: 48px;
+        }
+
+        .hero-skull {
+            font-size: 80px;
+            margin-bottom: 20px;
+            display: block;
+            animation: skullFloat 3s ease-in-out infinite;
             cursor: pointer;
-            transition: all 0.4s ease;
-            text-decoration: none;
+            user-select: none;
+        }
+
+        @keyframes skullFloat {
+            0%, 100% { transform: translateY(0) rotate(-5deg); }
+            50%       { transform: translateY(-15px) rotate(5deg); }
+        }
+
+        /* Пасхалка: кликнуть на череп */
+        .hero-skull.spinning {
+            animation: skullSpin 0.5s linear infinite;
+        }
+
+        @keyframes skullSpin {
+            from { transform: rotate(0deg) scale(1.2); }
+            to   { transform: rotate(360deg) scale(1.2); }
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 32px;
             border-radius: 8px;
-            font-family: 'Rajdhani', sans-serif;
-            text-transform: uppercase;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--purple), var(--purple-dark));
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(123,38,235,0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(123,38,235,0.6);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--purple-light);
+            border: 1.5px solid var(--purple);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(123,38,235,0.1);
+            transform: translateY(-2px);
+        }
+
+        .btn-copy {
+            background: rgba(123,38,235,0.15);
+            color: var(--text);
+            border: 1px solid rgba(123,38,235,0.3);
+            font-family: monospace;
+            font-size: 12px;
+            padding: 12px 20px;
+        }
+
+        .btn-copy:hover {
+            background: rgba(123,38,235,0.25);
+            border-color: var(--purple);
+        }
+
+        .btn-copy.copied {
+            background: rgba(80,255,80,0.15);
+            border-color: var(--green);
+            color: var(--green);
+        }
+
+        /* ── STATS ── */
+        .stats {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            gap: 0;
+            background: var(--bg2);
+            border-top: 1px solid rgba(123,38,235,0.2);
+            border-bottom: 1px solid rgba(123,38,235,0.2);
+        }
+
+        .stat-item {
+            flex: 1;
+            padding: 32px 20px;
+            text-align: center;
+            border-right: 1px solid rgba(123,38,235,0.15);
+            transition: background 0.3s;
+            cursor: default;
+        }
+
+        .stat-item:last-child { border-right: none; }
+
+        .stat-item:hover {
+            background: rgba(123,38,235,0.08);
+        }
+
+        .stat-num {
+            font-size: 36px;
+            font-weight: 900;
+            color: var(--purple-light);
+            display: block;
+            line-height: 1;
+            margin-bottom: 6px;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            color: var(--text-dim);
             letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* ── SECTION ── */
+        section {
+            position: relative;
+            z-index: 1;
+            padding: 80px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 900;
+            letter-spacing: 4px;
+            margin-bottom: 8px;
+            color: #fff;
+        }
+
+        .section-title span {
+            color: var(--purple-light);
+        }
+
+        .section-desc {
+            color: var(--text-dim);
+            font-size: 14px;
+            margin-bottom: 48px;
+            letter-spacing: 1px;
+        }
+
+        /* ── FEATURES GRID ── */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .feature-card {
+            background: var(--bg2);
+            border: 1px solid rgba(123,38,235,0.2);
+            border-radius: 12px;
+            padding: 24px;
+            transition: all 0.3s;
+            cursor: default;
             position: relative;
             overflow: hidden;
         }
 
-        .nav-btn::before {
+        .feature-card::before {
             content: '';
             position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: linear-gradient(90deg, var(--neon-blue), var(--neon-red));
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-            z-index: -1;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--purple), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
         }
 
-        .nav-btn:hover::before {
-            width: 300px;
-            height: 300px;
+        .feature-card:hover {
+            border-color: rgba(123,38,235,0.5);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(123,38,235,0.15);
         }
 
-        .nav-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
+        .feature-card:hover::before { opacity: 1; }
+
+        .feature-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+            display: block;
         }
 
-        /* Hero Section */
-        .hero {
-            min-height: 90vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 120px 20px 60px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero h1 {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 64px;
+        .feature-name {
+            font-size: 16px;
             font-weight: 700;
-            text-align: center;
-            margin-bottom: 50px;
-            background: linear-gradient(135deg, var(--neon-blue), var(--neon-red), var(--neon-blue));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: fadeInDown 1s ease, titleGlow 4s ease-in-out infinite;
-            text-transform: uppercase;
-            letter-spacing: 5px;
-            position: relative;
-            user-select: none;
-        }
-
-        /* Пасхалка 5: Цифра PIN в заголовке */
-        .hero h1::before {
-            content: '8';
-            position: absolute;
-            left: -30px;
-            top: 10px;
-            font-size: 18px;
-            color: var(--neon-red);
-            opacity: 0.3;
-            animation: pulse 2.5s ease-in-out infinite;
-        }
-
-        @keyframes titleGlow {
-            0%, 100% { filter: drop-shadow(0 0 20px var(--neon-blue)); }
-            50% { filter: drop-shadow(0 0 40px var(--neon-red)); }
-        }
-
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .subtitle {
-            font-size: 18px;
-            color: var(--text-gray);
-            margin-bottom: 40px;
-            text-align: center;
-            font-family: 'Share Tech Mono', monospace;
-            position: relative;
+            color: #fff;
+            margin-bottom: 8px;
             letter-spacing: 1px;
         }
 
-        /* Пасхалка 6: Мерцающий символ в субтитре */
-        .subtitle::after {
-            content: '◆';
-            color: var(--neon-blue);
-            margin-left: 15px;
+        .feature-desc {
+            font-size: 12px;
+            color: var(--text-dim);
+            line-height: 1.6;
+        }
+
+        .feature-tags {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+        }
+
+        .tag {
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .tag-red    { background: rgba(255,50,50,0.15);  color: var(--red);   border: 1px solid rgba(255,50,50,0.3);  }
+        .tag-blue   { background: rgba(50,150,255,0.15); color: var(--blue);  border: 1px solid rgba(50,150,255,0.3); }
+        .tag-green  { background: rgba(80,255,80,0.15);  color: var(--green); border: 1px solid rgba(80,255,80,0.3);  }
+        .tag-purple { background: rgba(123,38,235,0.15); color: var(--purple-light); border: 1px solid rgba(123,38,235,0.3); }
+
+        /* ── INSTALL SECTION ── */
+        .install-box {
+            background: var(--bg2);
+            border: 1px solid rgba(123,38,235,0.3);
+            border-radius: 16px;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .install-box::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 50% 0%, rgba(123,38,235,0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .install-steps {
+            display: flex;
+            gap: 20px;
+            margin: 32px 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .step {
+            flex: 1;
+            min-width: 180px;
+            max-width: 220px;
+            background: var(--bg3);
+            border: 1px solid rgba(123,38,235,0.2);
+            border-radius: 10px;
+            padding: 20px 16px;
+        }
+
+        .step-num {
+            width: 32px; height: 32px;
+            background: var(--purple);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 900;
+            margin: 0 auto 12px;
+        }
+
+        .step-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 6px;
+        }
+
+        .step-desc {
+            font-size: 11px;
+            color: var(--text-dim);
+            line-height: 1.5;
+        }
+
+        .code-block {
+            background: var(--bg3);
+            border: 1px solid rgba(123,38,235,0.25);
+            border-radius: 10px;
+            padding: 16px 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            color: var(--purple-light);
+            position: relative;
+            text-align: left;
+            overflow-x: auto;
+            white-space: nowrap;
+            margin: 16px 0;
+        }
+
+        /* ── TABS (FAQ) ── */
+        .faq-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .faq-item {
+            background: var(--bg2);
+            border: 1px solid rgba(123,38,235,0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: border-color 0.2s;
+        }
+
+        .faq-item:hover { border-color: rgba(123,38,235,0.4); }
+
+        .faq-q {
+            padding: 18px 20px;
             cursor: pointer;
-            animation: blink 1.5s ease-in-out infinite;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            font-weight: 600;
+            user-select: none;
+        }
+
+        .faq-q .icon {
+            transition: transform 0.3s;
+            color: var(--purple-light);
+        }
+
+        .faq-item.open .faq-q .icon { transform: rotate(45deg); }
+
+        .faq-a {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s;
+            font-size: 13px;
+            color: var(--text-dim);
+            line-height: 1.7;
+            padding: 0 20px;
+        }
+
+        .faq-item.open .faq-a {
+            max-height: 200px;
+            padding: 0 20px 18px;
+        }
+
+        /* ── KEYBINDS ── */
+        .keybinds-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px;
+        }
+
+        .keybind-item {
+            background: var(--bg2);
+            border: 1px solid rgba(123,38,235,0.15);
+            border-radius: 8px;
+            padding: 14px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.2s;
+        }
+
+        .keybind-item:hover {
+            border-color: rgba(123,38,235,0.4);
+            background: rgba(123,38,235,0.05);
+        }
+
+        .keybind-desc {
+            font-size: 13px;
+            color: var(--text-dim);
+        }
+
+        .keybind-key {
+            background: var(--bg3);
+            border: 1px solid rgba(123,38,235,0.4);
+            border-bottom: 3px solid rgba(123,38,235,0.6);
+            border-radius: 6px;
+            padding: 4px 10px;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--purple-light);
+            font-family: monospace;
+            white-space: nowrap;
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            position: relative;
+            z-index: 1;
+            background: var(--bg2);
+            border-top: 1px solid rgba(123,38,235,0.2);
+            padding: 40px;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--purple-light);
+            letter-spacing: 4px;
+            margin-bottom: 12px;
+        }
+
+        .footer-text {
+            font-size: 12px;
+            color: var(--text-dim);
+            line-height: 1.8;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .footer-links a {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 12px;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover { color: var(--purple-light); }
+
+        /* ── EASTER EGGS ── */
+
+        /* Конами-код оверлей */
+        #konami-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.95);
+            z-index: 9998;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        #konami-overlay.show { display: flex; }
+
+        #konami-overlay h1 {
+            font-size: 48px;
+            font-weight: 900;
+            letter-spacing: 6px;
+            animation: rainbowText 0.3s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        #konami-overlay p {
+            color: var(--text-dim);
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        /* Матрица */
+        #matrix-canvas {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        /* Уведомление */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--bg2);
+            border: 1px solid var(--purple);
+            border-radius: 10px;
+            padding: 14px 24px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--purple-light);
+            z-index: 9000;
+            transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+            white-space: nowrap;
+            box-shadow: 0 8px 30px rgba(123,38,235,0.3);
+        }
+
+        .toast.show { transform: translateX(-50%) translateY(0); }
+
+        /* Секретная кнопка в футере */
+        .secret-btn {
+            background: none;
+            border: none;
+            color: transparent;
+            font-size: 1px;
+            cursor: default;
+            user-select: none;
+            width: 20px;
+            height: 20px;
+            display: inline-block;
+        }
+
+        /* Матрица-режим */
+        body.matrix-mode .feature-card,
+        body.matrix-mode .stat-item,
+        body.matrix-mode .faq-item,
+        body.matrix-mode .keybind-item {
+            border-color: rgba(0,255,70,0.3) !important;
+            background: rgba(0,10,0,0.9) !important;
+        }
+
+        body.matrix-mode .section-title span,
+        body.matrix-mode .stat-num,
+        body.matrix-mode .feature-name {
+            color: #00ff46 !important;
+        }
+
+        body.matrix-mode nav {
+            border-color: rgba(0,255,70,0.3);
+        }
+
+        /* Скролл анимации */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Divider */
+        .divider {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(123,38,235,0.4), transparent);
+            margin: 0;
+        }
+
+        /* Мигающий курсор в коде */
+        .blink {
+            animation: blink 1s step-end infinite;
         }
 
         @keyframes blink {
             0%, 100% { opacity: 1; }
-            50% { opacity: 0.2; }
+            50%       { opacity: 0; }
         }
 
-        /* Code Window - компактный */
-        .code-window {
-            width: 88%;
-            max-width: 600px;
-            background: rgba(10, 10, 20, 0.95);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 30px 70px rgba(0, 212, 255, 0.3), 0 0 80px rgba(255, 8, 68, 0.2);
-            animation: fadeInUp 1s ease 0.4s both, floatWindow 6s ease-in-out infinite;
-            border: 2px solid transparent;
-            background-image: 
-                linear-gradient(rgba(10, 10, 20, 0.95), rgba(10, 10, 20, 0.95)),
-                linear-gradient(135deg, var(--neon-blue), var(--neon-red));
-            background-origin: border-box;
-            background-clip: padding-box, border-box;
-            position: relative;
-        }
-
-        @keyframes floatWindow {
-            0%, 100% { transform: translateY(0) rotateX(0deg); }
-            50% { transform: translateY(-20px) rotateX(2deg); }
-        }
-
-        /* Пасхалка 7: Цифра PIN в углу окна */
-        .code-window::before {
-            content: '3';
-            position: absolute;
-            right: 10px;
-            top: 10px;
-            font-size: 16px;
-            color: var(--neon-red);
-            opacity: 0.35;
-            cursor: pointer;
-            z-index: 100;
-            transition: all 0.3s ease;
-            font-family: 'Share Tech Mono', monospace;
-        }
-
-        .code-window::before:hover {
-            opacity: 0.9;
-            transform: scale(1.5) rotate(360deg);
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .window-header {
-            background: rgba(5, 5, 10, 0.98);
-            padding: 10px 18px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            border-bottom: 1px solid rgba(0, 212, 255, 0.2);
-        }
-
-        .window-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .window-dot:nth-child(1) {
-            background: var(--neon-red);
-            box-shadow: 0 0 12px var(--neon-red);
-        }
-
-        .window-dot:nth-child(2) {
-            background: #ffd700;
-            box-shadow: 0 0 12px #ffd700;
-        }
-
-        .window-dot:nth-child(3) {
-            background: var(--neon-blue);
-            box-shadow: 0 0 12px var(--neon-blue);
-        }
-
-        /* Пасхалка 8: Анимация при клике на точки */
-        .window-dot:active {
-            transform: scale(1.8);
-            animation: explode 0.5s ease;
-        }
-
-        @keyframes explode {
-            0% { transform: scale(1); }
-            50% { transform: scale(2.5); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
-        .code-tabs {
-            display: flex;
-            gap: 10px;
-            padding: 10px 18px;
-            background: rgba(5, 5, 10, 0.98);
-            border-bottom: 1px solid rgba(0, 212, 255, 0.2);
-            overflow-x: auto;
-        }
-
-        .code-tab {
-            padding: 8px 16px;
-            background: transparent;
-            border: none;
-            color: var(--text-gray);
-            cursor: pointer;
-            font-size: 13px;
-            transition: all 0.3s ease;
-            border-radius: 6px;
-            position: relative;
-            font-family: 'Share Tech Mono', monospace;
-            font-weight: 500;
-            white-space: nowrap;
-        }
-
-        /* Пасхалка 9: Цифра PIN во второй вкладке */
-        .code-tab:nth-child(2)::after {
-            content: '1';
-            position: absolute;
-            right: -12px;
-            top: -5px;
-            font-size: 13px;
-            color: var(--neon-blue);
-            opacity: 0.35;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        /* Пасхалка 10: Символ в третьей вкладке */
-        .code-tab:nth-child(3)::before {
-            content: '◈';
-            position: absolute;
-            left: -15px;
-            top: 6px;
-            font-size: 12px;
-            color: var(--neon-red);
-            opacity: 0.3;
-            animation: pulse 3s ease-in-out infinite;
-        }
-
-        .code-tab.active {
-            background: linear-gradient(90deg, rgba(0, 212, 255, 0.15), rgba(255, 8, 68, 0.15));
-            color: var(--text-white);
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
-        }
-
-        .code-content {
-            padding: 18px;
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 12px;
-            line-height: 1.7;
-            background: rgba(0, 0, 0, 0.98);
-            min-height: 200px;
-            position: relative;
-        }
-
-        .code-line {
-            display: block;
-            white-space: pre-wrap;
-        }
-
-        .keyword { color: #ff79c6; font-weight: 600; }
-        .function { color: var(--neon-blue); font-weight: 600; }
-        .string { color: #ffd700; }
-        .comment { color: #6272a4; font-style: italic; }
-        .variable { color: var(--neon-red); }
-
-        /* Scripts Section */
-        .scripts-section {
-            padding: 80px 50px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .section-title {
-            text-align: center;
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 48px;
-            font-weight: 700;
-            margin-bottom: 60px;
-            background: linear-gradient(90deg, var(--neon-blue), var(--neon-red));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            position: relative;
-            cursor: pointer;
-        }
-
-        /* Пасхалка 11: Цифра PIN в заголовке секции */
-        .section-title::after {
-            content: '6';
-            position: absolute;
-            right: -40px;
-            top: 0;
-            font-size: 20px;
-            color: var(--neon-blue);
-            opacity: 0.35;
-            cursor: pointer;
-        }
-
-        .scripts-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 35px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .script-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            border-radius: 15px;
-            padding: 30px;
-            border: 2px solid transparent;
-            background-image: 
-                linear-gradient(var(--card-bg), var(--card-bg)),
-                linear-gradient(135deg, var(--neon-blue), var(--neon-red));
-            background-origin: border-box;
-            background-clip: padding-box, border-box;
-            transition: all 0.5s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* Пасхалка 12: Анимированное свечение при наведении */
-        .script-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(0, 212, 255, 0.1), transparent);
-            transform: rotate(45deg);
-            transition: all 0.7s ease;
-        }
-
-        .script-card:hover::before {
-            left: 100%;
-        }
-
-        .script-card:hover {
-            transform: translateY(-12px) scale(1.03);
-            box-shadow: 0 25px 60px rgba(0, 212, 255, 0.4), 0 0 100px rgba(255, 8, 68, 0.3);
-        }
-
-        .badge {
-            display: inline-block;
-            padding: 6px 16px;
-            background: linear-gradient(90deg, var(--neon-blue), var(--neon-red));
-            color: var(--bg-black);
-            font-size: 11px;
-            font-weight: 700;
-            border-radius: 25px;
-            margin-bottom: 18px;
-            box-shadow: 0 0 25px rgba(0, 212, 255, 0.5);
-            font-family: 'Rajdhani', sans-serif;
-            letter-spacing: 1.5px;
-            animation: badgePulse 2.5s ease-in-out infinite;
-            cursor: pointer;
-        }
-
-        @keyframes badgePulse {
-            0%, 100% { box-shadow: 0 0 20px rgba(0, 212, 255, 0.5); }
-            50% { box-shadow: 0 0 35px rgba(255, 8, 68, 0.7); }
-        }
-
-        /* Пасхалка 13: Bounce при клике на badge */
-        .badge:active {
-            animation: bounceEffect 0.5s ease;
-        }
-
-        @keyframes bounceEffect {
-            0%, 100% { transform: translateY(0); }
-            25% { transform: translateY(-15px); }
-            50% { transform: translateY(-5px); }
-            75% { transform: translateY(-10px); }
-        }
-
-        .script-card h3 {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 26px;
-            margin-bottom: 15px;
-            color: var(--text-white);
-            position: relative;
-        }
-
-        /* Пасхалка 14: Цифра PIN в первой карточке */
-        .script-card:first-child h3::before {
-            content: '9';
-            position: absolute;
-            left: -22px;
-            top: 4px;
-            font-size: 16px;
-            color: var(--neon-red);
-            opacity: 0.35;
-            animation: pulse 3s ease-in-out infinite;
-        }
-
-        /* Пасхалка 15: Символ во второй карточке */
-        .script-card:nth-child(2) h3::after {
-            content: '◆';
-            margin-left: 10px;
-            opacity: 0.3;
-            font-size: 18px;
-            color: var(--neon-blue);
-            animation: pulse 4s ease-in-out infinite;
-        }
-
-        /* Пасхалка 16: Цифра PIN в третьей карточке */
-        .script-card:nth-child(3) h3::before {
-            content: '7';
-            position: absolute;
-            left: -22px;
-            top: 4px;
-            font-size: 16px;
-            color: var(--neon-blue);
-            opacity: 0.35;
-            animation: pulse 2.8s ease-in-out infinite;
-        }
-
-        .script-card p {
-            color: var(--text-gray);
-            margin-bottom: 25px;
-            line-height: 1.7;
-            font-size: 14px;
-        }
-
-        /* Пасхалка 17: Цифра PIN в описании второй карточки */
-        .script-card:nth-child(2) p::after {
-            content: '2';
-            margin-left: 5px;
-            opacity: 0.35;
-            font-size: 13px;
-            color: var(--neon-red);
-            animation: pulse 2.2s ease-in-out infinite;
-        }
-
-        .card-actions {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 12px 24px;
-            background: transparent;
-            border: 2px solid transparent;
-            background-image: linear-gradient(var(--card-bg), var(--card-bg)), 
-                              linear-gradient(90deg, var(--neon-blue), var(--neon-red));
-            background-origin: border-box;
-            background-clip: padding-box, border-box;
-            color: var(--text-white);
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            border-radius: 8px;
-            transition: all 0.4s ease;
-            text-decoration: none;
-            display: inline-block;
-            font-family: 'Rajdhani', sans-serif;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, var(--neon-blue), var(--neon-red));
-            transition: left 0.4s ease;
-            z-index: -1;
-        }
-
-        .btn:hover::before {
-            left: 0;
-        }
-
-        .btn:hover {
-            box-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
-        }
-
-        /* FAQ Section */
-        .faq-section {
-            padding: 80px 50px;
-            max-width: 900px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 2;
-        }
-
-        .faq-header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .faq-subtitle {
-            color: var(--neon-blue);
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 12px;
-            font-family: 'Share Tech Mono', monospace;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        /* Пасхалка 18: Эффект при наведении на подзаголовок */
-        .faq-subtitle:hover {
-            text-shadow: 0 0 25px var(--neon-blue);
-            letter-spacing: 6px;
-            color: var(--neon-red);
-        }
-
-        .faq-title {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 42px;
-            font-weight: 700;
-            background: linear-gradient(90deg, var(--neon-blue), var(--neon-red));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            position: relative;
-        }
-
-        /* Пасхалка 19: Цифра PIN в FAQ title */
-        .faq-title::before {
-            content: '4';
-            position: absolute;
-            left: -28px;
-            top: 6px;
-            font-size: 18px;
-            color: var(--neon-red);
-            opacity: 0.35;
-            animation: pulse 2.7s ease-in-out infinite;
-        }
-
-        .faq-item {
-            background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(0, 212, 255, 0.2);
-            border-radius: 12px;
-            margin-bottom: 18px;
-            overflow: hidden;
-            transition: all 0.4s ease;
-        }
-
-        .faq-item:hover {
-            border-color: var(--neon-blue);
-            box-shadow: 0 8px 30px rgba(0, 212, 255, 0.3);
-        }
-
-        .faq-question {
-            padding: 25px 30px;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 17px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        /* Пасхалка 20: Цифра PIN в третьем вопросе */
-        .faq-item:nth-child(3) .faq-question::after {
-            content: '0';
-            position: absolute;
-            right: 55px;
-            top: 25px;
-            font-size: 15px;
-            color: var(--neon-blue);
-            opacity: 0.35;
-            animation: pulse 2.3s ease-in-out infinite;
-            font-family: 'Share Tech Mono', monospace;
-        }
-
-        .faq-question:hover {
-            color: var(--neon-blue);
-        }
-
-        .faq-arrow {
-            font-size: 20px;
-            transition: transform 0.4s ease, color 0.3s ease;
-        }
-
-        .faq-item.active .faq-arrow {
-            transform: rotate(180deg);
-            color: var(--neon-red);
-        }
-
-        .faq-item.active .faq-question {
-            color: var(--neon-blue);
-            border-bottom: 1px solid rgba(0, 212, 255, 0.2);
-        }
-
-        .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease, padding 0.5s ease;
-            color: var(--text-gray);
-            line-height: 1.9;
-            font-size: 14px;
-        }
-
-        .faq-item.active .faq-answer {
-            max-height: 600px;
-            padding: 25px 30px;
-        }
-
-        /* Footer */
-        footer {
-            padding: 60px 50px;
-            border-top: 2px solid transparent;
-            border-image: linear-gradient(90deg, var(--neon-blue), var(--neon-red)) 1;
-            position: relative;
-            z-index: 2;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 35px;
-        }
-
-        .footer-logo {
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 24px;
-            font-weight: 700;
-            background: linear-gradient(90deg, var(--neon-blue), var(--neon-red));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .footer-logo:hover {
-            transform: scale(1.1);
-            filter: drop-shadow(0 0 30px var(--neon-blue));
-        }
-
-        .footer-copy {
-            color: var(--text-gray);
-            font-size: 13px;
-            cursor: pointer;
-        }
-
-        .footer-copy:hover {
-            color: var(--neon-blue);
-        }
-
-        .footer-socials h4 {
-            background: linear-gradient(90deg, var(--neon-blue), var(--neon-red));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-size: 14px;
-            margin-bottom: 15px;
-            font-family: 'Rajdhani', sans-serif;
-            font-weight: 700;
-            letter-spacing: 2px;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 25px;
-        }
-
-        .social-links a {
-            color: var(--neon-blue);
-            text-decoration: none;
-            font-size: 14px;
-            transition: all 0.3s ease;
-            font-weight: 600;
-            position: relative;
-        }
-
-        .social-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--neon-blue), var(--neon-red));
-            transition: width 0.3s ease;
-        }
-
-        .social-links a:hover::after {
-            width: 100%;
-        }
-
-        .social-links a:hover {
-            color: var(--neon-red);
-            transform: translateY(-3px);
-        }
-
-        /* Toast */
-        .toast {
-            position: fixed;
-            bottom: -120px;
-            right: 35px;
-            background: rgba(10, 10, 20, 0.98);
-            border: 2px solid transparent;
-            background-image: 
-                linear-gradient(rgba(10, 10, 20, 0.98), rgba(10, 10, 20, 0.98)),
-                linear-gradient(90deg, var(--neon-blue), var(--neon-red));
-            background-origin: border-box;
-            background-clip: padding-box, border-box;
-            border-radius: 12px;
-            padding: 18px 28px;
-            display: flex;
-            align-items: center;
-            gap: 18px;
-            box-shadow: 0 12px 45px rgba(0, 212, 255, 0.5);
-            transition: bottom 0.6s ease;
-            z-index: 10000;
-            font-family: 'Rajdhani', sans-serif;
-        }
-
-        .toast.show {
-            bottom: 35px;
-            animation: toastShake 0.5s ease;
-        }
-
-        @keyframes toastShake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-10px); }
-            75% { transform: translateX(10px); }
-        }
-
-        .toast-icon {
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--neon-blue), var(--neon-red));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--bg-black);
-            font-weight: 900;
-            font-size: 18px;
-            box-shadow: 0 0 20px var(--neon-blue);
-        }
-
-        /* PIN Modal */
-        .pin-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(13, 13, 13, 0.98);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 20000;
-            backdrop-filter: blur(15px);
-        }
-
-        .pin-modal.show {
-            display: flex;
-            animation: modalFadeIn 0.4s ease;
-        }
-
-        @keyframes modalFadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .pin-content {
-            background: linear-gradient(135deg, rgba(10, 10, 30, 0.98), rgba(30, 10, 20, 0.98));
-            border: 3px solid transparent;
-            background-image: 
-                linear-gradient(135deg, rgba(10, 10, 30, 0.98), rgba(30, 10, 20, 0.98)),
-                linear-gradient(135deg, var(--neon-blue), var(--neon-red));
-            background-origin: border-box;
-            background-clip: padding-box, border-box;
-            border-radius: 20px;
-            padding: 40px;
-            max-width: 420px;
-            width: 92%;
-            box-shadow: 0 0 100px rgba(0, 212, 255, 0.6), inset 0 0 50px rgba(255, 8, 68, 0.1);
-            animation: modalScaleIn 0.4s ease;
-        }
-
-        @keyframes modalScaleIn {
-            from { transform: scale(0.7); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-
-        .pin-header {
-            text-align: center;
-            margin-bottom: 35px;
-        }
-
-        .pin-header h2 {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 28px;
-            margin-bottom: 12px;
-            background: linear-gradient(90deg, var(--neon-blue), var(--neon-red));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-
-        .pin-header p {
-            color: var(--text-gray);
-            font-size: 13px;
-        }
-
-        .pin-display {
-            display: flex;
-            justify-content: center;
-            gap: 18px;
-            margin-bottom: 35px;
-        }
-
-        .pin-dot {
-            width: 20px;
-            height: 20px;
-            border: 3px solid var(--neon-blue);
-            border-radius: 50%;
-            transition: all 0.4s ease;
-            box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
-        }
-
-        .pin-dot.filled {
-            background: linear-gradient(135deg, var(--neon-blue), var(--neon-red));
-            box-shadow: 0 0 25px var(--neon-blue);
-            animation: dotPulse 0.4s ease;
-        }
-
-        @keyframes dotPulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.4); }
-            100% { transform: scale(1); }
-        }
-
-        .pin-keypad {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-
-        .pin-key {
-            padding: 20px;
-            background: rgba(0, 212, 255, 0.1);
-            border: 2px solid rgba(0, 212, 255, 0.4);
-            border-radius: 12px;
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--neon-blue);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            user-select: none;
-            font-family: 'Rajdhani', sans-serif;
-        }
-
-        .pin-key:hover {
-            background: rgba(0, 212, 255, 0.25);
-            box-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
-            transform: scale(1.08);
-            border-color: var(--neon-blue);
-        }
-
-        .pin-key:active {
-            transform: scale(0.92);
-        }
-
-        .pin-actions {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-
-        .pin-clear, .pin-close {
-            flex: 1;
-            padding: 14px;
-            background: transparent;
-            border: 2px solid var(--neon-blue);
-            border-radius: 10px;
-            color: var(--neon-blue);
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            font-family: 'Rajdhani', sans-serif;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            font-size: 12px;
-        }
-
-        .pin-clear:hover, .pin-close:hover {
-            background: linear-gradient(90deg, var(--neon-blue), var(--neon-red));
-            color: var(--bg-black);
-            box-shadow: 0 0 30px var(--neon-blue);
-        }
-
-        /* Секретный контент после разблокировки */
-        .secret-content {
-            display: none;
-            margin-top: 30px;
-            animation: secretReveal 0.6s ease;
-        }
-
-        .secret-content.show {
-            display: block;
-        }
-
-        @keyframes secretReveal {
-            0% { transform: translateY(20px); opacity: 0; }
-            100% { transform: translateY(0); opacity: 1; }
-        }
-
-        .secret-section {
-            background: rgba(0, 212, 255, 0.1);
-            border: 2px solid var(--neon-blue);
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-
-        .secret-section h3 {
-            font-family: 'Rajdhani', sans-serif;
-            background: linear-gradient(90deg, var(--neon-blue), var(--neon-red));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 15px;
-            font-size: 20px;
-            text-transform: uppercase;
-        }
-
-        .secret-section code {
-            display: block;
-            background: rgba(0, 0, 0, 0.9);
-            padding: 15px;
-            border-radius: 10px;
-            color: var(--text-white);
-            font-family: 'Share Tech Mono', monospace;
-            word-break: break-all;
-            margin-bottom: 15px;
-            border: 1px solid rgba(0, 212, 255, 0.3);
-            font-size: 11px;
-        }
-
-        /* Мини-игры */
-        .mini-games {
-            background: rgba(255, 8, 68, 0.1);
-            border: 2px solid var(--neon-red);
-            border-radius: 12px;
-            padding: 20px;
-        }
-
-        .mini-games h3 {
-            font-family: 'Rajdhani', sans-serif;
-            color: var(--neon-red);
-            margin-bottom: 15px;
-            font-size: 20px;
-            text-transform: uppercase;
-        }
-
-        .game-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            margin-bottom: 15px;
-        }
-
-        .game-btn {
-            padding: 15px;
-            background: rgba(255, 8, 68, 0.2);
-            border: 2px solid var(--neon-red);
-            border-radius: 8px;
-            color: var(--neon-red);
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: 'Rajdhani', sans-serif;
-            text-transform: uppercase;
-            font-size: 13px;
-        }
-
-        .game-btn:hover {
-            background: var(--neon-red);
-            color: var(--bg-black);
-            box-shadow: 0 0 25px var(--neon-red);
-        }
-
-        /* Игра: Memory Cards */
-        .memory-game {
-            display: none;
-            margin-top: 15px;
-        }
-
-        .memory-game.active {
-            display: block;
-        }
-
-        .memory-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            margin-top: 15px;
-        }
-
-        .memory-card {
-            aspect-ratio: 1;
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(255, 8, 68, 0.2));
-            border: 2px solid var(--neon-blue);
-            border-radius: 8px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            transition: all 0.3s ease;
-            transform-style: preserve-3d;
-        }
-
-        .memory-card.flipped {
-            background: linear-gradient(135deg, var(--neon-blue), var(--neon-red));
-            transform: rotateY(180deg);
-        }
-
-        .memory-card.matched {
-            background: var(--neon-green);
-            opacity: 0.5;
-            pointer-events: none;
-        }
-
-        /* Игра: Click Speed */
-        .click-game {
-            display: none;
-            text-align: center;
-        }
-
-        .click-game.active {
-            display: block;
-        }
-
-        .click-target {
-            width: 100px;
-            height: 100px;
-            margin: 20px auto;
-            background: linear-gradient(135deg, var(--neon-blue), var(--neon-red));
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 32px;
-            transition: all 0.2s ease;
-            box-shadow: 0 0 30px var(--neon-blue);
-        }
-
-        .click-target:active {
-            transform: scale(0.9);
-        }
-
-        .click-score {
-            font-size: 24px;
-            color: var(--neon-blue);
-            margin: 15px 0;
-            font-family: 'Rajdhani', sans-serif;
-            font-weight: 700;
-        }
-
-        /* Konami Easter Egg */
-        .konami-easter {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            background: linear-gradient(135deg, rgba(10, 10, 30, 0.98), rgba(30, 10, 20, 0.98));
-            border: 5px solid transparent;
-            background-image: 
-                linear-gradient(135deg, rgba(10, 10, 30, 0.98), rgba(30, 10, 20, 0.98)),
-                linear-gradient(135deg, var(--neon-blue), var(--neon-red));
-            background-origin: border-box;
-            background-clip: padding-box, border-box;
-            padding: 50px;
-            border-radius: 25px;
-            z-index: 40000;
-            opacity: 0;
-            transition: all 0.5s ease;
-            box-shadow: 0 0 150px rgba(0, 212, 255, 0.8);
-            text-align: center;
-        }
-
-        .konami-easter.show {
-            transform: translate(-50%, -50%) scale(1);
-            opacity: 1;
-        }
-
-        .konami-easter h2 {
-            font-family: 'Rajdhani', sans-serif;
-            background: linear-gradient(90deg, var(--neon-blue), var(--neon-red));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-size: 32px;
-            margin-bottom: 20px;
-            font-weight: 900;
-        }
-
-        /* Скрытые точки пасхалки */
-        .mini-dot {
-            position: fixed;
-            width: 10px;
-            height: 10px;
-            background: linear-gradient(135deg, var(--neon-blue), var(--neon-red));
-            border-radius: 50%;
-            opacity: 0.2;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            z-index: 999;
-            box-shadow: 0 0 15px var(--neon-blue);
-        }
-
-        .mini-dot:hover {
-            opacity: 1;
-            transform: scale(3);
-            box-shadow: 0 0 35px var(--neon-blue);
-        }
-
-        /* Скрытая кнопка */
-        .hidden-btn {
-            position: fixed;
-            bottom: 18px;
-            left: 18px;
-            width: 30px;
-            height: 30px;
-            background: rgba(0, 212, 255, 0.1);
-            border: 2px solid rgba(0, 212, 255, 0.2);
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            z-index: 1000;
-        }
-
-        .hidden-btn:hover {
-            background: linear-gradient(135deg, var(--neon-blue), var(--neon-red));
-            border-color: var(--neon-blue);
-            transform: scale(2.5);
-            box-shadow: 0 0 40px var(--neon-blue);
-        }
-
-        /* Cursor trail */
-        .cursor-trail {
-            position: fixed;
-            width: 10px;
-            height: 10px;
-            background: linear-gradient(135deg, var(--neon-blue), var(--neon-red));
-            border-radius: 50%;
-            pointer-events: none;
-            opacity: 0.7;
-            z-index: 9999;
-            animation: trailFade 1s forwards;
-        }
-
-        @keyframes trailFade {
-            to { opacity: 0; transform: scale(2.5); }
-        }
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: var(--purple-dark); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--purple); }
 
-        /* Responsive */
         @media (max-width: 768px) {
-            header {
-                padding: 15px 25px;
-            }
-
-            .logo {
-                font-size: 20px;
-            }
-
-            .hero h1 {
-                font-size: 38px;
-            }
-
-            .scripts-section, .faq-section {
-                padding: 60px 25px;
-            }
-
-            .scripts-grid {
-                grid-template-columns: 1fr;
-            }
-
-            footer {
-                padding: 50px 25px;
-            }
-
-            .footer-content {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .code-window {
-                width: 95%;
-            }
-
-            .section-title {
-                font-size: 34px;
-            }
-
-            .memory-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-
-            .game-grid {
-                grid-template-columns: 1fr;
-            }
+            nav { padding: 0 20px; }
+            section { padding: 60px 20px; }
+            .stats { flex-direction: column; }
+            .stat-item { border-right: none; border-bottom: 1px solid rgba(123,38,235,0.15); }
         }
     </style>
 </head>
 <body>
-    <!-- Энергетические шары -->
-    <div class="energy-orbs">
-        <div class="orb blue" style="width: 200px; height: 200px; top: 10%; left: 15%;"></div>
-        <div class="orb red" style="width: 250px; height: 250px; bottom: 20%; right: 10%;"></div>
-        <div class="orb blue" style="width: 180px; height: 180px; top: 60%; left: 70%;"></div>
+
+<!-- CURSOR -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+
+<!-- PARTICLES -->
+<div id="particles"></div>
+
+<!-- MATRIX CANVAS -->
+<canvas id="matrix-canvas"></canvas>
+
+<!-- KONAMI OVERLAY -->
+<div id="konami-overlay">
+    <h1>☠ BURMALDA MODE ☠</h1>
+    <p>Ты нашёл секретный код! Добро пожаловать в настоящий режим.</p>
+    <button class="btn btn-primary" onclick="closeKonami()">ВОЙТИ В ИГРУ</button>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- NAV -->
+<nav>
+    <div class="nav-logo" id="navLogo" onclick="logoClick()">☠ BURMALDA</div>
+    <ul class="nav-links">
+        <li><a href="#features">Функции</a></li>
+        <li><a href="#install">Установка</a></li>
+        <li><a href="#keybinds">Клавиши</a></li>
+        <li><a href="#faq">FAQ</a></li>
+    </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+    <div class="hero-badge">🔥 MM2 FINAL v2 — ОБНОВЛЕНО</div>
+    <span class="hero-skull" id="heroSkull" onclick="skullClick()">☠</span>
+    <h1 class="hero-title" id="heroTitle">BURMALDA</h1>
+    <p class="hero-subtitle">MURDER MYSTERY 2 · FINAL EDITION</p>
+    <div class="btn-group">
+        <button class="btn btn-primary" onclick="copyScript()">
+            📋 Скопировать скрипт
+        </button>
+        <a href="#features" class="btn btn-secondary">
+            ✦ Возможности
+        </a>
+        <button class="btn btn-copy" id="loadstringBtn" onclick="copyLoadstring()">
+            loadstring(...)()
+        </button>
     </div>
+</div>
 
-    <!-- Header -->
-    <header>
-        <div class="logo" id="logo">◈ BURMALDA_UI ◈</div>
-        <a href="#scripts" class="nav-btn">SCRIPTS</a>
-    </header>
+<div class="divider"></div>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <h1 id="mainTitle">SCRIPT NEXUS</h1>
-        <p class="subtitle" id="subtitle">Premium Luau Scripts • Roblox Executors</p>
-        
-        <div class="code-window" id="codeWindow">
-            <div class="window-header">
-                <div class="window-dot" id="dot1"></div>
-                <div class="window-dot" id="dot2"></div>
-                <div class="window-dot" id="dot3"></div>
-            </div>
-            <div class="code-tabs">
-                <button class="code-tab active" data-tab="script1">MM2.lua</button>
-                <button class="code-tab" data-tab="script2">UNIVERSAL.lua</button>
-                <button class="code-tab" data-tab="script3">TESTFUNC.lua</button>
-            </div>
-            <div class="code-content">
-                <div class="code-tab-content active" id="script1">
-                    <span class="code-line"><span class="comment">-- Murder Mystery 2 Script</span></span>
-                    <span class="code-line"><span class="keyword">local</span> <span class="variable">ui</span> = <span class="function">loadstring</span>(<span class="function">game</span>:<span class="function">HttpGet</span>(</span>
-                    <span class="code-line">  <span class="string">"https://raw.githubusercontent.com/Fl7ing/RobloxUITest/refs/heads/main/BurmaldaMellstroyUIMM2"</span></span>
-                    <span class="code-line">))()</span>
-                    <span class="code-line"></span>
-                    <span class="code-line"><span class="variable">ui</span>:<span class="function">Init</span>({ <span class="variable">mode</span> = <span class="string">"mm2"</span> })</span>
-                    <span class="code-line"><span class="function">print</span>(<span class="string">"[✓] Loaded"</span>)</span>
-                </div>
-                <div class="code-tab-content" id="script2" style="display: none;">
-                    <span class="code-line"><span class="comment">-- Universal Script</span></span>
-                    <span class="code-line"><span class="keyword">local</span> <span class="variable">universal</span> = <span class="function">loadstring</span>(<span class="function">game</span>:<span class="function">HttpGet</span>(</span>
-                    <span class="code-line">  <span class="string">"https://raw.githubusercontent.com/Fl7ing/RobloxUITest/refs/heads/main/BurmaldaMellstroyUNIVERSAL"</span></span>
-                    <span class="code-line">))()</span>
-                    <span class="code-line"></span>
-                    <span class="code-line"><span class="variable">universal</span>:<span class="function">Start</span>()</span>
-                    <span class="code-line"><span class="function">warn</span>(<span class="string">"[✓] Active"</span>)</span>
-                </div>
-                <div class="code-tab-content" id="script3" style="display: none;">
-                    <span class="code-line"><span class="comment">-- Test Functions Script</span></span>
-                    <span class="code-line"><span class="keyword">local</span> <span class="variable">testFunc</span> = <span class="function">loadstring</span>(<span class="function">game</span>:<span class="function">HttpGet</span>(</span>
-                    <span class="code-line">  <span class="string">"https://raw.githubusercontent.com/PidorasGandon/SUICommon/refs/heads/main/BurmaldaTESTFUNC"</span></span>
-                    <span class="code-line">))()</span>
-                    <span class="code-line"></span>
-                    <span class="code-line"><span class="variable">testFunc</span>:<span class="function">Execute</span>()</span>
-                    <span class="code-line"><span class="function">print</span>(<span class="string">"[✓] Testing"</span>)</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Scripts Section -->
-    <section class="scripts-section" id="scripts">
-        <h2 class="section-title" id="sectionTitle">FEATURED SCRIPTS</h2>
-        
-        <div class="scripts-grid">
-            <!-- MM2 Card -->
-            <div class="script-card">
-                <span class="badge" id="badge1">[UNPATCHED]</span>
-                <h3>MM2 Script</h3>
-                <p>Premium Murder Mystery 2 with ESP, Auto-Farm, Kill-Aura, Teleports and 40+ features.</p>
-                <div class="card-actions">
-                    <button class="btn copy-btn" data-script="mm2">COPY</button>
-                    <button class="btn info-btn">INFO</button>
-                </div>
-            </div>
-
-            <!-- UNIVERSAL Card -->
-            <div class="script-card">
-                <span class="badge" id="badge2">[UNPATCHED]</span>
-                <h3>Universal Script</h3>
-                <p>Works on ALL Roblox games. Fly, Noclip, Speed, Jump, ESP and tons of features!</p>
-                <div class="card-actions">
-                    <button class="btn copy-btn" data-script="universal">COPY</button>
-                    <button class="btn info-btn">INFO</button>
-                </div>
-            </div>
-
-            <!-- TEST FUNCTIONS Card -->
-            <div class="script-card">
-                <span class="badge" id="badge3">[BETA]</span>
-                <h3>Test Functions</h3>
-                <p>Experimental script with new features, debug mode and developer utilities for testing.</p>
-                <div class="card-actions">
-                    <button class="btn copy-btn" data-script="testfunc">COPY</button>
-                    <button class="btn info-btn">INFO</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FAQ Section -->
-    <section class="faq-section">
-        <div class="faq-header">
-            <p class="faq-subtitle" id="faqSub">SUPPORT</p>
-            <h2 class="faq-title">FAQ</h2>
-        </div>
-
-        <div class="faq-item">
-            <div class="faq-question">
-                <span>What is BurmaldaUI Script Hub?</span>
-                <span class="faq-arrow">▼</span>
-            </div>
-            <div class="faq-answer">
-                Premium showcase of top Lua scripts for Roblox. Only tested, updated and working scripts. One-click copy to any executor.
-            </div>
-        </div>
-
-        <div class="faq-item">
-            <div class="faq-question">
-                <span>How to use scripts?</span>
-                <span class="faq-arrow">▼</span>
-            </div>
-            <div class="faq-answer">
-                Click "COPY" button, open your executor (Solara, Wave, Fluxus), paste and execute. Simple!
-            </div>
-        </div>
-
-        <div class="faq-item">
-            <div class="faq-question">
-                <span>Are scripts always working?</span>
-                <span class="faq-arrow">▼</span>
-            </div>
-            <div class="faq-answer">
-                YES! All scripts have [UNPATCHED] status. We regularly test and update them.
-            </div>
-        </div>
-
-        <div class="faq-item">
-            <div class="faq-question">
-                <span>Is it free?</span>
-                <span class="faq-arrow">▼</span>
-            </div>
-            <div class="faq-answer">
-                100% FREE! No subscriptions, no payments. Just copy and use!
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-logo" id="footerLogo">◈ BURMALDA_UI ◈</div>
-            <div class="footer-copy" id="footerCopy">© BurmaldaUI Softworks. All rights reserved.</div>
-            <div class="footer-socials">
-                <h4>SOCIALS</h4>
-                <div class="social-links">
-                    <a href="#" id="discord">Discord</a>
-                    <a href="#" id="revolt">Revolt</a>
-                    <a href="https://www.youtube.com/@BloxError" target="_blank">YouTube</a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Toast -->
-    <div class="toast" id="toast">
-        <div class="toast-icon">✓</div>
-        <span>Script copied!</span>
+<!-- STATS -->
+<div class="stats">
+    <div class="stat-item fade-in">
+        <span class="stat-num" data-target="47">0</span>
+        <span class="stat-label">Функций</span>
     </div>
+    <div class="stat-item fade-in">
+        <span class="stat-num" data-target="6">0</span>
+        <span class="stat-label">Вкладок</span>
+    </div>
+    <div class="stat-item fade-in">
+        <span class="stat-num" data-target="5">0</span>
+        <span class="stat-label">Пасхалок</span>
+    </div>
+    <div class="stat-item fade-in">
+        <span class="stat-num" data-target="100">0</span>
+        <span class="stat-label">% Bypass</span>
+    </div>
+</div>
 
-    <!-- PIN Modal -->
-    <div class="pin-modal" id="pinModal">
-        <div class="pin-content">
-            <div class="pin-header">
-                <h2>🔐 SECURITY ACCESS</h2>
-                <p>Enter 5-digit PIN code</p>
+<div class="divider"></div>
+
+<!-- FEATURES -->
+<section id="features">
+    <h2 class="section-title fade-in">ФУНКЦИИ <span>ЧИТА</span></h2>
+    <p class="section-desc fade-in">Всё что нужно для победы в MM2</p>
+
+    <div class="features-grid">
+        <div class="feature-card fade-in">
+            <span class="feature-icon">🎯</span>
+            <div class="feature-name">SILENT AIM</div>
+            <div class="feature-desc">Автоматическое наведение на ближайшего игрока в FOV. Работает с ножом и пушкой незаметно для сервера.</div>
+            <div class="feature-tags">
+                <span class="tag tag-red">MURDERER</span>
+                <span class="tag tag-purple">BYPASS</span>
             </div>
-            
-            <div class="pin-display">
-                <div class="pin-dot"></div>
-                <div class="pin-dot"></div>
-                <div class="pin-dot"></div>
-                <div class="pin-dot"></div>
-                <div class="pin-dot"></div>
+        </div>
+
+        <div class="feature-card fade-in">
+            <span class="feature-icon">⚡</span>
+            <div class="feature-name">KILL AURA</div>
+            <div class="feature-desc">Автоматически убивает всех игроков в заданном радиусе. Поддерживает Multi Aura для нескольких целей.</div>
+            <div class="feature-tags">
+                <span class="tag tag-red">MURDERER</span>
+                <span class="tag tag-red">OP</span>
             </div>
+        </div>
 
-            <div class="pin-keypad">
-                <button class="pin-key" data-key="1">1</button>
-                <button class="pin-key" data-key="2">2</button>
-                <button class="pin-key" data-key="3">3</button>
-                <button class="pin-key" data-key="4">4</button>
-                <button class="pin-key" data-key="5">5</button>
-                <button class="pin-key" data-key="6">6</button>
-                <button class="pin-key" data-key="7">7</button>
-                <button class="pin-key" data-key="8">8</button>
-                <button class="pin-key" data-key="9">9</button>
-                <button class="pin-key" data-key="0" style="grid-column: 2;">0</button>
+        <div class="feature-card fade-in">
+            <span class="feature-icon">🧠</span>
+            <div class="feature-name">SMART DODGE</div>
+            <div class="feature-desc">Умное уклонение с предсказанием траектории мардера. Учитывает скорость и направление движения.</div>
+            <div class="feature-tags">
+                <span class="tag tag-blue">INNOCENT</span>
+                <span class="tag tag-green">SURVIVAL</span>
             </div>
+        </div>
 
-            <div class="pin-actions">
-                <button class="pin-clear">CLEAR</button>
-                <button class="pin-close">CLOSE</button>
+        <div class="feature-card fade-in">
+            <span class="feature-icon">👁️</span>
+            <div class="feature-name">ПОЛНЫЙ ESP</div>
+            <div class="feature-desc">Role ESP, Box ESP, Skeleton ESP, Health Bar, Tracers, Knife Trail, Murderer Arrow и многое другое.</div>
+            <div class="feature-tags">
+                <span class="tag tag-purple">VISUALS</span>
+                <span class="tag tag-blue">ALL ROLES</span>
             </div>
+        </div>
 
-            <!-- Секретный контент -->
-            <div class="secret-content" id="secretContent">
-                <!-- Скрипт -->
-                <div class="secret-section">
-                    <h3>🎉 SECRET SCRIPT UNLOCKED!</h3>
-                    <code>loadstring(game:HttpGet('https://raw.githubusercontent.com/PidorasGandon/SUICommon/refs/heads/main/SUIcommon'))()</code>
-                    <button class="btn" onclick="copySecretScript()" style="width: 100%;">COPY SECRET</button>
-                </div>
+        <div class="feature-card fade-in">
+            <span class="feature-icon">🏃</span>
+            <div class="feature-name">ДВИЖЕНИЕ</div>
+            <div class="feature-desc">Speed Bypass, Fly с LinearVelocity, Noclip с восстановлением коллизий, Infinite Jump, Bunny Hop, Air Walk.</div>
+            <div class="feature-tags">
+                <span class="tag tag-purple">MOVEMENT</span>
+                <span class="tag tag-purple">NO ERRORS</span>
+            </div>
+        </div>
 
-                <!-- Мини-игры -->
-                <div class="mini-games">
-                    <h3>🎮 BONUS: MINI GAMES</h3>
-                    <div class="game-grid">
-                        <button class="game-btn" onclick="startMemoryGame()">Memory Cards</button>
-                        <button class="game-btn" onclick="startClickGame()">Click Speed</button>
-                        <button class="game-btn" onclick="startReactionGame()">Reaction Test</button>
-                        <button class="game-btn" onclick="startNumberGame()">Number Guess</button>
-                    </div>
+        <div class="feature-card fade-in">
+            <span class="feature-icon">🔫</span>
+            <div class="feature-name">GUN GRAB</div>
+            <div class="feature-desc">Автоматически телепортирует к выброшенному оружию. Умно отключается когда ты мардер с ножом.</div>
+            <div class="feature-tags">
+                <span class="tag tag-blue">SHERIFF</span>
+                <span class="tag tag-green">SMART</span>
+            </div>
+        </div>
 
-                    <!-- Memory Game -->
-                    <div class="memory-game" id="memoryGame">
-                        <h4 style="color: var(--neon-blue); margin-bottom: 10px;">Find Matching Pairs!</h4>
-                        <div class="memory-grid" id="memoryGrid"></div>
-                        <p style="color: var(--text-gray); margin-top: 10px; font-size: 12px;">Moves: <span id="moves">0</span> | Pairs: <span id="pairs">0</span>/6</p>
-                    </div>
+        <div class="feature-card fade-in">
+            <span class="feature-icon">⚠️</span>
+            <div class="feature-name">MURDER ALERT</div>
+            <div class="feature-desc">Звуковое и визуальное оповещение когда мардер рядом. Система Last Stand и Safe Zone Alert.</div>
+            <div class="feature-tags">
+                <span class="tag tag-blue">INNOCENT</span>
+                <span class="tag tag-green">ALERT</span>
+            </div>
+        </div>
 
-                    <!-- Click Speed Game -->
-                    <div class="click-game" id="clickGame">
-                        <h4 style="color: var(--neon-red); margin-bottom: 10px;">Click as fast as you can!</h4>
-                        <div class="click-target" onclick="clickTarget()">🎯</div>
-                        <div class="click-score">Clicks: <span id="clickScore">0</span></div>
-                        <div class="click-score" style="font-size: 16px;">Time: <span id="clickTime">10</span>s</div>
-                    </div>
-                </div>
+        <div class="feature-card fade-in">
+            <span class="feature-icon">🎵</span>
+            <div class="feature-name">MUSIC PLAYER</div>
+            <div class="feature-desc">Встроенный музыкальный плеер с 7 треками. Fish Hardstyle, Terranova, Taco Bell и другие.</div>
+            <div class="feature-tags">
+                <span class="tag tag-purple">UTILITY</span>
+                <span class="tag tag-purple">FUN</span>
             </div>
         </div>
     </div>
+</section>
 
-    <!-- Konami Easter Egg -->
-    <div class="konami-easter" id="konami">
-        <h2>🎮 KONAMI CODE!</h2>
-        <p style="color: var(--text-gray); font-size: 18px; margin-bottom: 20px;">PIN: <span style="color: var(--neon-blue); font-size: 32px; font-weight: 900;">58316</span></p>
-        <button class="btn" onclick="closeKonami()">AWESOME!</button>
+<div class="divider"></div>
+
+<!-- INSTALL -->
+<section id="install">
+    <h2 class="section-title fade-in">УСТАНОВКА <span>СКРИПТА</span></h2>
+    <p class="section-desc fade-in">Три простых шага до победы</p>
+
+    <div class="install-box fade-in">
+        <div class="install-steps">
+            <div class="step">
+                <div class="step-num">1</div>
+                <div class="step-title">Скачай Executor</div>
+                <div class="step-desc">Используй Wave, Solara, Fluxus или любой другой поддерживаемый исполнитель</div>
+            </div>
+            <div class="step">
+                <div class="step-num">2</div>
+                <div class="step-title">Зайди в MM2</div>
+                <div class="step-desc">Открой Murder Mystery 2 на Roblox и подожди загрузки игры</div>
+            </div>
+            <div class="step">
+                <div class="step-num">3</div>
+                <div class="step-title">Выполни скрипт</div>
+                <div class="step-desc">Вставь скрипт в executor и нажми Execute. Открой меню через RightShift</div>
+            </div>
+        </div>
+
+        <div class="code-block" id="codeBlock">
+            <span style="color:#9090A0">-- BURMALDA MM2 FINAL v2</span><br>
+            <span style="color:#7B26EB">loadstring</span><span style="color:#fff">(</span><span style="color:#7B26EB">game</span><span style="color:#fff">:</span><span style="color:#9B46FF">HttpGet</span><span style="color:#fff">(</span><span style="color:#50FF50">"https://raw.githubusercontent.com/burmalda/mm2/main/script.lua"</span><span style="color:#fff">))()</span><span class="blink" style="color:#7B26EB">█</span>
+        </div>
+
+        <div class="btn-group" style="margin-top: 20px;">
+            <button class="btn btn-primary" onclick="copyScript()">📋 Скопировать скрипт</button>
+            <button class="btn btn-secondary" onclick="copyRaw()">⬇ Raw скрипт</button>
+        </div>
     </div>
+</section>
 
-    <!-- Mini dots -->
-    <div class="mini-dot" id="mdot1" style="top: 22%; left: 6%;"></div>
-    <div class="mini-dot" id="mdot2" style="top: 48%; right: 9%;"></div>
-    <div class="mini-dot" id="mdot3" style="bottom: 38%; left: 14%;"></div>
-    <div class="mini-dot" id="mdot4" style="top: 68%; right: 7%;"></div>
-    <div class="mini-dot" id="mdot5" style="bottom: 22%; left: 52%;"></div>
+<div class="divider"></div>
 
-    <!-- Hidden button -->
-    <div class="hidden-btn" id="hiddenBtn" title="Secret!"></div>
+<!-- KEYBINDS -->
+<section id="keybinds">
+    <h2 class="section-title fade-in">КЛАВИШИ <span>УПРАВЛЕНИЯ</span></h2>
+    <p class="section-desc fade-in">Быстрые горячие клавиши</p>
 
-    <script>
-        // Scripts
-        const scripts = {
-            mm2: `loadstring(game:HttpGet("https://raw.githubusercontent.com/Fl7ing/RobloxUITest/refs/heads/main/BurmaldaMellstroyUIMM2"))()`,
-            universal: `loadstring(game:HttpGet("https://raw.githubusercontent.com/Fl7ing/RobloxUITest/refs/heads/main/BurmaldaMellstroyUNIVERSAL"))()`,
-            testfunc: `loadstring(game:HttpGet('https://raw.githubusercontent.com/PidorasGandon/SUICommon/refs/heads/main/BurmaldaTESTFUNC'))()`
-        };
+    <div class="keybinds-grid fade-in">
+        <div class="keybind-item">
+            <span class="keybind-desc">Открыть / закрыть меню</span>
+            <span class="keybind-key">RShift</span>
+        </div>
+        <div class="keybind-item">
+            <span class="keybind-desc">Супер прыжок</span>
+            <span class="keybind-key">Q</span>
+        </div>
+        <div class="keybind-item">
+            <span class="keybind-desc">Лететь вверх</span>
+            <span class="keybind-key">Space</span>
+        </div>
+        <div class="keybind-item">
+            <span class="keybind-desc">Лететь вниз</span>
+            <span class="keybind-key">LShift</span>
+        </div>
+        <div class="keybind-item">
+            <span class="keybind-desc">Ускорение полёта</span>
+            <span class="keybind-key">LCtrl</span>
+        </div>
+        <div class="keybind-item">
+            <span class="keybind-desc">Движение (полёт)</span>
+            <span class="keybind-key">W A S D</span>
+        </div>
+        <div class="keybind-item">
+            <span class="keybind-desc">Свернуть меню</span>
+            <span class="keybind-key">—</span>
+        </div>
+        <div class="keybind-item">
+            <span class="keybind-desc">Закрыть меню</span>
+            <span class="keybind-key">✕</span>
+        </div>
+    </div>
+</section>
 
-        // Copy functionality
-        document.querySelectorAll('.copy-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const scriptType = this.dataset.script;
-                navigator.clipboard.writeText(scripts[scriptType]).then(() => showToast());
-            });
-        });
+<div class="divider"></div>
 
-        function showToast() {
-            const toast = document.getElementById('toast');
-            toast.classList.add('show');
-            setTimeout(() => toast.classList.remove('show'), 3000);
+<!-- FAQ -->
+<section id="faq">
+    <h2 class="section-title fade-in">ЧАСТО <span>ЗАДАВАЕМЫЕ</span> ВОПРОСЫ</h2>
+    <p class="section-desc fade-in">Всё что тебя интересует</p>
+
+    <div class="faq-list fade-in">
+        <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)">
+                Работает ли скрипт после обновлений MM2?
+                <span class="icon">+</span>
+            </div>
+            <div class="faq-a">Скрипт регулярно обновляется. Большинство функций работают независимо от обновлений игры, так как используют базовые механики Roblox.</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)">
+                Почему Gun Grab не работает когда я мардер?
+                <span class="icon">+</span>
+            </div>
+            <div class="faq-a">Это сделано намеренно! Gun Grab автоматически отключается когда у тебя есть нож (ты мардер). Он был бы бесполезен и мешал бы убивать.</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)">
+                Почему Invalid Position ошибка исчезла?
+                <span class="icon">+</span>
+            </div>
+            <div class="faq-a">В v2 Speed использует hum.WalkSpeed вместо CFrame, Fly использует LinearVelocity, Noclip сохраняет оригинальные коллизии. Position Guard теперь умно отключается при активных режимах движения.</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)">
+                Какой executor использовать?
+                <span class="icon">+</span>
+            </div>
+            <div class="faq-a">Рекомендуем Wave или Solara для лучшей совместимости. Fluxus тоже работает. Главное чтобы executor поддерживал hookmetamethod для Silent Aim.</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)">
+                Есть ли пасхалки на сайте? 👀
+                <span class="icon">+</span>
+            </div>
+            <div class="faq-a">Да! Попробуй: кликнуть на череп 5 раз, нажать на логотип 5 раз, ввести конами-код (↑↑↓↓←→←→BA), подержать курсор на счётчике функций, и найти секретную кнопку в футере...</div>
+        </div>
+    </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-logo">☠ BURMALDA</div>
+    <div class="footer-text">
+        Только для образовательных целей<br>
+        MM2 Final Edition v2 · 2025
+    </div>
+    <div class="footer-links">
+        <a href="#features">Функции</a>
+        <a href="#install">Установка</a>
+        <a href="#faq">FAQ</a>
+        <!-- Пасхалка: невидимая кнопка -->
+        <button class="secret-btn" id="secretBtn" onclick="secretClick()">·</button>
+    </div>
+</footer>
+
+<script>
+// ══════════════════════════════════════════
+// CURSOR
+// ══════════════════════════════════════════
+const cursor    = document.getElementById('cursor');
+const cursorDot = document.getElementById('cursorDot');
+let mx = 0, my = 0, cx2 = 0, cy2 = 0;
+
+document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursorDot.style.left = mx + 'px';
+    cursorDot.style.top  = my + 'px';
+});
+
+function animateCursor() {
+    cx2 += (mx - cx2) * 0.12;
+    cy2 += (my - cy2) *.12;
+    cursor.style.left = cx2 + 'px';
+    cursor.style.top  = cy2 + 'px';
+    requestAnimationFrame(animateCursor);
+}
+animateCursor();
+
+document.querySelectorAll('a,button,.feature-card,.faq-q').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+        cursor.style.transform = 'translate(-50%,-50%) scale(1.8)';
+        cursor.style.borderColor = '#9B46FF';
+    });
+    el.addEventListener('mouseleave', () => {
+        cursor.style.transform = 'translate(-50%,-50%) scale(1)';
+        cursor.style.borderColor = 'var(--purple)';
+    });
+});
+
+// ══════════════════════════════════════════
+// PARTICLES
+// ══════════════════════════════════════════
+const particleContainer = document.getElementById('particles');
+
+function createParticle() {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random() * 100 + 'vw';
+    p.style.width = p.style.height = (Math.random() * 3 + 1) + 'px';
+    const duration = Math.random() * 8 + 6;
+    const delay    = Math.random() * 5;
+    p.style.animationDuration = duration + 's';
+    p.style.animationDelay    = delay + 's';
+
+    const colors = ['#7B26EB','#9B46FF','#4B1680','#FF3232','#3296FF'];
+    p.style.background = colors[Math.floor(Math.random() * colors.length)];
+
+    particleContainer.appendChild(p);
+    setTimeout(() => p.remove(), (duration + delay) * 1000);
+}
+
+setInterval(createParticle, 300);
+
+// ══════════════════════════════════════════
+// SCROLL ANIMATIONS
+// ══════════════════════════════════════════
+const observer = new IntersectionObserver(entries => {
+    entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+            setTimeout(() => entry.target.classList.add('visible'), i * 80);
         }
+    });
+}, { threshold: 0.1 });
 
-        // Code tabs
-        document.querySelectorAll('.code-tab').forEach(tab => {
-            tab.addEventListener('click', function() {
-                const tabId = this.dataset.tab;
-                document.querySelectorAll('.code-tab').forEach(t => t.classList.remove('active'));
-                document.querySelectorAll('.code-tab-content').forEach(c => c.style.display = 'none');
-                this.classList.add('active');
-                document.getElementById(tabId).style.display = 'block';
-            });
-        });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-        // FAQ
-        document.querySelectorAll('.faq-item').forEach(item => {
-            item.querySelector('.faq-question').addEventListener('click', () => {
-                const isActive = item.classList.contains('active');
-                document.querySelectorAll('.faq-item').forEach(faq => faq.classList.remove('active'));
-                if (!isActive) item.classList.add('active');
-            });
-        });
-
-        // Smooth scroll
-        document.querySelector('.nav-btn').addEventListener('click', function(e) {
-            e.preventDefault();
-            document.getElementById('scripts').scrollIntoView({ behavior: 'smooth' });
-        });
-
-        // PIN System - КОД: 58316 (5 цифр скрыты по сайту)
-        const correctPIN = '58316';
-        let currentPIN = '';
-        const pinModal = document.getElementById('pinModal');
-        const pinDots = document.querySelectorAll('.pin-dot');
-        const secretContent = document.getElementById('secretContent');
-
-        // Пасхалка: Двойной клик лого
-        let logoClicks = 0;
-        document.getElementById('logo').addEventListener('click', function() {
-            logoClicks++;
-            setTimeout(() => logoClicks = 0, 400);
-            if (logoClicks === 2) {
-                pinModal.classList.add('show');
-                logoClicks = 0;
-            }
-        });
-
-        // Пасхалка: Звук при клике на лого
-        document.getElementById('logo').addEventListener('click', () => {
-            if (window.AudioContext || window.webkitAudioContext) {
-                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                const oscillator = audioContext.createOscillator();
-                const gainNode = audioContext.createGain();
-                
-                oscillator.connect(gainNode);
-                gainNode.connect(audioContext.destination);
-                
-                oscillator.frequency.value = 800;
-                gainNode.gain.value = 0.1;
-                
-                oscillator.start();
-                gainNode.gain.exponentialRampToValueAtTime(0.00001, audioContext.currentTime + 0.3);
-                oscillator.stop(audioContext.currentTime + 0.3);
-            }
-        });
-
-        // PIN keypad
-        document.querySelectorAll('.pin-key').forEach(key => {
-            key.addEventListener('click', function() {
-                if (currentPIN.length < 5) {
-                    currentPIN += this.dataset.key;
-                    updatePinDisplay();
-                    if (currentPIN.length === 5) checkPIN();
-                }
-            });
-        });
-
-        function updatePinDisplay() {
-            pinDots.forEach((dot, index) => {
-                if (index < currentPIN.length) {
-                    dot.classList.add('filled');
-                } else {
-                    dot.classList.remove('filled');
-                }
-            });
+// ══════════════════════════════════════════
+// COUNTER ANIMATION
+// ══════════════════════════════════════════
+const counterObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const el     = entry.target;
+            const target = parseInt(el.dataset.target);
+            const dur    = 1500;
+            const step   = target / (dur / 16);
+            let current  = 0;
+            const timer  = setInterval(() => {
+                current += step;
+                if (current >= target) { current = target; clearInterval(timer); }
+                el.textContent = Math.floor(current) + (el.dataset.suffix || '');
+            }, 16);
+            counterObserver.unobserve(el);
         }
+    });
+});
 
-        function checkPIN() {
-            if (currentPIN === correctPIN) {
-                secretContent.classList.add('show');
-                setTimeout(() => showToast(), 300);
-            } else {
-                pinDots.forEach(dot => {
-                    dot.style.borderColor = '#ff0844';
-                    dot.style.background = '#ff0844';
-                });
-                setTimeout(() => {
-                    currentPIN = '';
-                    updatePinDisplay();
-                    pinDots.forEach(dot => {
-                        dot.style.borderColor = 'var(--neon-blue)';
-                        dot.style.background = 'transparent';
-                    });
-                }, 600);
-            }
-        }
+document.querySelectorAll('.stat-num').forEach(el => counterObserver.observe(el));
 
-        document.querySelector('.pin-clear').addEventListener('click', () => {
-            currentPIN = '';
-            updatePinDisplay();
-            secretContent.classList.remove('show');
-        });
-
-        document.querySelector('.pin-close').addEventListener('click', () => {
-            pinModal.classList.remove('show');
-            currentPIN = '';
-            updatePinDisplay();
-            secretContent.classList.remove('show');
-        });
-
-        function copySecretScript() {
-            const code = `loadstring(game:HttpGet('https://raw.githubusercontent.com/PidorasGandon/SUICommon/refs/heads/main/SUIcommon'))()`;
-            navigator.clipboard.writeText(code).then(() => showToast());
-        }
-
-        // Info button
-        document.querySelectorAll('.info-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                alert('📌 Full documentation coming soon!\n💬 Join our Discord!');
-            });
-        });
-
-        // МИНИ-ИГРЫ
-
-        // Memory Game
-        let memoryCards = [];
-        let flippedCards = [];
-        let moves = 0;
-        let pairs = 0;
-
-        function startMemoryGame() {
-            document.querySelectorAll('.memory-game, .click-game').forEach(g => g.classList.remove('active'));
-            document.getElementById('memoryGame').classList.add('active');
-            
-            const symbols = ['🎮', '🎯', '🎲', '🎨', '🎭', '🎪'];
-            memoryCards = [...symbols, ...symbols].sort(() => Math.random() - 0.5);
-            moves = 0;
-            pairs = 0;
-            flippedCards = [];
-            
-            const grid = document.getElementById('memoryGrid');
-            grid.innerHTML = '';
-            
-            memoryCards.forEach((symbol, index) => {
-                const card = document.createElement('div');
-                card.className = 'memory-card';
-                card.dataset.symbol = symbol;
-                card.dataset.index = index;
-                card.addEventListener('click', flipCard);
-                grid.appendChild(card);
-            });
-            
-            document.getElementById('moves').textContent = '0';
-            document.getElementById('pairs').textContent = '0';
-        }
-
-        function flipCard() {
-            if (flippedCards.length >= 2 || this.classList.contains('flipped')) return;
-            
-            this.classList.add('flipped');
-            this.textContent = this.dataset.symbol;
-            flippedCards.push(this);
-            
-            if (flippedCards.length === 2) {
-                moves++;
-                document.getElementById('moves').textContent = moves;
-                
-                setTimeout(() => {
-                    if (flippedCards[0].dataset.symbol === flippedCards[1].dataset.symbol) {
-                        flippedCards.forEach(card => card.classList.add('matched'));
-                        pairs++;
-                        document.getElementById('pairs').textContent = pairs;
-                        
-                        if (pairs === 6) {
-                            setTimeout(() => alert(`🎉 YOU WON!\nMoves: ${moves}`), 300);
-                        }
-                    } else {
-                        flippedCards.forEach(card => {
-                            card.classList.remove('flipped');
-                            card.textContent = '';
-                        });
-                    }
-                    flippedCards = [];
-                }, 800);
-            }
-        }
-
-        // Click Speed Game
-        let clickScore = 0;
-        let clickTimer = null;
-
-        function startClickGame() {
-            document.querySelectorAll('.memory-game, .click-game').forEach(g => g.classList.remove('active'));
-            document.getElementById('clickGame').classList.add('active');
-            
-            clickScore = 0;
-            document.getElementById('clickScore').textContent = '0';
-            document.getElementById('clickTime').textContent = '10';
-            
-            let timeLeft = 10;
-            clearInterval(clickTimer);
-            clickTimer = setInterval(() => {
-                timeLeft--;
-                document.getElementById('clickTime').textContent = timeLeft;
-                if (timeLeft <= 0) {
-                    clearInterval(clickTimer);
-                    alert(`⚡ TIME'S UP!\nClicks: ${clickScore}\nCPS: ${(clickScore/10).toFixed(2)}`);
-                }
-            }, 1000);
-        }
-
-        function clickTarget() {
-            if (parseInt(document.getElementById('clickTime').textContent) > 0) {
-                clickScore++;
-                document.getElementById('clickScore').textContent = clickScore;
-            }
-        }
-
-        // Reaction Test
-        function startReactionGame() {
-            alert('🎯 REACTION TEST\n\nClick OK and wait for the screen to turn GREEN, then click as fast as you can!');
-            
-            const overlay = document.createElement('div');
-            overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:#ff0844;z-index:50000;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:32px;color:white;';
-            overlay.textContent = 'WAIT...';
-            document.body.appendChild(overlay);
-            
-            const delay = Math.random() * 3000 + 2000;
-            const startTime = Date.now() + delay;
-            
+// Пасхалка: зависнуть на счётчике функций 3 секунды
+let hoverTimer = null;
+const featCount = document.querySelectorAll('.stat-num')[0];
+if (featCount) {
+    featCount.addEventListener('mouseenter', () => {
+        hoverTimer = setTimeout(() => {
+            showToast('🎉 Ты нашёл пасхалку #3! Все 47 функций активны!');
+            featCount.style.color = '#FFD700';
+            featCount.textContent = '∞';
             setTimeout(() => {
-                overlay.style.background = '#00ff00';
-                overlay.textContent = 'CLICK NOW!';
-                const clickStart = Date.now();
-                
-                overlay.addEventListener('click', () => {
-                    const reactionTime = Date.now() - clickStart;
-                    document.body.removeChild(overlay);
-                    alert(`⚡ REACTION TIME: ${reactionTime}ms\n\n${reactionTime < 200 ? '🏆 AMAZING!' : reactionTime < 300 ? '👍 GOOD!' : '😅 TRY AGAIN!'}`);
-                });
-            }, delay);
+                featCount.style.color = '';
+                featCount.textContent = '47';
+            }, 3000);
+        }, 3000);
+    });
+    featCount.addEventListener('mouseleave', () => clearTimeout(hoverTimer));
+}
+
+// ══════════════════════════════════════════
+// TOAST
+// ══════════════════════════════════════════
+function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3500);
+}
+
+// ══════════════════════════════════════════
+// COPY FUNCTIONS
+// ══════════════════════════════════════════
+function copyScript() {
+    const script = `-- BURMALDA MM2 FINAL v2\n-- Вставь полный скрипт сюда`;
+    navigator.clipboard.writeText(script).then(() => {
+        showToast('✅ Скрипт скопирован!');
+    }).catch(() => showToast('❌ Ошибка копирования'));
+}
+
+function copyLoadstring() {
+    const ls = `loadstring(game:HttpGet("https://raw.githubusercontent.com/burmalda/mm2/main/script.lua"))()`;
+    const btn = document.getElementById('loadstringBtn');
+    navigator.clipboard.writeText(ls).then(() => {
+        btn.classList.add('copied');
+        btn.textContent = '✅ Скопировано!';
+        showToast('✅ Loadstring скопирован!');
+        setTimeout(() => {
+            btn.classList.remove('copied');
+            btn.textContent = 'loadstring(...)()';
+        }, 2000);
+    });
+}
+
+function copyRaw() {
+    showToast('📄 Открываю raw скрипт...');
+}
+
+// ══════════════════════════════════════════
+// FAQ
+// ══════════════════════════════════════════
+function toggleFaq(el) {
+    const item = el.parentElement;
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+}
+
+// ══════════════════════════════════════════
+// ═══════════ ПАСХАЛКИ ═══════════
+// ══════════════════════════════════════════
+
+// ── ПАСХАЛКА #1: Череп (5 кликов → спиннинг + конфетти) ──
+let skullClicks = 0;
+const heroSkull = document.getElementById('heroSkull');
+
+function skullClick() {
+    skullClicks++;
+    heroSkull.style.transform = `scale(${1 + skullClicks * 0.1}) rotate(${skullClicks * 72}deg)`;
+
+    if (skullClicks >= 5) {
+        skullClicks = 0;
+        heroSkull.classList.add('spinning');
+        heroSkull.style.transform = '';
+        showToast('☠ Пасхалка #1 найдена! Череп сошёл с ума!');
+        spawnConfetti();
+        setTimeout(() => {
+            heroSkull.classList.remove('spinning');
+        }, 3000);
+    }
+}
+
+function spawnConfetti() {
+    for (let i = 0; i < 60; i++) {
+        setTimeout(() => {
+            const c = document.createElement('div');
+            c.style.cssText = `
+                position:fixed;
+                left:${Math.random()*100}vw;
+                top:-10px;
+                width:${Math.random()*8+4}px;
+                height:${Math.random()*8+4}px;
+                background:hsl(${Math.random()*360},100%,60%);
+                border-radius:${Math.random()>0.5?'50%':'2px'};
+                z-index:9997;
+                animation:floatUp ${Math.random()*2+1}s ease forwards;
+                pointer-events:none;
+            `;
+            document.body.appendChild(c);
+            setTimeout(() => c.remove(), 3000);
+        }, i * 50);
+    }
+}
+
+// ── ПАСХАЛКА #2: Лого (5 кликов → Rainbow) ──
+let logoClicks = 0;
+const navLogo  = document.getElementById('navLogo');
+
+function logoClick() {
+    logoClicks++;
+    if (logoClicks >= 5) {
+        logoClicks = 0;
+        navLogo.classList.toggle('rainbow');
+        if (navLogo.classList.contains('rainbow')) {
+            showToast('🌈 Пасхалка #2! Rainbow mode активирован!');
+            setTimeout(() => navLogo.classList.remove('rainbow'), 5000);
         }
+    }
+}
 
-        // Number Guess
-        function startNumberGame() {
-            const target = Math.floor(Math.random() * 100) + 1;
-            let attempts = 0;
-            let guess = null;
-            
-            while (guess !== target) {
-                guess = parseInt(prompt(`🎲 GUESS THE NUMBER (1-100)\n\nAttempts: ${attempts}`));
-                if (isNaN(guess)) break;
-                
-                attempts++;
-                
-                if (guess < target) {
-                    alert('📈 HIGHER!');
-                } else if (guess > target) {
-                    alert('📉 LOWER!');
-                } else {
-                    alert(`🎉 CORRECT!\n\nNumber: ${target}\nAttempts: ${attempts}`);
-                }
-            }
+// ── ПАСХАЛКА #3: Hover на счётчике (уже выше) ──
+
+// ── ПАСХАЛКА #4: Конами-код ──
+const konamiCode = [
+    'ArrowUp','ArrowUp','ArrowDown','ArrowDown',
+    'ArrowLeft','ArrowRight','ArrowLeft','ArrowRight',
+    'b','a'
+];
+let konamiIdx = 0;
+
+document.addEventListener('keydown', e => {
+    if (e.key === konamiCode[konamiIdx]) {
+        konamiIdx++;
+        if (konamiIdx === konamiCode.length) {
+            konamiIdx = 0;
+            openKonami();
         }
+    } else {
+        konamiIdx = 0;
+    }
+});
 
-        // Konami Code
-        let konami = [];
-        const konamiSeq = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
-        document.addEventListener('keydown', (e) => {
-            konami.push(e.key);
-            konami = konami.slice(-10);
-            if (konami.join('') === konamiSeq.join('')) {
-                document.getElementById('konami').classList.add('show');
-                setTimeout(() => document.getElementById('konami').classList.remove('show'), 6000);
-            }
-        });
+function openKonami() {
+    document.getElementById('konami-overlay').classList.add('show');
+    showToast('🎮 Пасхалка #4! КОНАМИ КОД АКТИВИРОВАН!');
+    // Матрица в фоне
+    startMatrix();
+}
 
-        function closeKonami() {
-            document.getElementById('konami').classList.remove('show');
+function closeKonami() {
+    document.getElementById('konami-overlay').classList.remove('show');
+    stopMatrix();
+}
+
+// ── ПАСХАЛКА #5: Секретная кнопка в футере → Матрица ──
+let secretClicks = 0;
+function secretClick() {
+    secretClicks++;
+    if (secretClicks >= 3) {
+        secretClicks = 0;
+        document.body.classList.toggle('matrix-mode');
+        const canvas = document.getElementById('matrix-canvas');
+        if (document.body.classList.contains('matrix-mode')) {
+            canvas.style.display = 'block';
+            startMatrix();
+            showToast('💚 Пасхалка #5! МАТРИЦА РЕЖИМ АКТИВИРОВАН!');
+        } else {
+            canvas.style.display = 'none';
+            stopMatrix();
         }
+    }
+}
 
-        // Пасхалка: Клик на цифру в окне
-        document.getElementById('codeWindow').addEventListener('click', (e) => {
-            const rect = e.currentTarget.getBoundingClientRect();
-            if (e.clientX > rect.right - 30 && e.clientY < rect.top + 30) {
-                alert('🎯 Found digit: 3');
-            }
+// ── МАТРИЦА ──
+const matCanvas = document.getElementById('matrix-canvas');
+const matCtx    = matCanvas.getContext('2d');
+let matInterval = null;
+let matRunning  = false;
+
+function startMatrix() {
+    if (matRunning) return;
+    matRunning = true;
+    matCanvas.width  = window.innerWidth;
+    matCanvas.height = window.innerHeight;
+
+    const cols    = Math.floor(matCanvas.width / 16);
+    const drops   = Array(cols).fill(1);
+    const chars   = 'アイウエオカキクケコサシスセソ☠BURMALDA0123456789';
+
+    matInterval = setInterval(() => {
+        matCtx.fillStyle = 'rgba(0,0,0,0.05)';
+        matCtx.fillRect(0, 0, matCanvas.width, matCanvas.height);
+        matCtx.fillStyle = document.body.classList.contains('matrix-mode') ? '#00ff46' : '#7B26EB';
+        matCtx.font = '14px monospace';
+
+        drops.forEach((y, i) => {
+            const ch = chars[Math.floor(Math.random() * chars.length)];
+            matCtx.fillText(ch, i * 16, y * 16);
+            if (y * 16 > matCanvas.height && Math.random() > 0.975) drops[i] = 0;
+            drops[i]++;
         });
+    }, 40);
+}
 
-        // Пасхалка: Клики на точки
-        let redClicks = 0;
-        document.getElementById('dot1').addEventListener('click', () => {
-            redClicks++;
-            if (redClicks === 5) {
-                alert('💥 Red secret!\nDigit: 5');
-                redClicks = 0;
-            }
-        });
+function stopMatrix() {
+    matRunning = false;
+    clearInterval(matInterval);
+    matCtx.clearRect(0, 0, matCanvas.width, matCanvas.height);
+}
 
-        let blueClicks = 0;
-        document.getElementById('dot3').addEventListener('click', () => {
-            blueClicks++;
-            if (blueClicks === 8) {
-                alert('💙 Blue secret!\nDigit: 8');
-                blueClicks = 0;
-            }
-        });
+// ── БОНУС: Клик в любом месте — маленький взрыв ──
+document.addEventListener('click', e => {
+    if (e.target.closest('button,a,.faq-q,.feature-card')) return;
+    const spark = document.createElement('div');
+    spark.style.cssText = `
+        position:fixed;
+        left:${e.clientX}px;
+        top:${e.clientY}px;
+        width:6px; height:6px;
+        background:var(--purple);
+        border-radius:50%;
+        pointer-events:none;
+        z-index:9996;
+        transform:translate(-50%,-50%);
+        animation:sparkAnim 0.4s ease forwards;
+    `;
+    document.body.appendChild(spark);
+    setTimeout(() => spark.remove(), 400);
+});
 
-        // Пасхалка: Mini dots
-        let dotsFound = 0;
-        for (let i = 1; i <= 5; i++) {
-            document.getElementById(`mdot${i}`).addEventListener('click', function() {
-                this.style.display = 'none';
-                dotsFound++;
-                if (dotsFound === 5) {
-                    alert('🎯 ALL DOTS FOUND!\nBonus: PIN is 58316');
-                    dotsFound = 0;
-                    for (let j = 1; j <= 5; j++) {
-                        document.getElementById(`mdot${j}`).style.display = 'block';
-                    }
-                } else {
-                    alert(`🎯 Dot ${dotsFound}/5 found!`);
-                }
-            });
-        }
+// Добавим keyframes через JS
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes sparkAnim {
+        0%   { transform:translate(-50%,-50%) scale(0); opacity:1; }
+        100% { transform:translate(-50%,-50%) scale(4); opacity:0; }
+    }
+`;
+document.head.appendChild(style);
 
-        // Пасхалка: Набор слов
-        let typed = '';
-        document.addEventListener('keypress', (e) => {
-            typed += e.key.toLowerCase();
-            typed = typed.slice(-8);
-            
-            if (typed === 'burmalda') {
-                alert('🎊 SUPER SECRET!\nPIN: 58316');
-                typed = '';
-            } else if (typed.slice(-4) === 'hack') {
-                alert('💻 HACKER MODE!\nPIN: 5-8-3-1-6');
-                typed = '';
-            } else if (typed.slice(-4) === 'game') {
-                alert('🎮 GAMES UNLOCKED!\nFind the PIN to play mini-games!');
-                typed = '';
-            }
-        });
+// ── СЕКРЕТНЫЙ ЗАГОЛОВОК при долгом бездействии ──
+let idleTimer = null;
+const heroTitle = document.getElementById('heroTitle');
+const origTitle = heroTitle.textContent;
 
-        // Пасхалка: Cursor trail (press C)
-        let trailActive = false;
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'c' || e.key === 'C') {
-                trailActive = !trailActive;
-                if (trailActive) alert('✨ Cursor trail ON!');
-            }
-        });
+function resetIdle() {
+    clearTimeout(idleTimer);
+    heroTitle.textContent = origTitle;
+    heroTitle.style.animation = '';
+    idleTimer = setTimeout(() => {
+        const msgs = ['ТЫ ЕЩЁ ТУТ?', 'УБЕЙ ИХ ВСЕХ', 'МЁРДЕРЕР?', '☠☠☠'];
+        heroTitle.textContent = msgs[Math.floor(Math.random() * msgs.length)];
+    }, 8000);
+}
 
-        document.addEventListener('mousemove', (e) => {
-            if (trailActive) {
-                const trail = document.createElement('div');
-                trail.className = 'cursor-trail';
-                trail.style.left = e.pageX + 'px';
-                trail.style.top = e.pageY + 'px';
-                document.body.appendChild(trail);
-                setTimeout(() => trail.remove(), 1000);
-            }
-        });
+['mousemove','keydown','click','scroll'].forEach(ev => {
+    document.addEventListener(ev, resetIdle);
+});
+resetIdle();
 
-        // Пасхалка: Hidden button
-        let hiddenClicks = 0;
-        document.getElementById('hiddenBtn').addEventListener('click', () => {
-            hiddenClicks++;
-            if (hiddenClicks === 1) {
-                alert('👀 Secret button!\nHint: Find 5 digits');
-            } else if (hiddenClicks === 3) {
-                alert('🔢 PIN digits:\n5-logo\n8-title\n3-window\n1-tab2\n6-section');
-            }
-        });
-
-        // Пасхалка: Badges
-        document.getElementById('badge1').addEventListener('click', () => {
-            alert('🏅 MM2 Badge: Always working!');
-        });
-
-        document.getElementById('badge2').addEventListener('click', () => {
-            alert('🎖️ Universal Badge: Works everywhere!');
-        });
-
-        let badge3Clicks = 0;
-        document.getElementById('badge3').addEventListener('click', () => {
-            badge3Clicks++;
-            if (badge3Clicks === 4) {
-                alert('🧪 BETA secret!\nDigit: 1');
-                badge3Clicks = 0;
-            }
-        });
-
-        // Пасхалка: Subtitle
-        document.getElementById('subtitle').addEventListener('click', () => {
-            alert('◆ Premium experience awaits!');
-        });
-
-        // Пасхалка: Section title
-        document.getElementById('sectionTitle').addEventListener('dblclick', () => {
-            alert('⭐ Double luck!\nDigit: 6');
-        });
-
-        // Пасхалка: FAQ subtitle
-        let faqClicks = 0;
-        document.getElementById('faqSub').addEventListener('click', () => {
-            faqClicks++;
-            if (faqClicks === 3) {
-                alert('📚 Persistent user!\nTry pressing Ctrl+Shift+G');
-                faqClicks = 0;
-            }
-        });
-
-        // Пасхалка: Ctrl+Shift+G
-        document.addEventListener('keydown', (e) => {
-            if (e.ctrlKey && e.shiftKey && e.key === 'G') {
-                e.preventDefault();
-                alert('🎮 GAMES ACTIVATED!\nPIN: 58316\n\nUnlock games in the secret panel!');
-            }
-        });
-
-        // Console
-        console.log('%c🎮 BURMALDA UI NEXUS', 'color: #00d4ff; font-size: 28px; font-weight: bold; text-shadow: 0 0 10px #00d4ff;');
-        console.log('%cFind 50+ easter eggs!', 'color: #ff0844; font-size: 18px;');
-        console.log('%cPIN (5 digits): 58316', 'color: #00d4ff; font-size: 22px; font-weight: bold;');
-        console.log('%c🎮 Unlock mini-games with PIN!', 'color: #ff0844; font-size: 16px;');
-    </script>
+// ── RESIZE ──
+window.addEventListener('resize', () => {
+    if (matRunning) {
+        matCanvas.width  = window.innerWidth;
+        matCanvas.height = window.innerHeight;
+    }
+});
+</script>
 </body>
 </html>
