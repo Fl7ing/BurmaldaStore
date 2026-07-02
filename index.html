@@ -2525,62 +2525,6 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   });
 });
 
-<!-- YouTube Music Player -->
-<iframe
-  id="ytPlayer"
-  src="https://www.youtube.com/embed/KNG5t5qlkyo?autoplay=1&loop=1&playlist=KNG5t5qlkyo&mute=1"
-  style="display:none"
-  allow="autoplay">
-</iframe>
-
-<!-- Кнопка звука -->
-<div id="muteBtn" onclick="toggleMute()" title="Toggle Sound">🔇</div>
-
-<style>
-#muteBtn {
-  position: fixed;
-  bottom: 32px;
-  left: 32px;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background: rgba(139,92,246,0.15);
-  border: 1px solid rgba(139,92,246,0.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 9999;
-  font-size: 1.4rem;
-  backdrop-filter: blur(10px);
-  transition: all 0.3s;
-  box-shadow: 0 0 20px rgba(139,92,246,0.3);
-  user-select: none;
-}
-
-#muteBtn:hover {
-  transform: scale(1.1);
-  box-shadow: 0 0 40px rgba(139,92,246,0.6);
-  border-color: rgba(139,92,246,0.7);
-}
-</style>
-
-<script>
-const player = document.getElementById('ytPlayer');
-let muted = true;
-
-function toggleMute() {
-  if (muted) {
-    player.src = "https://www.youtube.com/embed/KNG5t5qlkyo?autoplay=1&loop=1&playlist=KNG5t5qlkyo&mute=0";
-    document.getElementById('muteBtn').textContent = "🎵";
-  } else {
-    player.src = "https://www.youtube.com/embed/KNG5t5qlkyo?autoplay=1&loop=1&playlist=KNG5t5qlkyo&mute=1";
-    document.getElementById('muteBtn').textContent = "🔇";
-  }
-
-  muted = !muted;
-}
 </script>
-
 </body>
 </html>
